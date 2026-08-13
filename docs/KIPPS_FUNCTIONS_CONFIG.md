@@ -303,8 +303,44 @@ This document provides explicit, copy-pasteable configuration specifications for
 
 ---
 
-### 8. `escalate_support_ticket`
+### 8. `escalate_support_ticket` (GET / Path Param Endpoint)
 * **Function Name**: `escalate_support_ticket`
 * **Description**: `"Use this function when a customer demands to speak to a human agent, or when an issue cannot be resolved by AI tools alone. Marks ticket as Escalated and assigns to Tier 2 Human Support Agent."`
 * **HTTP Method**: `POST`
 * **Endpoint Path**: `/support/tickets/{ticket_id}/escalate`
+
+---
+
+### 8b. `escalate_support_ticket_post` (POST Endpoint with JSON Body)
+* **Function Name**: `escalate_support_ticket_post`
+* **Description**: `"Use this function to escalate a support ticket by sending the ticket_id inside the JSON request body payload."`
+* **HTTP Method**: `POST`
+* **Endpoint Path**: `/support/tickets/escalate`
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/support/tickets/escalate`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Request Body (JSON)**:
+  ```json
+  {
+    "ticket_id": "TKTD1536D",
+    "reason": "Customer requested human assistance"
+  }
+  ```
+* **Example Response**:
+  ```json
+  {
+    "success": true,
+    "ticket_id": "TKTD1536D",
+    "customer_id": "CUST101",
+    "subject": "Issue with order ORD1001",
+    "category": "Issue with order ORD1001",
+    "priority": "High",
+    "description": "I need assistance regarding my order ORD1001.",
+    "status": "Escalated",
+    "assigned_to": "Tier 2 Human Support Agent",
+    "order_id": null,
+    "reason_for_escalation": "Customer requested human assistance",
+    "escalated_at": "2026-08-14T01:55:00",
+    "created_at": "2026-08-14T01:50:00",
+    "message": "Ticket TKTD1536D has been escalated to human support (Tier 2 Human Support Agent). Reason: Customer requested human assistance."
+  }
+  ```

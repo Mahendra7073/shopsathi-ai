@@ -46,6 +46,51 @@ def test_create_support_ticket_missing_description(client):
     })
     assert response.status_code == 422  # Pydantic validation error for missing required field
 
+def test_post_escalate_support_ticket_json_body(client):
+    # 1. Create ticket
+    c_res = client.post("/support/tickets", json={
+        "customer_id": "CUST101",
+        "subject": "Escalation Test",
+        "description": "Issue requiring human attention",
+        "priority": "high"
+    })
+    assert c_res.status_code == 201
+    real_ticket_id = c_res.json()["ticket_id"]
+
+    # 2. Escalate via POST /support/tickets/escalate
+    e_res = client.post("/support/tickets/escalate", json={
+        "ticket_id": f" {real_ticket_id.lower()} "
+    })
+    assert e_res.status_code == 200
+    e_data = e_res.json()
+    assert e_data["ticket_id"] == real_ticket_id
+    assert e_data["status"] == "Escalated"
+    assert "Tier 2" in e_data["assigned_to"]
+
+def test_post_escalate_already_escalated(client):
+    # 1. Create ticket
+    c_res = client.post("/support/tickets", json={
+        "customer_id": "CUST101",
+        "description": "Second escalation test"
+    })
+    ticket_id = c_res.json()["ticket_id"]
+
+    # 2. Escalate once
+    client.post("/support/tickets/escalate", json={"ticket_id": ticket_id})
+
+    # 3. Escalate second time (should return 200 with already escalated status)
+    e2_res = client.post("/support/tickets/escalate", json={"ticket_id": ticket_id})
+    assert e2_res.status_code == 200
+    e2_data = e2_res.json()
+    assert e2_data["status"] == "Escalated"
+    assert "already escalated" in e2_data["message"].lower()
+
+def test_post_escalate_invalid_ticket(client):
+    response = client.post("/support/tickets/escalate", json={"ticket_id": "TKT99999"})
+    assert response.status_code == 404
+    data = response.json()
+    assert "not found" in data["detail"].lower()
+
 def test_create_ticket_and_immediate_escalation(client):
     # 1. Create ticket
     create_res = client.post("/support/tickets", json={
@@ -58,7 +103,7 @@ def test_create_ticket_and_immediate_escalation(client):
     ticket_id = create_res.json()["ticket_id"]
     assert create_res.json()["priority"] == "Critical"
 
-    # 2. Immediately escalate using generated ticket_id
+    # 2. Immediately escalate using generated ticket_id via path endpoint
     escalate_res = client.post(f"/support/tickets/{ticket_id}/escalate", json={
         "reason": "Escalated by AI Agent"
     })

@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import SupportTicket, Customer, Order
-from app.schemas import CreateSupportTicketRequest, SupportTicketResponse, EscalateTicketRequest
+from app.schemas import CreateSupportTicketRequest, SupportTicketResponse, EscalateTicketRequest, EscalateTicketPostRequest
 from app.logging_config import log_api_call
 from app.security import verify_api_key
 
@@ -167,6 +167,87 @@ def escalate_support_ticket(
         )
 
     reason = payload.reason if payload and payload.reason else "Escalated by AI Agent due to unresolved complex issue."
+    ticket.status = "Escalated"
+    ticket.assigned_to = "Tier 2 Human Support Agent"
+    ticket.reason_for_escalation = reason
+    ticket.escalated_at = datetime.now(timezone.utc).replace(tzinfo=None)
+    db.commit()
+    db.refresh(ticket)
+
+    res = {
+        "success": True,
+        "ticket_id": ticket.ticket_id,
+        "customer_id": ticket.customer_id,
+        "subject": ticket.category,
+        "category": ticket.category,
+        "priority": ticket.priority,
+        "description": ticket.description,
+        "status": ticket.status,
+        "assigned_to": ticket.assigned_to,
+        "order_id": ticket.order_id,
+        "reason_for_escalation": ticket.reason_for_escalation,
+        "escalated_at": ticket.escalated_at,
+        "created_at": ticket.created_at,
+        "message": f"Ticket {t_id} has been escalated to human support ({ticket.assigned_to}). Reason: {reason}."
+    }
+
+    log_api_call(
+        db=db,
+        function_called="escalate_support_ticket",
+        customer_id=ticket.customer_id,
+        intent="Human Escalation",
+        api_result=res,
+        success=True,
+        escalation=True,
+        response_time_ms=(time.time() - start_time) * 1000
+    )
+
+    return res
+
+
+@router.post("/tickets/escalate", response_model=SupportTicketResponse, summary="Escalate ticket via JSON body (escalate_support_ticket_post)")
+def escalate_support_ticket_post(
+    payload: EscalateTicketPostRequest,
+    db: Session = Depends(get_db),
+    api_key: str = Security(verify_api_key)
+):
+    """
+    Escalate a support ticket using JSON body payload.
+    Used by Kipps.AI Function: escalate_support_ticket.
+    """
+    start_time = time.time()
+    t_id = payload.ticket_id.strip().upper()
+    ticket = db.query(SupportTicket).filter(SupportTicket.ticket_id == t_id).first()
+
+    if not ticket:
+        log_api_call(db=db, function_called="escalate_support_ticket", intent="Human Escalation", api_result={"error": f"Ticket {t_id} not found"}, success=False, escalation=True, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Support ticket {t_id} not found."
+        )
+
+    # Check if ticket is already escalated
+    if ticket.status == "Escalated":
+        res = {
+            "success": True,
+            "ticket_id": ticket.ticket_id,
+            "customer_id": ticket.customer_id,
+            "subject": ticket.category,
+            "category": ticket.category,
+            "priority": ticket.priority,
+            "description": ticket.description,
+            "status": "Escalated",
+            "assigned_to": ticket.assigned_to or "Tier 2 Human Support Agent",
+            "order_id": ticket.order_id,
+            "reason_for_escalation": ticket.reason_for_escalation,
+            "escalated_at": ticket.escalated_at,
+            "created_at": ticket.created_at,
+            "message": f"Ticket {t_id} is already escalated to {ticket.assigned_to or 'Tier 2 Human Support Agent'}."
+        }
+        log_api_call(db=db, function_called="escalate_support_ticket", customer_id=ticket.customer_id, intent="Human Escalation", api_result=res, success=True, escalation=True, response_time_ms=(time.time() - start_time) * 1000)
+        return res
+
+    reason = payload.reason if payload.reason else "Escalated by AI Agent due to unresolved complex issue."
     ticket.status = "Escalated"
     ticket.assigned_to = "Tier 2 Human Support Agent"
     ticket.reason_for_escalation = reason

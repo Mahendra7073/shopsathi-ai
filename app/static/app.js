@@ -119,7 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 <label>Reason for Escalation:</label>
                 <input type="text" id="input-reason" class="form-control" value="Unresolved payment gateway confirmation failure - customer requesting human assistance" placeholder="Escalation reason">
             </div>
-        `
+        `,
+        escalate_support_ticket_post: `
+            <div class="form-group">
+                <label>Ticket ID (JSON Body):</label>
+                <input type="text" id="input-ticket-id" class="form-control" value="TKT9001" placeholder="e.g. TKT9001">
+            </div>
+            <div class="form-group">
+                <label>Reason for Escalation:</label>
+                <input type="text" id="input-reason" class="form-control" value="Escalated by AI Agent due to unresolved complex issue" placeholder="Escalation reason">
+            </div>
+        `,
     };
 
     function updateInputs() {
@@ -238,6 +248,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 url = `/support/tickets/${tId}/escalate`;
                 method = 'POST';
                 body = JSON.stringify({
+                    reason: document.getElementById('input-reason').value.trim()
+                });
+            } else if (fn === 'escalate_support_ticket_post') {
+                url = '/support/tickets/escalate';
+                method = 'POST';
+                body = JSON.stringify({
+                    ticket_id: document.getElementById('input-ticket-id').value.trim(),
                     reason: document.getElementById('input-reason').value.trim()
                 });
             }

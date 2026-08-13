@@ -146,14 +146,28 @@ curl -X POST "<PUBLIC_API_URL>/support/tickets" \
 
 ---
 
-## 9. Escalate Support Ticket (`escalate_support_ticket`)
+## 9. Ticket Escalation (`escalate_support_ticket` Path Param)
 
 ```bash
 curl -X POST "<PUBLIC_API_URL>/support/tickets/TKT9001/escalate" \
      -H "Content-Type: application/json" \
      -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
      -d '{
-       "reason": "Customer requested human manager for unresolved payment issue"
+       "reason": "Unresolved payment issue"
+     }'
+```
+
+---
+
+## 9b. Ticket Escalation via JSON Body (`escalate_support_ticket_post` POST)
+
+```bash
+curl -X POST "<PUBLIC_API_URL>/support/tickets/escalate" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "ticket_id": "TKTD1536D",
+       "reason": "Customer requested human assistance"
      }'
 ```
 
