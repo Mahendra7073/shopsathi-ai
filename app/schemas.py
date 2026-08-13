@@ -89,6 +89,10 @@ class ReturnResponse(BaseModel):
 
 
 # --- Refund Schemas ---
+class RefundStatusRequest(BaseModel):
+    order_id: str = Field(..., description="Order ID to check refund status e.g. ORD1004")
+
+
 class RefundResponse(BaseModel):
     order_id: str
     refund_status: str

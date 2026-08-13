@@ -46,6 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-order-id" class="form-control" value="ORD1004" placeholder="e.g. ORD1004">
             </div>
         `,
+        check_refund_status_post: `
+            <div class="form-group">
+                <label>Order ID (JSON Body):</label>
+                <input type="text" id="input-order-id" class="form-control" value="ORD1004" placeholder="e.g. ORD1004">
+            </div>
+        `,
         search_products: `
             <div class="form-group">
                 <label>Search Query:</label>
@@ -172,6 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (fn === 'check_refund_status') {
                 const id = document.getElementById('input-order-id').value.trim();
                 url = `/orders/${id}/refund`;
+            } else if (fn === 'check_refund_status_post') {
+                url = '/orders/refund-status';
+                method = 'POST';
+                body = JSON.stringify({
+                    order_id: document.getElementById('input-order-id').value.trim()
+                });
             } else if (fn === 'search_products') {
                 const q = encodeURIComponent(document.getElementById('input-query').value.trim());
                 const price = document.getElementById('input-max-price').value.trim();

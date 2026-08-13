@@ -73,11 +73,24 @@ curl -X POST "<PUBLIC_API_URL>/returns" \
 
 ---
 
-## 5. Check Refund Status (`check_refund_status`)
+## 5. Refund Status (`check_refund_status` GET)
 
 ```bash
 curl -X GET "<PUBLIC_API_URL>/orders/ORD1004/refund" \
      -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY"
+```
+
+---
+
+## 5b. Refund Status via JSON Body (`check_refund_status_post` POST)
+
+```bash
+curl -X POST "<PUBLIC_API_URL>/orders/refund-status" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "order_id": "ORD1004"
+     }'
 ```
 
 ---

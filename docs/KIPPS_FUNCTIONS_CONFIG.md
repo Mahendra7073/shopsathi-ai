@@ -155,7 +155,7 @@ This document provides explicit, copy-pasteable configuration specifications for
 
 ---
 
-### 4. `check_refund_status`
+### 4. `check_refund_status` (GET Endpoint)
 * **Function Name**: `check_refund_status`
 * **Description**: `"Use this function when a customer asks about their refund status, money reversal, refund transaction ID, or expected refund date for a returned or cancelled order."`
 * **HTTP Method**: `GET`
@@ -165,6 +165,34 @@ This document provides explicit, copy-pasteable configuration specifications for
 * **Parameters**:
   * `order_id` (Type: `string`, Location: `path`, Required: `true`, Description: `Order ID format ORDxxxx e.g. ORD1004`)
 * **Example Request**: `GET <PUBLIC_API_URL>/orders/ORD1004/refund`
+
+---
+
+### 4b. `check_refund_status_post` (POST Endpoint with JSON Body)
+* **Function Name**: `check_refund_status_post`
+* **Description**: `"Use this function to retrieve refund status and details for an order using JSON body request payload."`
+* **HTTP Method**: `POST`
+* **Endpoint Path**: `/orders/refund-status`
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/orders/refund-status`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Request Body (JSON)**:
+  ```json
+  {
+    "order_id": "ORD1004"
+  }
+  ```
+* **Example Response**:
+  ```json
+  {
+    "order_id": "ORD1004",
+    "refund_status": "Initiated",
+    "amount": 2499.0,
+    "expected_date": "2026-08-16",
+    "refund_id": "REF7001",
+    "initiated_at": "2026-08-13T10:00:00",
+    "message": "Refund REF7001 for ₹2499.0 is currently in status 'Initiated'. Expected completion: 2026-08-16."
+  }
+  ```
 
 ---
 
