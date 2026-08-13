@@ -44,6 +44,10 @@ class OrderResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class OrderLookupRequest(BaseModel):
+    order_id: str = Field(..., description="Order ID to lookup e.g. ORD1002")
+
+
 class OrderCancelResponse(BaseModel):
     success: bool = True
     order_id: str

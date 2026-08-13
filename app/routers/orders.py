@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Order
-from app.schemas import OrderResponse, OrderCancelResponse
+from app.schemas import OrderResponse, OrderCancelResponse, OrderLookupRequest
 from app.logging_config import log_api_call
 from app.security import verify_api_key
 
@@ -61,6 +61,20 @@ def get_order_status(
     )
 
     return response_data
+
+
+@router.post("/lookup", response_model=OrderResponse, summary="Lookup order status via JSON body (check_order_status_post)")
+def lookup_order_status(
+    payload: OrderLookupRequest,
+    db: Session = Depends(get_db),
+    api_key: str = Security(verify_api_key)
+):
+    """
+    Retrieve real-time status and shipping details for an order using JSON body request.
+    Useful for Kipps.AI API Functions requiring JSON body payloads.
+    """
+    order_id_clean = payload.order_id.strip().upper()
+    return get_order_status(order_id=order_id_clean, db=db, api_key=api_key)
 
 
 @router.post("/{order_id}/cancel", response_model=OrderCancelResponse, summary="Cancel eligible order (cancel_order)")

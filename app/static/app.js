@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-order-id" class="form-control" value="ORD1001" placeholder="e.g. ORD1001, ORD1002, ORD1003">
             </div>
         `,
+        check_order_status_post: `
+            <div class="form-group">
+                <label>Order ID (JSON Body):</label>
+                <input type="text" id="input-order-id" class="form-control" value="ORD1002" placeholder="e.g. ORD1002, ORD1001, ORD1003">
+            </div>
+        `,
         check_return_eligibility: `
             <div class="form-group">
                 <label>Order ID:</label>
@@ -129,6 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (fn === 'check_order_status') {
                 const id = document.getElementById('input-order-id').value.trim();
                 url = `/orders/${id}`;
+            } else if (fn === 'check_order_status_post') {
+                url = '/orders/lookup';
+                method = 'POST';
+                body = JSON.stringify({
+                    order_id: document.getElementById('input-order-id').value.trim()
+                });
             } else if (fn === 'check_return_eligibility') {
                 const id = document.getElementById('input-order-id').value.trim();
                 url = `/orders/${id}/return-eligibility`;

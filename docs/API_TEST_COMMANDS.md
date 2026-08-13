@@ -15,11 +15,24 @@ curl -X GET "<PUBLIC_API_URL>/health"
 
 ---
 
-## 2. Order Tracking (`check_order_status`)
+## 2. Order Tracking (`check_order_status` GET)
 
 ```bash
 curl -X GET "<PUBLIC_API_URL>/orders/ORD1001" \
      -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY"
+```
+
+---
+
+## 2b. Order Tracking via JSON Body (`check_order_status_post` POST)
+
+```bash
+curl -X POST "<PUBLIC_API_URL>/orders/lookup" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "order_id": "ORD1002"
+     }'
 ```
 
 ---
