@@ -72,18 +72,25 @@ Kipps.AI serves as the primary **AI reasoning/orchestration layer**, while the S
 | Method | Endpoint | Purpose | Kipps Function Mapped |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/health` | Service uptime health check | System Check |
-| `GET` | `/orders/{order_id}` | Retrieve order status & delivery details | `check_order_status` |
-| `POST` | `/orders/{order_id}/cancel` | Cancel an eligible processing order | `cancel_order` |
+| `GET` | `/orders/{order_id}` | Retrieve order status & delivery details (Path) | `check_order_status` |
+| `POST` | `/orders/lookup` | Retrieve order status & details via JSON body | `check_order_status_post` |
+| `POST` | `/orders/{order_id}/cancel` | Cancel an eligible processing order (Path) | `cancel_order` |
+| `POST` | `/orders/cancel` | Cancel an eligible processing order via JSON body | `cancel_order_post` |
 | `GET` | `/customers/{customer_id}` | Retrieve customer profile | Customer Lookup |
 | `GET` | `/products` | List all catalog products | Catalog Listing |
-| `GET` | `/products/search` | Search products by query, price, category | `search_products` |
+| `GET` | `/products/search` | Search products by query, price, category (GET) | `search_products` |
+| `POST` | `/products/search` | Search products by query & max price via JSON body | `search_products_post` |
 | `GET` | `/products/{product_id}` | Get single product details | Product Detail |
-| `GET` | `/orders/{order_id}/return-eligibility` | Verify 7-day policy & item returnability | `check_return_eligibility` |
+| `GET` | `/orders/{order_id}/return-eligibility` | Verify 7-day policy & item returnability (Path) | `check_return_eligibility` |
+| `POST` | `/orders/return-eligibility` | Check return eligibility via JSON body | `check_return_eligibility_post` |
 | `POST` | `/returns` | Submit return request | `create_return_request` |
-| `GET` | `/orders/{order_id}/refund` | Check status of refund payout | `check_refund_status` |
-| `POST` | `/support/tickets` | Create support ticket | `create_support_ticket` |
-| `GET` | `/support/tickets/{ticket_id}` | Retrieve ticket details | Ticket Lookup |
-| `POST` | `/support/tickets/{ticket_id}/escalate` | Escalate unresolved ticket to human | `escalate_support_ticket` |
+| `GET` | `/orders/{order_id}/refund` | Check status of refund payout (Path) | `check_refund_status` |
+| `POST` | `/orders/refund-status` | Check refund payout status via JSON body | `check_refund_status_post` |
+| `POST` | `/support/tickets` | Create support ticket (category or subject/priority) | `create_support_ticket` |
+| `POST` | `/support/tickets/status` | Retrieve ticket status & details via JSON body | `get_support_ticket_post` |
+| `GET` | `/support/tickets/{ticket_id}` | Retrieve ticket details by ID (Path) | Ticket Lookup |
+| `POST` | `/support/tickets/{ticket_id}/escalate` | Escalate unresolved ticket to human (Path) | `escalate_support_ticket` |
+| `POST` | `/support/tickets/escalate` | Escalate ticket via JSON body | `escalate_support_ticket_post` |
 | `GET` | `/analytics/summary` | Retrieve system observability metrics | Observability Dashboard |
 
 ---
