@@ -81,8 +81,12 @@ curl -X GET "<PUBLIC_API_URL>/products/search?query=running&max_price=2000" \
 ## 7. Order Cancellation (`cancel_order`)
 
 ```bash
-curl -X POST "<PUBLIC_API_URL>/orders/ORD1005/cancel" \
-     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY"
+curl -X POST "<PUBLIC_API_URL>/orders/cancel" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "order_id": "ORD1005"
+     }'
 ```
 
 ---

@@ -60,6 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-order-id" class="form-control" value="ORD1005" placeholder="e.g. ORD1005">
             </div>
         `,
+        cancel_order_post: `
+            <div class="form-group">
+                <label>Order ID (JSON Body):</label>
+                <input type="text" id="input-order-id" class="form-control" value="ORD1005" placeholder="e.g. ORD1005">
+            </div>
+        `,
         create_support_ticket: `
             <div class="form-group">
                 <label>Customer ID:</label>
@@ -163,6 +169,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const id = document.getElementById('input-order-id').value.trim();
                 url = `/orders/${id}/cancel`;
                 method = 'POST';
+            } else if (fn === 'cancel_order_post') {
+                url = '/orders/cancel';
+                method = 'POST';
+                body = JSON.stringify({
+                    order_id: document.getElementById('input-order-id').value.trim()
+                });
             } else if (fn === 'create_support_ticket') {
                 url = '/support/tickets';
                 method = 'POST';

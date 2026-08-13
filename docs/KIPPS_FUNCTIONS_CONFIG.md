@@ -155,7 +155,26 @@ This document provides explicit, copy-pasteable configuration specifications for
 * **Function Name**: `cancel_order`
 * **Description**: `"Use this function when a customer requests to cancel an order that has not been delivered yet. Cancels orders currently in 'Processing' or 'Order Placed' status."`
 * **HTTP Method**: `POST`
-* **Endpoint Path**: `/orders/{order_id}/cancel`
+* **Endpoint Path**: `/orders/cancel` (or `/orders/{order_id}/cancel`)
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/orders/cancel`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Parameters** (JSON Body):
+  * `order_id` (Type: `string`, Required: `true`, Description: `Order ID e.g. ORD1005`)
+* **Example Request Body**:
+  ```json
+  {
+    "order_id": "ORD1005"
+  }
+  ```
+* **Example Response**:
+  ```json
+  {
+    "success": true,
+    "order_id": "ORD1005",
+    "status": "Cancelled",
+    "message": "Order ORD1005 has been successfully cancelled. Any charged amount will be refunded within 3-5 business days."
+  }
+  ```
 
 ---
 

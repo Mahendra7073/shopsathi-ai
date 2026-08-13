@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Order
-from app.schemas import OrderResponse, OrderCancelResponse, OrderLookupRequest
+from app.schemas import OrderResponse, OrderCancelResponse, OrderLookupRequest, OrderCancelRequest
 from app.logging_config import log_api_call
 from app.security import verify_api_key
 
@@ -149,3 +149,17 @@ def cancel_order(
     )
 
     return res
+
+
+@router.post("/cancel", response_model=OrderCancelResponse, summary="Cancel order via JSON body (cancel_order_post)")
+def cancel_order_post(
+    payload: OrderCancelRequest,
+    db: Session = Depends(get_db),
+    api_key: str = Security(verify_api_key)
+):
+    """
+    Cancel an order if eligible using JSON body request.
+    Used by Kipps.AI Function: cancel_order.
+    """
+    order_id_clean = payload.order_id.strip().upper()
+    return cancel_order(order_id=order_id_clean, db=db, api_key=api_key)

@@ -48,6 +48,10 @@ class OrderLookupRequest(BaseModel):
     order_id: str = Field(..., description="Order ID to lookup e.g. ORD1002")
 
 
+class OrderCancelRequest(BaseModel):
+    order_id: str = Field(..., description="Order ID to cancel e.g. ORD1005")
+
+
 class OrderCancelResponse(BaseModel):
     success: bool = True
     order_id: str
