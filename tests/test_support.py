@@ -67,6 +67,73 @@ def test_post_escalate_support_ticket_json_body(client):
     assert e_data["status"] == "Escalated"
     assert "Tier 2" in e_data["assigned_to"]
 
+def test_two_separate_http_requests_creation_and_escalation(client):
+    """Req 11 & 12: Verify ticket creation in Request 1, GET in Request 2, and Escalation in Request 3."""
+    # Request 1: POST /support/tickets
+    req1 = client.post("/support/tickets", json={
+        "customer_id": "CUST101",
+        "subject": "Order tracking question",
+        "description": "Where is my order ORD1001?",
+        "priority": "medium"
+    })
+    assert req1.status_code == 201
+    t_id = req1.json()["ticket_id"]
+
+    # Request 2: GET /support/tickets/{ticket_id}
+    req2 = client.get(f"/support/tickets/{t_id}")
+    assert req2.status_code == 200
+    get_data = req2.json()
+    assert get_data["ticket_id"] == t_id
+    assert get_data["status"] == "Open"
+
+    # Request 3: POST /support/tickets/escalate using ticket_id from Request 1
+    req3 = client.post("/support/tickets/escalate", json={
+        "ticket_id": t_id,
+        "reason": "Customer requested immediate escalation to human"
+    })
+    assert req3.status_code == 200
+    esc_data = req3.json()
+    assert esc_data["ticket_id"] == t_id
+    assert esc_data["status"] == "Escalated"
+    assert "Tier 2" in esc_data["assigned_to"]
+
+def test_ticket_persistence_across_app_recreation(client):
+    """Req 13: Verify ticket remains stored in DB across client & app recreations."""
+    # 1. Create ticket
+    res1 = client.post("/support/tickets", json={
+        "customer_id": "CUST101",
+        "subject": "Persistence test ticket",
+        "description": "Testing DB persistence",
+        "priority": "low"
+    })
+    assert res1.status_code == 201
+    t_id = res1.json()["ticket_id"]
+
+    # 2. Simulate new HTTP client connection (separate request session)
+    from fastapi.testclient import TestClient
+    from app.main import app
+    from app.database import get_db
+    from tests.conftest import TestingSessionLocal
+
+    def _override_get_db():
+        db = TestingSessionLocal()
+        try:
+            yield db
+        finally:
+            db.close()
+
+    app.dependency_overrides[get_db] = _override_get_db
+    with TestClient(app) as fresh_client:
+        # Request to GET ticket
+        res_get = fresh_client.get(f"/support/tickets/{t_id}")
+        assert res_get.status_code == 200
+        assert res_get.json()["ticket_id"] == t_id
+
+        # Separate POST request to escalate
+        res_esc = fresh_client.post("/support/tickets/escalate", json={"ticket_id": f"Ticket #{t_id}"})
+        assert res_esc.status_code == 200
+        assert res_esc.json()["status"] == "Escalated"
+
 def test_post_escalate_already_escalated(client):
     # 1. Create ticket
     c_res = client.post("/support/tickets", json={
