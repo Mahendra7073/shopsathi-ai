@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSathi AI — E-Commerce Customer Support Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="logo-icon">🤖</div>
+                <div>
+                    <h1>ShopSathi AI</h1>
+                    <p class="tagline">"AI customer support that speaks, acts, and knows when to call a human."</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <span class="status-badge live">● System Operational</span>
+                <a href="/docs" target="_blank" class="btn btn-outline">OpenAPI Specs (/docs)</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-grid">
+            <!-- Metrics Bar -->
+            <section class="metrics-container">
+                <div class="metric-card">
+                    <span class="metric-title">Total API Calls</span>
+                    <h2 class="metric-value" id="metric-total">0</h2>
+                    <span class="metric-sub">Processed by system</span>
+                </div>
+                <div class="metric-card highlight">
+                    <span class="metric-title">AI Resolved</span>
+                    <h2 class="metric-value green" id="metric-resolved">0</h2>
+                    <span class="metric-sub">Automated resolution rate</span>
+                </div>
+                <div class="metric-card warning">
+                    <span class="metric-title">Human Escalations</span>
+                    <h2 class="metric-value orange" id="metric-escalated">0</h2>
+                    <span class="metric-sub">Handled by Tier-2 support</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">Returns Submitted</span>
+                    <h2 class="metric-value" id="metric-returns">0</h2>
+                    <span class="metric-sub">Eligible return requests</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">Avg Latency</span>
+                    <h2 class="metric-value" id="metric-latency">0ms</h2>
+                    <span class="metric-sub">FastAPI response time</span>
+                </div>
+            </section>
+
+            <!-- Column Left: Interactive Tool Runner -->
+            <section class="card tool-runner-card">
+                <div class="card-header">
+                    <h3>⚡ Kipps.AI Function Tester</h3>
+                    <span class="badge">Live Execution</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="function-select">Select Function to Call:</label>
+                        <select id="function-select" class="form-control">
+                            <option value="check_order_status">1. check_order_status (GET /orders/{order_id})</option>
+                            <option value="check_return_eligibility">2. check_return_eligibility (GET /orders/{order_id}/return-eligibility)</option>
+                            <option value="create_return_request">3. create_return_request (POST /returns)</option>
+                            <option value="check_refund_status">4. check_refund_status (GET /orders/{order_id}/refund)</option>
+                            <option value="search_products">5. search_products (GET /products/search)</option>
+                            <option value="cancel_order">6. cancel_order (POST /orders/{order_id}/cancel)</option>
+                            <option value="create_support_ticket">7. create_support_ticket (POST /support/tickets)</option>
+                            <option value="escalate_support_ticket">8. escalate_support_ticket (POST /support/tickets/{ticket_id}/escalate)</option>
+                        </select>
+                    </div>
+
+                    <!-- Input Controls Area -->
+                    <div id="function-inputs" class="inputs-container">
+                        <!-- Dynamic inputs rendered via JS -->
+                    </div>
+
+                    <button id="btn-execute" class="btn btn-primary btn-block">Run Function</button>
+
+                    <div class="response-area">
+                        <label>Execution Output (JSON Response):</label>
+                        <pre id="json-output">// Click "Run Function" to test Kipps.AI tool response</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Column Right: Live Audit & Escalation Feed -->
+            <section class="card audit-feed-card">
+                <div class="card-header">
+                    <h3>📊 Live Audit & Escalation Logs</h3>
+                    <button id="btn-refresh" class="btn btn-sm btn-outline">Refresh</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Intent / Function</th>
+                                    <th>Status</th>
+                                    <th>Escalated</th>
+                                    <th>Latency</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audit-log-rows">
+                                <tr><td colspan="5" class="text-center">Loading audit logs...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

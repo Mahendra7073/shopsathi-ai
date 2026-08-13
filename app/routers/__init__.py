@@ -1,0 +1,3 @@
+"""
+ShopSathi AI API Routers
+"""
