@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Order, ReturnRequest
-from app.schemas import ReturnEligibilityResponse, CreateReturnRequest, ReturnResponse
+from app.schemas import ReturnEligibilityResponse, ReturnEligibilityRequest, CreateReturnRequest, ReturnResponse
 from app.logging_config import log_api_call
 from app.security import verify_api_key
 
@@ -101,6 +101,20 @@ def check_return_eligibility(
     }
     log_api_call(db=db, function_called="check_return_eligibility", customer_id=order.customer_id, intent="Return Inquiry", api_result=res, success=True, response_time_ms=(time.time() - start_time) * 1000)
     return res
+
+
+@router.post("/orders/return-eligibility", response_model=ReturnEligibilityResponse, summary="Check return eligibility via JSON body (check_return_eligibility_post)")
+def check_return_eligibility_post(
+    payload: ReturnEligibilityRequest,
+    db: Session = Depends(get_db),
+    api_key: str = Security(verify_api_key)
+):
+    """
+    Check return eligibility using JSON body request payload.
+    Used by Kipps.AI Function: check_return_eligibility.
+    """
+    order_id_clean = payload.order_id.strip().upper()
+    return check_return_eligibility(order_id=order_id_clean, db=db, api_key=api_key)
 
 
 @router.post("/returns", response_model=ReturnResponse, status_code=status.HTTP_201_CREATED, summary="Create return request (create_return_request)")

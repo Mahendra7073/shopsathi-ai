@@ -59,7 +59,10 @@ class OrderCancelResponse(BaseModel):
     message: str
 
 
-# --- Return Schemas ---
+class ReturnEligibilityRequest(BaseModel):
+    order_id: str = Field(..., description="Order ID to check return eligibility e.g. ORD1003")
+
+
 class ReturnEligibilityResponse(BaseModel):
     order_id: str
     eligible: bool

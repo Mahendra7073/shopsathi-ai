@@ -24,6 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-order-id" class="form-control" value="ORD1003" placeholder="e.g. ORD1003 (Eligible) or ORD1002 (Expired)">
             </div>
         `,
+        check_return_eligibility_post: `
+            <div class="form-group">
+                <label>Order ID (JSON Body):</label>
+                <input type="text" id="input-order-id" class="form-control" value="ORD1003" placeholder="e.g. ORD1003 (Eligible) or ORD1002 (Expired)">
+            </div>
+        `,
         create_return_request: `
             <div class="form-group">
                 <label>Order ID:</label>
@@ -150,6 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (fn === 'check_return_eligibility') {
                 const id = document.getElementById('input-order-id').value.trim();
                 url = `/orders/${id}/return-eligibility`;
+            } else if (fn === 'check_return_eligibility_post') {
+                url = '/orders/return-eligibility';
+                method = 'POST';
+                body = JSON.stringify({
+                    order_id: document.getElementById('input-order-id').value.trim()
+                });
             } else if (fn === 'create_return_request') {
                 url = '/returns';
                 method = 'POST';

@@ -86,7 +86,7 @@ This document provides explicit, copy-pasteable configuration specifications for
 
 ---
 
-### 2. `check_return_eligibility`
+### 2. `check_return_eligibility` (GET Endpoint)
 * **Function Name**: `check_return_eligibility`
 * **Description**: `"Use this function before creating a return request to verify if an order is eligible for return. It checks the 7-day return window, delivery status, product returnability policy, and previous return submissions."`
 * **HTTP Method**: `GET`
@@ -96,6 +96,32 @@ This document provides explicit, copy-pasteable configuration specifications for
 * **Parameters**:
   * `order_id` (Type: `string`, Location: `path`, Required: `true`, Description: `Order ID format ORDxxxx e.g. ORD1003`)
 * **Example Request**: `GET <PUBLIC_API_URL>/orders/ORD1003/return-eligibility`
+* **Example Response**:
+  ```json
+  {
+    "order_id": "ORD1003",
+    "eligible": true,
+    "reason": "Order is eligible for return. Delivered 2 days ago (within 7-day return window).",
+    "days_since_delivery": 2,
+    "returnable_policy": true
+  }
+  ```
+
+---
+
+### 2b. `check_return_eligibility_post` (POST Endpoint with JSON Body)
+* **Function Name**: `check_return_eligibility_post`
+* **Description**: `"Use this function to check return eligibility using a JSON body payload containing order_id."`
+* **HTTP Method**: `POST`
+* **Endpoint Path**: `/orders/return-eligibility`
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/orders/return-eligibility`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Request Body (JSON)**:
+  ```json
+  {
+    "order_id": "ORD1003"
+  }
+  ```
 * **Example Response**:
   ```json
   {

@@ -37,11 +37,24 @@ curl -X POST "<PUBLIC_API_URL>/orders/lookup" \
 
 ---
 
-## 3. Return Eligibility (`check_return_eligibility`)
+## 3. Return Eligibility (`check_return_eligibility` GET)
 
 ```bash
 curl -X GET "<PUBLIC_API_URL>/orders/ORD1003/return-eligibility" \
      -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY"
+```
+
+---
+
+## 3b. Return Eligibility via JSON Body (`check_return_eligibility_post` POST)
+
+```bash
+curl -X POST "<PUBLIC_API_URL>/orders/return-eligibility" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "order_id": "ORD1003"
+     }'
 ```
 
 ---
