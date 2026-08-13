@@ -110,6 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-order-id" class="form-control" value="ORD1001" placeholder="e.g. ORD1001">
             </div>
         `,
+        get_support_ticket_post: `
+            <div class="form-group">
+                <label>Ticket ID (JSON Body):</label>
+                <input type="text" id="input-ticket-id" class="form-control" value="TKT9001" placeholder="e.g. TKT9001">
+            </div>
+        `,
         escalate_support_ticket: `
             <div class="form-group">
                 <label>Ticket ID:</label>
@@ -242,6 +248,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     description: document.getElementById('input-description').value.trim(),
                     priority: prio,
                     order_id: document.getElementById('input-order-id') ? (document.getElementById('input-order-id').value.trim() || null) : null
+                });
+            } else if (fn === 'get_support_ticket_post') {
+                url = '/support/tickets/status';
+                method = 'POST';
+                body = JSON.stringify({
+                    ticket_id: document.getElementById('input-ticket-id').value.trim()
                 });
             } else if (fn === 'escalate_support_ticket') {
                 const tId = document.getElementById('input-ticket-id').value.trim();

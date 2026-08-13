@@ -149,6 +149,10 @@ class EscalateTicketPostRequest(BaseModel):
     reason: Optional[str] = Field("Escalated by AI Agent due to unresolved complex issue", description="Reason for escalating to human agent")
 
 
+class TicketStatusPostRequest(BaseModel):
+    ticket_id: str = Field(..., description="Ticket ID to look up e.g. TKT6CBDC8")
+
+
 # --- Observability / Analytics Schemas ---
 class AnalyticsSummaryResponse(BaseModel):
     total_requests: int

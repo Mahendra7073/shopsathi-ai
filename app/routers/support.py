@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import SupportTicket, Customer, Order
-from app.schemas import CreateSupportTicketRequest, SupportTicketResponse, EscalateTicketRequest, EscalateTicketPostRequest
+from app.schemas import CreateSupportTicketRequest, SupportTicketResponse, EscalateTicketRequest, EscalateTicketPostRequest, TicketStatusPostRequest
 from app.logging_config import log_api_call
 from app.security import verify_api_key
 
@@ -121,6 +121,57 @@ def create_support_ticket(
         function_called="create_support_ticket",
         customer_id=customer_id,
         intent="Support Ticket Creation",
+        api_result=res,
+        success=True,
+        response_time_ms=(time.time() - start_time) * 1000
+    )
+
+    return res
+
+
+@router.post("/tickets/status", response_model=SupportTicketResponse, summary="Get ticket details via JSON body (get_support_ticket_post)")
+def get_support_ticket_post(
+    payload: TicketStatusPostRequest,
+    db: Session = Depends(get_db),
+    api_key: str = Security(verify_api_key)
+):
+    """
+    Retrieve support ticket details using JSON body payload.
+    Used by Kipps.AI Function: get_ticket_status.
+    """
+    start_time = time.time()
+    t_id = clean_ticket_id(payload.ticket_id)
+    ticket = db.query(SupportTicket).filter(SupportTicket.ticket_id == t_id).first()
+
+    if not ticket:
+        log_api_call(db=db, function_called="get_support_ticket_post", intent="Ticket Details Lookup", api_result={"error": f"Support ticket {t_id} not found."}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Support ticket {t_id} not found."
+        )
+
+    res = {
+        "success": True,
+        "ticket_id": ticket.ticket_id,
+        "customer_id": ticket.customer_id,
+        "subject": ticket.category,
+        "category": ticket.category,
+        "priority": ticket.priority,
+        "description": ticket.description,
+        "status": ticket.status,
+        "assigned_to": ticket.assigned_to,
+        "order_id": ticket.order_id,
+        "reason_for_escalation": ticket.reason_for_escalation,
+        "escalated_at": ticket.escalated_at,
+        "created_at": ticket.created_at,
+        "message": f"Ticket {ticket.ticket_id} is currently '{ticket.status}' (Assigned to: {ticket.assigned_to})."
+    }
+
+    log_api_call(
+        db=db,
+        function_called="get_support_ticket_post",
+        customer_id=ticket.customer_id,
+        intent="Ticket Details Lookup",
         api_result=res,
         success=True,
         response_time_ms=(time.time() - start_time) * 1000

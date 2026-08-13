@@ -146,6 +146,19 @@ curl -X POST "<PUBLIC_API_URL>/support/tickets" \
 
 ---
 
+## 8b. Support Ticket Status via JSON Body (`get_support_ticket_post` POST)
+
+```bash
+curl -X POST "<PUBLIC_API_URL>/support/tickets/status" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "ticket_id": "TKT6CBDC8"
+     }'
+```
+
+---
+
 ## 9. Ticket Escalation (`escalate_support_ticket` Path Param)
 
 ```bash

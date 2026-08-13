@@ -303,6 +303,43 @@ This document provides explicit, copy-pasteable configuration specifications for
 
 ---
 
+### 7b. `get_support_ticket_post` (POST Endpoint with JSON Body)
+* **Function Name**: `get_support_ticket_post`
+* **Description**: `"Use this function to check the status or retrieve details of an existing support ticket by sending ticket_id inside the JSON request body."`
+* **HTTP Method**: `POST`
+* **Endpoint Path**: `/support/tickets/status`
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/support/tickets/status`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Parameters** (JSON Body):
+  * `ticket_id` (Type: `string`, Required: `true`, Description: `Ticket ID e.g. TKT6CBDC8`)
+* **Example Request Body**:
+  ```json
+  {
+    "ticket_id": "TKT6CBDC8"
+  }
+  ```
+* **Example Response**:
+  ```json
+  {
+    "success": true,
+    "ticket_id": "TKT6CBDC8",
+    "customer_id": "CUST101",
+    "subject": "Issue with order ORD1001",
+    "category": "Issue with order ORD1001",
+    "priority": "High",
+    "description": "I need assistance regarding my order ORD1001.",
+    "status": "Escalated",
+    "assigned_to": "Tier 2 Human Support Agent",
+    "order_id": null,
+    "reason_for_escalation": "Escalated by AI Agent due to unresolved complex issue",
+    "escalated_at": "2026-08-14T02:00:00",
+    "created_at": "2026-08-14T01:50:00",
+    "message": "Ticket TKT6CBDC8 is currently 'Escalated' (Assigned to: Tier 2 Human Support Agent)."
+  }
+  ```
+
+---
+
 ### 8. `escalate_support_ticket` (GET / Path Param Endpoint)
 * **Function Name**: `escalate_support_ticket`
 * **Description**: `"Use this function when a customer demands to speak to a human agent, or when an issue cannot be resolved by AI tools alone. Marks ticket as Escalated and assigns to Tier 2 Human Support Agent."`

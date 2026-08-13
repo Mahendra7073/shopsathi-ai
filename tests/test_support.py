@@ -46,6 +46,60 @@ def test_create_support_ticket_missing_description(client):
     })
     assert response.status_code == 422  # Pydantic validation error for missing required field
 
+def test_post_ticket_status_existing(client):
+    response = client.post("/support/tickets/status", json={"ticket_id": "TKT9001"})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["ticket_id"] == "TKT9001"
+    assert data["customer_id"] == "CUST102"
+    assert "status" in data
+    assert "assigned_to" in data
+
+def test_post_ticket_status_lowercase_and_whitespace(client):
+    response = client.post("/support/tickets/status", json={"ticket_id": " tkt9001 "})
+    assert response.status_code == 200
+    data = response.json()
+    assert data["ticket_id"] == "TKT9001"
+
+def test_post_ticket_status_invalid_ticket(client):
+    response = client.post("/support/tickets/status", json={"ticket_id": "TKT99999"})
+    assert response.status_code == 404
+    data = response.json()
+    assert "not found" in data["detail"].lower()
+
+def test_post_ticket_status_created_escalated_retrieved_separate_requests(client):
+    """Req 10 & 11: Create ticket in Req 1, Escalate in Req 2, Retrieve status via POST in Req 3."""
+    # Request 1: POST /support/tickets
+    req1 = client.post("/support/tickets", json={
+        "customer_id": "CUST101",
+        "subject": "Item arrived damaged",
+        "description": "The item screen was shattered upon arrival.",
+        "priority": "high"
+    })
+    assert req1.status_code == 201
+    t_id = req1.json()["ticket_id"]
+
+    # Request 2: POST /support/tickets/escalate
+    req2 = client.post("/support/tickets/escalate", json={
+        "ticket_id": t_id,
+        "reason": "Damaged goods dispute requiring manager intervention"
+    })
+    assert req2.status_code == 200
+    assert req2.json()["status"] == "Escalated"
+
+    # Request 3: POST /support/tickets/status
+    req3 = client.post("/support/tickets/status", json={
+        "ticket_id": f" {t_id.lower()} "
+    })
+    assert req3.status_code == 200
+    status_data = req3.json()
+    assert status_data["ticket_id"] == t_id
+    assert status_data["customer_id"] == "CUST101"
+    assert status_data["status"] == "Escalated"
+    assert "Tier 2" in status_data["assigned_to"]
+    assert status_data["reason_for_escalation"] == "Damaged goods dispute requiring manager intervention"
+    assert status_data["created_at"] is not None
+
 def test_post_escalate_support_ticket_json_body(client):
     # 1. Create ticket
     c_res = client.post("/support/tickets", json={
@@ -124,8 +178,8 @@ def test_ticket_persistence_across_app_recreation(client):
 
     app.dependency_overrides[get_db] = _override_get_db
     with TestClient(app) as fresh_client:
-        # Request to GET ticket
-        res_get = fresh_client.get(f"/support/tickets/{t_id}")
+        # Request to GET ticket via POST /support/tickets/status
+        res_get = fresh_client.post("/support/tickets/status", json={"ticket_id": t_id})
         assert res_get.status_code == 200
         assert res_get.json()["ticket_id"] == t_id
 
