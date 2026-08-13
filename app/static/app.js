@@ -66,6 +66,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-category" class="form-control" value="Footwear" placeholder="Electronics, Footwear, Fashion, Home">
             </div>
         `,
+        search_products_post: `
+            <div class="form-group">
+                <label>Search Query (JSON Body):</label>
+                <input type="text" id="input-query" class="form-control" value="wireless headphones" placeholder="e.g. wireless headphones, shirts">
+            </div>
+            <div class="form-group">
+                <label>Max Price Budget (₹):</label>
+                <input type="number" id="input-max-price" class="form-control" value="5000" placeholder="e.g. 5000">
+            </div>
+        `,
         cancel_order: `
             <div class="form-group">
                 <label>Order ID:</label>
@@ -189,6 +199,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const price = document.getElementById('input-max-price').value.trim();
                 const cat = encodeURIComponent(document.getElementById('input-category').value.trim());
                 url = `/products/search?query=${q}&max_price=${price}&category=${cat}`;
+            } else if (fn === 'search_products_post') {
+                url = '/products/search';
+                method = 'POST';
+                const pVal = document.getElementById('input-max-price').value.trim();
+                body = JSON.stringify({
+                    query: document.getElementById('input-query').value.trim(),
+                    max_price: pVal ? parseFloat(pVal) : null
+                });
             } else if (fn === 'cancel_order') {
                 const id = document.getElementById('input-order-id').value.trim();
                 url = `/orders/${id}/cancel`;

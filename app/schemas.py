@@ -16,6 +16,12 @@ class ProductResponse(ProductBase):
     model_config = ConfigDict(from_attributes=True)
 
 
+class ProductSearchRequest(BaseModel):
+    query: str = Field(..., description="Search query string e.g. wireless headphones, shirts")
+    max_price: Optional[float] = Field(None, description="Optional maximum price budget")
+    category: Optional[str] = Field(None, description="Optional product category filter")
+
+
 # --- Customer Schemas ---
 class CustomerBase(BaseModel):
     customer_id: str

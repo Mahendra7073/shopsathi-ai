@@ -196,12 +196,42 @@ This document provides explicit, copy-pasteable configuration specifications for
 
 ---
 
-### 5. `search_products`
+### 5. `search_products` (GET Endpoint)
 * **Function Name**: `search_products`
 * **Description**: `"Use this function to search products in the catalog when the customer asks for recommendations, products under a specific price budget, or specific categories (Electronics, Footwear, Fashion, Home)."`
 * **HTTP Method**: `GET`
 * **Endpoint Path**: `/products/search`
 * **Full URL Placeholder**: `<PUBLIC_API_URL>/products/search`
+
+---
+
+### 5b. `search_products_post` (POST Endpoint with JSON Body)
+* **Function Name**: `search_products_post`
+* **Description**: `"Use this function to search products in the catalog using a JSON body payload containing query, max_price, or category."`
+* **HTTP Method**: `POST`
+* **Endpoint Path**: `/products/search`
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/products/search`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Request Body (JSON)**:
+  ```json
+  {
+    "query": "wireless headphones"
+  }
+  ```
+* **Example Response**:
+  ```json
+  [
+    {
+      "product_id": "PRD101",
+      "name": "AirPro Wireless Noise-Cancelling Headphones",
+      "category": "Electronics",
+      "price": 4999.0,
+      "description": "Premium active noise cancellation headphones with 30hr battery life.",
+      "stock": 45,
+      "returnable": true
+    }
+  ]
+  ```
 
 ---
 

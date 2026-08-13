@@ -95,11 +95,24 @@ curl -X POST "<PUBLIC_API_URL>/orders/refund-status" \
 
 ---
 
-## 6. Search Catalog Products (`search_products`)
+## 6. Search Catalog Products (`search_products` GET)
 
 ```bash
 curl -X GET "<PUBLIC_API_URL>/products/search?query=running&max_price=2000" \
      -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY"
+```
+
+---
+
+## 6b. Search Catalog Products via JSON Body (`search_products_post` POST)
+
+```bash
+curl -X POST "<PUBLIC_API_URL>/products/search" \
+     -H "Content-Type: application/json" \
+     -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
+     -d '{
+       "query": "wireless headphones"
+     }'
 ```
 
 ---
