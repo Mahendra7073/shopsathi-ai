@@ -264,9 +264,42 @@ This document provides explicit, copy-pasteable configuration specifications for
 
 ### 7. `create_support_ticket`
 * **Function Name**: `create_support_ticket`
-* **Description**: `"Use this function to log a support ticket when a customer faces an unresolved payment issue, shipping delay, damaged product dispute, or complex inquiry requiring record keeping."`
+* **Description**: `"Use this function to log a support ticket when a customer faces an issue or complaint requiring record keeping."`
 * **HTTP Method**: `POST`
 * **Endpoint Path**: `/support/tickets`
+* **Full URL Placeholder**: `<PUBLIC_API_URL>/support/tickets`
+* **Custom Headers**: `Content-Type: application/json`, `X-API-Key: YOUR_SHOP_SATHI_API_KEY`
+* **Parameters** (JSON Body):
+  * `customer_id` (Type: `string`, Required: `true`, Description: `Customer ID e.g. CUST101`)
+  * `subject` (Type: `string`, Required: `true`, Description: `Subject summary e.g. Issue with order ORD1001`)
+  * `description` (Type: `string`, Required: `true`, Description: `Detailed issue description`)
+  * `priority` (Type: `string`, Required: `true`, Description: `Priority e.g. low, medium, high, critical`)
+* **Example Request Body**:
+  ```json
+  {
+    "customer_id": "CUST101",
+    "subject": "Issue with order ORD1001",
+    "description": "I need assistance regarding my order ORD1001.",
+    "priority": "high"
+  }
+  ```
+* **Example Response**:
+  ```json
+  {
+    "success": true,
+    "ticket_id": "TKT8F2A1B",
+    "customer_id": "CUST101",
+    "subject": "Issue with order ORD1001",
+    "category": "Issue with order ORD1001",
+    "priority": "High",
+    "description": "I need assistance regarding my order ORD1001.",
+    "status": "Open",
+    "assigned_to": "AI Agent",
+    "order_id": null,
+    "created_at": "2026-08-14T01:50:00",
+    "message": "Support ticket TKT8F2A1B created successfully for customer 'CUST101' with priority 'High'."
+  }
+  ```
 
 ---
 

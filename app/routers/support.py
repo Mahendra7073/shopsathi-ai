@@ -20,9 +20,17 @@ def create_support_ticket(
     """
     Create a new support ticket for a customer query.
     Used by Kipps.AI Function: create_support_ticket.
+    Accepts customer_id, subject/category, description, priority, order_id.
     """
     start_time = time.time()
-    customer_id = payload.customer_id.upper()
+    
+    # 1. Normalize & validate customer_id
+    if not payload.customer_id or not payload.customer_id.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="customer_id is required."
+        )
+    customer_id = payload.customer_id.strip().upper()
     customer = db.query(Customer).filter(Customer.customer_id == customer_id).first()
 
     if not customer:
@@ -32,7 +40,26 @@ def create_support_ticket(
             detail=f"Customer {customer_id} not found."
         )
 
-    order_id = payload.order_id.upper() if payload.order_id else None
+    # 2. Validate description
+    if not payload.description or not payload.description.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="description is required."
+        )
+    description = payload.description.strip()
+
+    # 3. Handle subject & category
+    subject_val = payload.subject.strip() if payload.subject and payload.subject.strip() else None
+    category_val = payload.category.strip() if payload.category and payload.category.strip() else (subject_val or "General Support")
+
+    # 4. Priority normalization (low -> Low, high -> High)
+    raw_priority = payload.priority.strip() if payload.priority and payload.priority.strip() else "Medium"
+    priority_normalized = raw_priority.title()
+    if priority_normalized not in ["Low", "Medium", "High", "Critical"]:
+        priority_normalized = "Medium"
+
+    # 5. Optional order_id validation
+    order_id = payload.order_id.strip().upper() if payload.order_id and payload.order_id.strip() else None
     if order_id:
         order = db.query(Order).filter(Order.order_id == order_id).first()
         if not order:
@@ -42,14 +69,15 @@ def create_support_ticket(
                 detail=f"Order {order_id} not found."
             )
 
+    # 6. Generate real unique ticket ID
     ticket_id = f"TKT{uuid.uuid4().hex[:6].upper()}"
     ticket = SupportTicket(
         ticket_id=ticket_id,
         customer_id=customer_id,
         order_id=order_id,
-        category=payload.category,
-        priority=payload.priority or "Medium",
-        description=payload.description,
+        category=category_val,
+        priority=priority_normalized,
+        description=description,
         status="Open",
         assigned_to="AI Agent",
         created_at=datetime.now(timezone.utc).replace(tzinfo=None)
@@ -62,16 +90,17 @@ def create_support_ticket(
         "success": True,
         "ticket_id": ticket.ticket_id,
         "customer_id": ticket.customer_id,
-        "order_id": ticket.order_id,
+        "subject": subject_val or category_val,
         "category": ticket.category,
         "priority": ticket.priority,
         "description": ticket.description,
         "status": ticket.status,
         "assigned_to": ticket.assigned_to,
+        "order_id": ticket.order_id,
         "reason_for_escalation": ticket.reason_for_escalation,
         "escalated_at": ticket.escalated_at,
         "created_at": ticket.created_at,
-        "message": f"Support ticket {ticket_id} created successfully under category '{ticket.category}' with priority '{ticket.priority}'."
+        "message": f"Support ticket {ticket_id} created successfully for customer '{customer_id}' with priority '{ticket.priority}'."
     }
 
     log_api_call(
@@ -101,12 +130,13 @@ def get_support_ticket(ticket_id: str, db: Session = Depends(get_db)):
         "success": True,
         "ticket_id": ticket.ticket_id,
         "customer_id": ticket.customer_id,
-        "order_id": ticket.order_id,
+        "subject": ticket.category,
         "category": ticket.category,
         "priority": ticket.priority,
         "description": ticket.description,
         "status": ticket.status,
         "assigned_to": ticket.assigned_to,
+        "order_id": ticket.order_id,
         "reason_for_escalation": ticket.reason_for_escalation,
         "escalated_at": ticket.escalated_at,
         "created_at": ticket.created_at,
@@ -148,12 +178,13 @@ def escalate_support_ticket(
         "success": True,
         "ticket_id": ticket.ticket_id,
         "customer_id": ticket.customer_id,
-        "order_id": ticket.order_id,
+        "subject": ticket.category,
         "category": ticket.category,
         "priority": ticket.priority,
         "description": ticket.description,
         "status": ticket.status,
         "assigned_to": ticket.assigned_to,
+        "order_id": ticket.order_id,
         "reason_for_escalation": ticket.reason_for_escalation,
         "escalated_at": ticket.escalated_at,
         "created_at": ticket.created_at,

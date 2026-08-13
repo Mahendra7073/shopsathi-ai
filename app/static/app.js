@@ -94,16 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" id="input-customer-id" class="form-control" value="CUST101" placeholder="e.g. CUST101">
             </div>
             <div class="form-group">
-                <label>Category:</label>
-                <input type="text" id="input-category" class="form-control" value="Payment Issue" placeholder="Payment Issue, Shipping Delay">
+                <label>Subject / Summary:</label>
+                <input type="text" id="input-subject" class="form-control" value="Issue with order ORD1001" placeholder="Issue summary">
             </div>
             <div class="form-group">
                 <label>Description:</label>
-                <input type="text" id="input-description" class="form-control" value="Payment deducted ₹1499 via UPI but order status unconfirmed" placeholder="Issue details">
+                <input type="text" id="input-description" class="form-control" value="I need assistance regarding my order ORD1001." placeholder="Issue details">
+            </div>
+            <div class="form-group">
+                <label>Priority:</label>
+                <input type="text" id="input-priority" class="form-control" value="high" placeholder="low, medium, high, critical">
             </div>
             <div class="form-group">
                 <label>Order ID (Optional):</label>
-                <input type="text" id="input-order-id" class="form-control" value="ORD1005" placeholder="e.g. ORD1005">
+                <input type="text" id="input-order-id" class="form-control" value="ORD1001" placeholder="e.g. ORD1001">
             </div>
         `,
         escalate_support_ticket: `
@@ -220,11 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (fn === 'create_support_ticket') {
                 url = '/support/tickets';
                 method = 'POST';
+                const subj = document.getElementById('input-subject') ? document.getElementById('input-subject').value.trim() : null;
+                const prio = document.getElementById('input-priority') ? document.getElementById('input-priority').value.trim() : 'medium';
                 body = JSON.stringify({
                     customer_id: document.getElementById('input-customer-id').value.trim(),
-                    category: document.getElementById('input-category').value.trim(),
+                    subject: subj,
                     description: document.getElementById('input-description').value.trim(),
-                    order_id: document.getElementById('input-order-id').value.trim() || null
+                    priority: prio,
+                    order_id: document.getElementById('input-order-id') ? (document.getElementById('input-order-id').value.trim() || null) : null
                 });
             } else if (fn === 'escalate_support_ticket') {
                 const tId = document.getElementById('input-ticket-id').value.trim();

@@ -130,7 +130,7 @@ curl -X POST "<PUBLIC_API_URL>/orders/cancel" \
 
 ---
 
-## 8. Create Support Ticket (`create_support_ticket`)
+## 8. Support Ticket Creation (`create_support_ticket`)
 
 ```bash
 curl -X POST "<PUBLIC_API_URL>/support/tickets" \
@@ -138,10 +138,9 @@ curl -X POST "<PUBLIC_API_URL>/support/tickets" \
      -H "X-API-Key: YOUR_SHOP_SATHI_API_KEY" \
      -d '{
        "customer_id": "CUST101",
-       "category": "Payment Issue",
-       "description": "Payment deducted ₹1499 via UPI but order status processing",
-       "priority": "High",
-       "order_id": "ORD1005"
+       "subject": "Issue with order ORD1001",
+       "description": "I need assistance regarding my order ORD1001.",
+       "priority": "high"
      }'
 ```
 

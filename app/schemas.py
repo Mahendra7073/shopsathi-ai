@@ -114,8 +114,9 @@ class RefundResponse(BaseModel):
 # --- Support Ticket Schemas ---
 class CreateSupportTicketRequest(BaseModel):
     customer_id: str = Field(..., description="Customer ID creating the ticket e.g. CUST101")
-    category: str = Field(..., description="Issue category e.g. Payment Issue, Shipping Delay, Return Dispute")
     description: str = Field(..., description="Detailed issue description")
+    subject: Optional[str] = Field(None, description="Ticket subject e.g. Issue with order ORD1001")
+    category: Optional[str] = Field(None, description="Issue category e.g. Payment Issue, Shipping Delay, Return Dispute")
     priority: Optional[str] = Field("Medium", description="Ticket priority: Low, Medium, High, Critical")
     order_id: Optional[str] = Field(None, description="Associated Order ID if applicable")
 
@@ -124,12 +125,13 @@ class SupportTicketResponse(BaseModel):
     success: bool = True
     ticket_id: str
     customer_id: str
-    order_id: Optional[str] = None
+    subject: Optional[str] = None
     category: str
     priority: str
     description: str
     status: str
     assigned_to: str
+    order_id: Optional[str] = None
     reason_for_escalation: Optional[str] = None
     escalated_at: Optional[datetime] = None
     created_at: datetime
