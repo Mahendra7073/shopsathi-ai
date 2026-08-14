@@ -51,27 +51,49 @@ async def global_exception_handler(request: Request, exc: Exception):
         }
     )
 
-# Include Routers
-app.include_router(health.router)
-app.include_router(orders.router)
-app.include_router(customers.router)
-app.include_router(products.router)
-app.include_router(returns.router)
-app.include_router(refunds.router)
-app.include_router(support.router)
-app.include_router(analytics.router)
+from fastapi import APIRouter
+from fastapi.responses import RedirectResponse
 
-# Mount static directory for interactive dashboard
+# Include Routers (Direct + /api prefix alias)
+routers = [
+    health.router,
+    orders.router,
+    customers.router,
+    products.router,
+    returns.router,
+    refunds.router,
+    support.router,
+    analytics.router,
+]
+
+for r in routers:
+    app.include_router(r)
+
+api_router = APIRouter(prefix="/api")
+for r in routers:
+    api_router.include_router(r)
+app.include_router(api_router)
+
+# Mount static directory for interactive admin dashboard
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if not os.path.exists(static_dir):
     os.makedirs(static_dir)
 
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
+# Mount production frontend if built
+frontend_dist = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
+if os.path.exists(frontend_dist):
+    assets_dir = os.path.join(frontend_dist, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+    app.mount("/app", StaticFiles(directory=frontend_dist, html=True), name="frontend")
+
 @app.get("/", summary="Root redirect to API documentation")
 def root():
     return {
         "message": "ShopSathi AI Customer Support API is running.",
+        "frontend": "/app/" if os.path.exists(frontend_dist) else "Run 'npm run build' in frontend/",
         "documentation": "/docs",
         "dashboard": "/static/index.html",
         "health": "/health"

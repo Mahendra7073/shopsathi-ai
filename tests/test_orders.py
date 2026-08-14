@@ -83,3 +83,40 @@ def test_cancel_ineligible_order(client):
     assert response.status_code == 400
     data = response.json()
     assert "cannot be cancelled" in data["detail"].lower()
+
+def test_list_all_orders(client):
+    response = client.get("/orders")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) >= 50
+
+def test_list_orders_filtered_by_customer(client):
+    response = client.get("/orders?customer_id=CUST101")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) >= 5
+    assert all(o["customer_id"] == "CUST101" for o in data)
+
+def test_unique_order_ids(client):
+    response = client.get("/orders")
+    assert response.status_code == 200
+    data = response.json()
+    order_ids = [o["order_id"] for o in data]
+    assert len(order_ids) == len(set(order_ids))
+    assert len(order_ids) >= 50
+
+def test_expanded_order_lookups(client):
+    for oid in ["ORD1010", "ORD1020", "ORD1030", "ORD1040", "ORD1050"]:
+        response = client.get(f"/orders/{oid}")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["order_id"] == oid
+        assert data["amount"] > 0
+        assert data["status"] in [
+            "Processing", "Confirmed", "Packed", "Shipped",
+            "Out for Delivery", "Delivered", "Cancelled",
+            "Returned", "Return Requested"
+        ]
+
