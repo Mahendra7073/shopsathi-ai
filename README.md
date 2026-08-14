@@ -120,7 +120,25 @@ ShopSathi includes a complete, responsive 11-page Single Page Application:
 
 ---
 
+## 📸 Screenshots & Interactive Application Previews
+
+| 🏠 Modern E-Commerce Home | 👟 Real-Time Product Catalog & Filter |
+|:---:|:---:|
+| ![Home](docs/assets/screenshots/01-home.png) | ![Products](docs/assets/screenshots/02-products.png) |
+
+| 📦 52-Order Tracking & 6-Step Timeline | 🔄 7-Day Return Wizard & Refund Tracker |
+|:---:|:---:|
+| ![Order Tracking](docs/assets/screenshots/07-order-tracking.png) | ![Returns](docs/assets/screenshots/08-returns.png) |
+
+| 💬 Gemini 3.1 Flash Lite Chat Agent | 🎙️ Gemini 2.5 Flash Native Voice Agent |
+|:---:|:---:|
+| ![Chat Agent](docs/assets/screenshots/13-chat-agent.png) | ![Voice Agent](docs/assets/screenshots/14-voice-agent.png) |
+
+---
+
 ## 🏗️ System Architecture
+
+![System Architecture](docs/assets/architecture.png)
 
 ```
                                   CUSTOMER
