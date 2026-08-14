@@ -124,15 +124,21 @@ ShopSathi includes a complete, responsive 11-page Single Page Application:
 
 | 🏠 Modern E-Commerce Home | 👟 Real-Time Product Catalog & Filter |
 |:---:|:---:|
-| ![Home](docs/assets/screenshots/01-home.png) | ![Products](docs/assets/screenshots/02-products.png) |
+| ![Home](docs/screenshots/01-home.png) | ![Products](docs/screenshots/02-products.png) |
 
 | 📦 52-Order Tracking & 6-Step Timeline | 🔄 7-Day Return Wizard & Refund Tracker |
 |:---:|:---:|
-| ![Order Tracking](docs/assets/screenshots/07-order-tracking.png) | ![Returns](docs/assets/screenshots/08-returns.png) |
+| ![Order Tracking](docs/screenshots/07-order-detail.png) | ![Returns](docs/screenshots/08-returns.png) |
 
 | 💬 Gemini 3.1 Flash Lite Chat Agent | 🎙️ Gemini 2.5 Flash Native Voice Agent |
 |:---:|:---:|
-| ![Chat Agent](docs/assets/screenshots/13-chat-agent.png) | ![Voice Agent](docs/assets/screenshots/14-voice-agent.png) |
+| ![Chat Agent](docs/screenshots/13-chat-agent.png) | ![Voice Agent](docs/screenshots/18-voice-agent.png) |
+
+| 📱 Responsive Mobile Experience | 📊 Interactive Admin Monitoring Dashboard |
+|:---:|:---:|
+| ![Mobile Experience](docs/screenshots/21-mobile-home.png) | ![Admin Dashboard](docs/screenshots/25-admin-dashboard.png) |
+
+> 📷 *Explore the complete 27-image visual walkthrough in [docs/SCREENSHOTS.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/SCREENSHOTS.md).*
 
 ---
 
@@ -291,14 +297,16 @@ npm run dev
 
 ---
 
-## 🏆 Hackathon Highlights & Judge Quick Links
-
-1. 📄 **[DEMO_SCRIPT.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/DEMO_SCRIPT.md)** — Step-by-step 3–5 minute live presentation script.
-2. 📄 **[JUDGE_TALKING_POINTS.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/JUDGE_TALKING_POINTS.md)** — Architectural & technical judge Q&A.
-3. 📄 **[DEMO_DATA.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/DEMO_DATA.md)** — Cheat sheet of 52 orders and test scenarios.
-4. 📄 **[FEATURE_MATRIX.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/FEATURE_MATRIX.md)** — Complete feature-to-code mapping matrix.
-5. 📄 **[PROJECT_DESCRIPTIONS.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/PROJECT_DESCRIPTIONS.md)** — Submission elevator pitches and descriptions.
-6. 📄 **[KIPPS_SETUP.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/KIPPS_SETUP.md)** — Agent prompt and function configuration guide.
+## 🏆 Hackathon Highlights & Documentation Quick Links
+* 📚 **[GitHub Wiki](https://github.com/Mahendra7073/shopsathi-ai/wiki)** — Complete 20-page interactive documentation.
+* 📄 **[FINAL_VERIFICATION.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/FINAL_VERIFICATION.md)** — Production & test verification report.
+* 📷 **[SCREENSHOTS.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/SCREENSHOTS.md)** — 27-image visual catalog of all platform features.
+* 📄 **[DEMO_SCRIPT.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/DEMO_SCRIPT.md)** — Step-by-step 3–5 minute live presentation script.
+* 📄 **[JUDGE_TALKING_POINTS.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/JUDGE_TALKING_POINTS.md)** — Architectural & technical judge Q&A.
+* 📄 **[DEMO_DATA.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/DEMO_DATA.md)** — Cheat sheet of 52 orders and test scenarios.
+* 📄 **[FEATURE_MATRIX.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/FEATURE_MATRIX.md)** — Complete feature-to-code mapping matrix.
+* 📄 **[PROJECT_DESCRIPTIONS.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/PROJECT_DESCRIPTIONS.md)** — Submission elevator pitches and descriptions.
+* 📄 **[KIPPS_SETUP.md](file:///c:/Users/ASUS/kipps%20ai%20hackathon/docs/KIPPS_SETUP.md)** — Agent prompt and function configuration guide.
 
 ---
 
