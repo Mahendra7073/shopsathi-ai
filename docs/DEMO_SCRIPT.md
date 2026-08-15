@@ -30,7 +30,7 @@ Showcase a complete, end-to-end agentic workflow where **Gemini 3.1 Flash Lite**
   - The Orders page showcases our **52 seeded orders** with responsive pagination and status filters.
   - Clicking `ORD1001` reveals a 6-step visual delivery timeline showing status **"Out for Delivery"** and delivery estimate *"Today by 7:00 PM"*.
 * **Speaker Script:**
-  > *"Our system manages 52 realistic customer orders. Here is ORD1001 for Rahul Sharma. Notice the real-time timeline, shipping details, and delivery estimates."*
+  > *"Our system manages 52 realistic customer orders. Here is ORD1001 for Mahendra Gurjar. Notice the real-time timeline, shipping details, and delivery estimates."*
 
 ---
 

@@ -4,7 +4,7 @@
 
 The ShopSathi Voice Agent is powered by **Google Gemini 2.5 Flash Native Audio Preview**, providing natural real-time speech conversations for hands-free shopping and customer support.
 
-![Voice Agent Screenshot](../assets/screenshots/14-voice-agent.png)
+![Voice Agent Screenshot](../screenshots/18-voice-agent.png)
 
 ---
 

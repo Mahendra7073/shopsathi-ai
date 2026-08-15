@@ -115,8 +115,8 @@ ShopSathi includes a complete, responsive 11-page Single Page Application:
 * 🚚 **Order Detail (`#/orders/:id`)**: 6-step visual delivery timeline (`Placed` ➔ `Confirmed` ➔ `Packed` ➔ `Shipped` ➔ `Out for Delivery` ➔ `Delivered`) and cancellation guards.
 * 🔄 **Returns & Refunds (`#/returns`)**: 4-step interactive return wizard with 7-day policy validation and refund status lookup.
 * 🎫 **Support Center (`#/support`)**: 8 quick-action cards, support ticket generator, ticket tracker, and Tier 2 human escalation.
-* 👤 **Customer Profile (`#/profile`)**: Dynamic customer info, order count, and quick navigation links.
-* 🔑 **Login Switcher (`#/login`)**: Fast demo customer switcher (`CUST101` – `CUST105`) and manual login.
+* 👤 **Customer Profile (`#/profile`)**: Dynamic customer info, role badges, order count, and quick navigation links.
+* 🔑 **Login Switcher (`#/login`)**: Fast demo profile switcher (Mahendra Gurjar, ShopSathi Admin, ShopSathi HR, ShopSathi Team, Guest) and manual login.
 
 ---
 

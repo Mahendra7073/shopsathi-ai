@@ -4,15 +4,15 @@ This document contains pre-seeded test records and verification scenarios for li
 
 ---
 
-## 👥 Demo Customers
+## 👥 Demo Profiles
 
-| Customer ID | Name | Phone | Email | Total Orders |
-|---|---|---|---|:---:|
-| **`CUST101`** | Rahul Sharma | `9876543210` | `rahul.sharma@example.com` | 12 |
-| **`CUST102`** | Priya Patel | `9812345678` | `priya.patel@example.com` | 11 |
-| **`CUST103`** | Amit Kumar | `9988776655` | `amit.kumar@example.com` | 10 |
-| **`CUST104`** | Sneha Gupta | `9765432109` | `sneha.gupta@example.com` | 9 |
-| **`CUST105`** | Vikram Malhotra | `9823456781` | `vikram.m@example.com` | 10 |
+| Customer ID | Profile Name | Role | Phone | Email | Total Orders |
+|---|---|---|---|---|:---:|
+| **`CUST101`** | **Mahendra Gurjar** | Customer / Owner Demo | `9876543210` | `mahendra.gurjar@shopsathi.ai` | 12 |
+| **`CUST102`** | **ShopSathi Admin** | Administrator | `9812345678` | `admin@shopsathi.ai` | 11 |
+| **`CUST103`** | **ShopSathi HR** | HR / Operations | `9988776655` | `hr@shopsathi.ai` | 10 |
+| **`CUST104`** | **ShopSathi Team** | Support Team | `9765432109` | `team@shopsathi.ai` | 9 |
+| **`CUST105`** | **Guest** | Guest User | `9823456781` | `guest@shopsathi.ai` | 10 |
 
 ---
 

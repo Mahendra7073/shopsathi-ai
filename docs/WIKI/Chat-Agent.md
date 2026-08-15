@@ -4,7 +4,7 @@
 
 The ShopSathi Chat Agent is powered by **Google Gemini 3.1 Flash Lite**, configured for low-latency, deterministic function-calling in e-commerce customer workflows.
 
-![Chat Agent Screenshot](../assets/screenshots/13-chat-agent.png)
+![Chat Agent Screenshot](../screenshots/13-chat-agent.png)
 
 ---
 

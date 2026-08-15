@@ -3,7 +3,7 @@ def test_get_existing_customer(client):
     assert response.status_code == 200
     data = response.json()
     assert data["customer_id"] == "CUST101"
-    assert data["name"] == "Rahul Sharma"
+    assert data["name"] == "Mahendra Gurjar"
     assert "email" in data
     assert "phone" in data
 

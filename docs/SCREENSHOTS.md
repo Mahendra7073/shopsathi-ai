@@ -59,12 +59,12 @@ This catalog contains high-resolution, working screenshots of the **ShopSathi AI
 ### 11. Customer Profile
 ![11-profile.png](screenshots/11-profile.png)
 * **Route**: `#/profile`
-* **Features**: Customer avatar, name (`Rahul Sharma`), customer ID (`CUST101`), email, phone, and quick navigation links.
+* **Features**: Customer avatar, name (`Mahendra Gurjar`), role badge (`Customer / Owner Demo`), customer ID (`CUST101`), email, phone, and quick navigation links.
 
-### 12. Demo Customer Login Switcher
+### 12. Demo Profile Login Switcher
 ![12-login.png](screenshots/12-login.png)
 * **Route**: `#/login`
-* **Features**: Fast 1-click customer switcher (`CUST101`–`CUST105`) and manual customer ID input.
+* **Features**: 5 clean profile cards (`Mahendra Gurjar`, `ShopSathi Admin`, `ShopSathi HR`, `ShopSathi Team`, `Guest`) with role badges and custom ID login.
 
 ---
 

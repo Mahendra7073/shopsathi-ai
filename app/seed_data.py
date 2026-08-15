@@ -14,7 +14,22 @@ def seed_db(db_engine=None, db_session=None):
         # Check if already seeded with full dataset (>= 50 orders)
         order_count = db.query(Order).count()
         if order_count >= 50:
-            print(f"Database already seeded with {order_count} orders.")
+            # Synchronize customer display names
+            customer_updates = {
+                "CUST101": ("Mahendra Gurjar", "9876543210", "mahendra.gurjar@shopsathi.ai"),
+                "CUST102": ("ShopSathi Admin", "9812345678", "admin@shopsathi.ai"),
+                "CUST103": ("ShopSathi HR", "9988776655", "hr@shopsathi.ai"),
+                "CUST104": ("ShopSathi Team", "9765432109", "team@shopsathi.ai"),
+                "CUST105": ("Guest", "9823456781", "guest@shopsathi.ai"),
+            }
+            for cid, (cname, cphone, cemail) in customer_updates.items():
+                cust = db.query(Customer).filter(Customer.customer_id == cid).first()
+                if cust:
+                    cust.name = cname
+                    cust.phone = cphone
+                    cust.email = cemail
+            db.commit()
+            print(f"Database already seeded with {order_count} orders. Customer profiles synchronized.")
             return
 
         # If partial seed exists, re-seed cleanly
@@ -90,37 +105,37 @@ def seed_db(db_engine=None, db_session=None):
         ]
         db.add_all(products)
 
-        # 2. Seed Customers
+        # 2. Seed Customers (5 Final Verified Profiles)
         customers = [
             Customer(
                 customer_id="CUST101",
-                name="Rahul Sharma",
+                name="Mahendra Gurjar",
                 phone="9876543210",
-                email="rahul.sharma@example.com"
+                email="mahendra.gurjar@shopsathi.ai"
             ),
             Customer(
                 customer_id="CUST102",
-                name="Priya Patel",
+                name="ShopSathi Admin",
                 phone="9812345678",
-                email="priya.patel@example.com"
+                email="admin@shopsathi.ai"
             ),
             Customer(
                 customer_id="CUST103",
-                name="Amit Kumar",
+                name="ShopSathi HR",
                 phone="9988776655",
-                email="amit.kumar@example.com"
+                email="hr@shopsathi.ai"
             ),
             Customer(
                 customer_id="CUST104",
-                name="Sneha Gupta",
+                name="ShopSathi Team",
                 phone="9765432109",
-                email="sneha.gupta@example.com"
+                email="team@shopsathi.ai"
             ),
             Customer(
                 customer_id="CUST105",
-                name="Vikram Malhotra",
+                name="Guest",
                 phone="9823456781",
-                email="vikram.m@example.com"
+                email="guest@shopsathi.ai"
             ),
         ]
         db.add_all(customers)

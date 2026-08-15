@@ -23,6 +23,15 @@ export async function renderProfile(container) {
     return;
   }
 
+  const roles = {
+    'CUST101': 'Customer / Owner Demo',
+    'CUST102': 'Administrator',
+    'CUST103': 'HR / Operations',
+    'CUST104': 'Support Team',
+    'CUST105': 'Guest User'
+  };
+  const userRole = roles[user.customer_id] || 'Customer';
+
   container.innerHTML = `
     <div class="page-content">
       <div class="container" style="max-width:800px;">
@@ -37,11 +46,18 @@ export async function renderProfile(container) {
             </div>
             <div>
               <h2>${user.name}</h2>
-              <span class="badge badge-primary">${user.customer_id}</span>
+              <div class="flex items-center gap-2" style="margin-top:var(--space-1);">
+                <span class="badge badge-primary">${user.customer_id}</span>
+                <span class="badge badge-accent">${userRole}</span>
+              </div>
             </div>
           </div>
           <div class="divider"></div>
           <div class="detail-rows">
+            <div class="detail-row">
+              <span>🎭 Role</span>
+              <strong>${userRole}</strong>
+            </div>
             <div class="detail-row">
               <span>📧 Email</span>
               <span>${user.email}</span>

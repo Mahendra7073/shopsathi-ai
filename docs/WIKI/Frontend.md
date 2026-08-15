@@ -21,8 +21,8 @@ The ShopSathi frontend is a high-performance, single-page application built with
 7. **Order Detail (`#/orders/:id`)**: 6-step visual delivery timeline (`Order Placed` ➔ `Confirmed` ➔ `Packed` ➔ `Shipped` ➔ `Out for Delivery` ➔ `Delivered`) with cancellation actions.
 8. **Returns & Refunds (`#/returns`)**: 4-step return wizard (order input, eligibility check, reason selection, submission) and refund status tracker.
 9. **Support Center (`#/support`)**: 8 quick-action navigation cards, ticket creation form, status checker, and human escalation trigger.
-10. **Customer Profile (`#/profile`)**: User information, customer ID, order counts, and navigation shortcuts.
-11. **Login Switcher (`#/login`)**: Fast demo switcher between customers (`CUST101`–`CUST105`) and custom ID login.
+10. **Customer Profile (`#/profile`)**: Profile identity, role badges, customer ID, order counts, and navigation shortcuts.
+11. **Login Switcher (`#/login`)**: Fast demo profile switcher (Mahendra Gurjar, ShopSathi Admin, ShopSathi HR, ShopSathi Team, Guest) and custom ID login.
 
 ---
 
