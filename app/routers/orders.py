@@ -4,10 +4,10 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import Order
+from app.models import Order, Customer
 from app.schemas import OrderResponse, OrderCancelResponse, OrderLookupRequest, OrderCancelRequest
 from app.logging_config import log_api_call
-from app.security import verify_api_key
+from app.security import verify_api_key, require_current_customer
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
@@ -17,16 +17,28 @@ def list_orders(
     customer_id: Optional[str] = None,
     order_id: Optional[str] = Query(None, description="Optional order ID filter e.g. ORD1001"),
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
-    Retrieve list of orders, optionally filtered by customer_id or order_id.
+    Retrieve list of orders for the authenticated customer.
+    Enforces customer order isolation.
     """
-    query = db.query(Order)
-    if order_id and order_id.strip():
-        query = query.filter(Order.order_id == order_id.strip().upper())
+    # Check customer isolation if customer_id query param is explicitly passed
     if customer_id and customer_id.strip():
-        query = query.filter(Order.customer_id == customer_id.strip().upper())
+        req_cid = customer_id.strip().upper()
+        if req_cid != current_customer.customer_id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Access denied. You can only view orders associated with your account."
+            )
+
+    query = db.query(Order).filter(Order.customer_id == current_customer.customer_id)
+    
+    if order_id and order_id.strip():
+        target_oid = order_id.strip().upper()
+        query = query.filter(Order.order_id == target_oid)
+
     orders = query.order_by(Order.order_date.desc()).all()
     results = []
     for order in orders:
@@ -50,12 +62,12 @@ def get_order_status(
     order_id: str,
     order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Retrieve real-time status and shipping details for an order.
-    Used by Kipps.AI Function: check_order_status.
-    Supports both path param `/orders/ORD1001` and placeholder with query param `/orders/%7Border_id%7D?order_id=ORD1001`.
+    Enforces customer order isolation (403 if order belongs to another customer).
     """
     start_time = time.time()
     
@@ -83,6 +95,22 @@ def get_order_status(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order {effective_order_id} not found. Please verify the order ID."
+        )
+
+    # Customer isolation check
+    if order.customer_id != current_customer.customer_id:
+        log_api_call(
+            db=db,
+            function_called="check_order_status",
+            customer_id=current_customer.customer_id,
+            intent="Order Tracking",
+            api_result={"error": f"Access denied for order {effective_order_id}"},
+            success=False,
+            response_time_ms=(time.time() - start_time) * 1000
+        )
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only view orders associated with your account."
         )
 
     response_data = {
@@ -116,25 +144,27 @@ def get_order_status(
 def lookup_order_status(
     payload: OrderLookupRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Retrieve real-time status and shipping details for an order using JSON body request.
-    Useful for Kipps.AI API Functions requiring JSON body payloads.
+    Enforces customer order isolation.
     """
     order_id_clean = payload.order_id.strip().upper()
-    return get_order_status(order_id=order_id_clean, db=db, api_key=api_key)
+    return get_order_status(order_id=order_id_clean, db=db, current_customer=current_customer, api_key=api_key)
 
 
 @router.post("/{order_id}/cancel", response_model=OrderCancelResponse, summary="Cancel eligible order (cancel_order)")
 def cancel_order(
     order_id: str,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Cancel an order if eligible (status is 'Processing' or 'Order Placed').
-    Used by Kipps.AI Function: cancel_order.
+    Enforces customer order isolation.
     """
     start_time = time.time()
     order = db.query(Order).filter(Order.order_id == order_id.upper()).first()
@@ -151,6 +181,22 @@ def cancel_order(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order {order_id} not found."
+        )
+
+    # Customer isolation check
+    if order.customer_id != current_customer.customer_id:
+        log_api_call(
+            db=db,
+            function_called="cancel_order",
+            customer_id=current_customer.customer_id,
+            intent="Order Cancellation",
+            api_result={"error": f"Access denied for order {order_id}"},
+            success=False,
+            response_time_ms=(time.time() - start_time) * 1000
+        )
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only cancel orders associated with your account."
         )
 
     if order.status == "Cancelled":
@@ -204,11 +250,13 @@ def cancel_order(
 def cancel_order_post(
     payload: OrderCancelRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Cancel an order if eligible using JSON body request.
-    Used by Kipps.AI Function: cancel_order.
+    Enforces customer order isolation.
     """
     order_id_clean = payload.order_id.strip().upper()
-    return cancel_order(order_id=order_id_clean, db=db, api_key=api_key)
+    return cancel_order(order_id=order_id_clean, db=db, current_customer=current_customer, api_key=api_key)
+

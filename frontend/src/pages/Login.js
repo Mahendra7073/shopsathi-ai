@@ -15,6 +15,11 @@ const DEMO_CUSTOMERS = [
 ];
 
 export async function renderLogin(container) {
+  const hash = window.location.hash;
+  const qIndex = hash.indexOf('?');
+  const params = qIndex !== -1 ? new URLSearchParams(hash.slice(qIndex)) : new URLSearchParams();
+  const redirectTarget = params.get('redirect') || null;
+
   container.innerHTML = `
     <div class="page-content">
       <div class="login-page">
@@ -36,7 +41,7 @@ export async function renderLogin(container) {
                 <div style="flex:1;">
                   <div style="display:flex;align-items:center;justify-content:space-between;">
                     <strong style="font-size:0.95rem;">${c.name}</strong>
-                    <span class="badge badge-primary" style="font-size:0.7rem;padding:2px 6px;">${c.role}</span>
+                    <span class="badge ${c.id === 'CUST105' ? 'badge-neutral' : 'badge-primary'}" style="font-size:0.7rem;padding:2px 6px;">${c.role}</span>
                   </div>
                   <span class="text-secondary text-sm" style="font-size:0.8rem;">${c.id} • ${c.email}</span>
                 </div>
@@ -63,31 +68,42 @@ export async function renderLogin(container) {
   // Quick customer login
   container.querySelectorAll('.login-customer-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      await loginCustomer(btn.dataset.id);
+      await loginCustomer(btn.dataset.id, redirectTarget);
     });
   });
 
   // Custom ID login
   container.querySelector('#custom-login-btn').addEventListener('click', async () => {
     const id = container.querySelector('#custom-id-input').value.trim();
-    if (id) await loginCustomer(id.toUpperCase());
+    if (id) await loginCustomer(id.toUpperCase(), redirectTarget);
     else showToast('Please enter a Customer ID', 'warning');
   });
 
   container.querySelector('#custom-id-input').addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
       const id = e.target.value.trim();
-      if (id) await loginCustomer(id.toUpperCase());
+      if (id) await loginCustomer(id.toUpperCase(), redirectTarget);
     }
   });
 }
 
-async function loginCustomer(customerId) {
+async function loginCustomer(customerId, redirectTarget) {
+  if (customerId === 'CUST105' || customerId === 'GUEST') {
+    setCurrentUser({ id: 'CUST105', customer_id: 'CUST105', name: 'Guest', isGuest: true, role: 'Guest User', email: 'guest@shopsathi.ai' });
+    showToast('Browsing as Guest', 'info');
+    window.location.hash = '/products';
+    return;
+  }
+
   try {
     const customer = await getCustomer(customerId);
     setCurrentUser(customer);
     showToast(`Welcome, ${customer.name}!`, 'success');
-    window.location.hash = '/';
+    if (redirectTarget) {
+      window.location.hash = redirectTarget;
+    } else {
+      window.location.hash = '/orders';
+    }
   } catch (err) {
     showToast(err.message || 'Customer not found', 'error');
   }

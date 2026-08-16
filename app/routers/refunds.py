@@ -4,10 +4,10 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import Order, Refund
+from app.models import Order, Refund, Customer
 from app.schemas import RefundResponse, RefundStatusRequest
 from app.logging_config import log_api_call
-from app.security import verify_api_key
+from app.security import verify_api_key, require_current_customer
 
 router = APIRouter(prefix="/orders", tags=["Refunds"])
 
@@ -16,11 +16,12 @@ def check_refund_status(
     order_id: str,
     order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Retrieve refund status and details for an order.
-    Used by Kipps.AI Function: check_refund_status.
+    Enforces customer order isolation.
     """
     start_time = time.time()
     
@@ -40,6 +41,14 @@ def check_refund_status(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order {order_id_clean} not found."
+        )
+
+    # Customer isolation check
+    if order.customer_id != current_customer.customer_id:
+        log_api_call(db=db, function_called="check_refund_status", customer_id=current_customer.customer_id, intent="Refund Check", api_result={"error": f"Access denied for order {order_id_clean}"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only view refund status for orders associated with your account."
         )
 
     refund = db.query(Refund).filter(Refund.order_id == order_id_clean).first()
@@ -80,11 +89,12 @@ def check_refund_status(
 def check_refund_status_post(
     payload: RefundStatusRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Retrieve refund status and details for an order using JSON body request.
-    Used by Kipps.AI Function: check_refund_status.
+    Enforces customer order isolation.
     """
     start_time = time.time()
     order_id_clean = payload.order_id.strip().upper()
@@ -95,6 +105,14 @@ def check_refund_status_post(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order {payload.order_id} not found."
+        )
+
+    # Customer isolation check
+    if order.customer_id != current_customer.customer_id:
+        log_api_call(db=db, function_called="check_refund_status", customer_id=current_customer.customer_id, intent="Refund Check", api_result={"error": f"Access denied for order {order_id_clean}"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only view refund status for orders associated with your account."
         )
 
     refund = db.query(Refund).filter(Refund.order_id == order_id_clean).first()

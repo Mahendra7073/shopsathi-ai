@@ -4,9 +4,24 @@
 import { createSupportTicket, getSupportTicket, escalateSupportTicket } from '../services/api.js';
 import { showToast } from '../components/Toast.js';
 import { showModal } from '../components/Modal.js';
-import { getCurrentUser } from '../store.js';
+import { getCurrentUser, isAuthenticated } from '../store.js';
 
 export async function renderSupport(container) {
+  if (!isAuthenticated()) {
+    container.innerHTML = `
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to create and manage support tickets.</p>
+            <a href="#/login?redirect=/support" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+
   container.innerHTML = `
     <div class="page-content">
       <div class="container">

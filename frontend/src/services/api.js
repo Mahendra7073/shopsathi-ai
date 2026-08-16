@@ -9,6 +9,8 @@ const BASE_URL = typeof window !== 'undefined' && window.__API_BASE__
       ? import.meta.env.VITE_API_BASE_URL 
       : (typeof window !== 'undefined' && window.location.port === '5173' ? '/api' : ''));
 
+import { getCurrentUser, isAuthenticated } from '../store.js';
+
 class ApiError extends Error {
   constructor(message, status, data) {
     super(message);
@@ -19,9 +21,16 @@ class ApiError extends Error {
 
 async function request(endpoint, options = {}) {
   const url = `${BASE_URL}${endpoint}`;
+  const user = getCurrentUser();
+  const headers = { 'Content-Type': 'application/json', ...options.headers };
+
+  if (isAuthenticated() && user && user.customer_id) {
+    headers['X-Customer-ID'] = user.customer_id;
+  }
+
   const config = {
-    headers: { 'Content-Type': 'application/json', ...options.headers },
     ...options,
+    headers,
   };
 
   try {

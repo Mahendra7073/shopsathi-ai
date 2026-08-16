@@ -1,10 +1,25 @@
 /**
  * ShopSathi Checkout Page
  */
-import { getCart, getCartTotal, clearCart } from '../store.js';
+import { getCart, getCartTotal, clearCart, isAuthenticated } from '../store.js';
 import { showToast } from '../components/Toast.js';
 
 export async function renderCheckout(container) {
+  if (!isAuthenticated()) {
+    container.innerHTML = `
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required for Checkout</h3>
+            <p>Please log in to continue with checkout.</p>
+            <a href="#/login?redirect=/checkout" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+
   const cart = getCart();
   const total = getCartTotal();
 

@@ -6,10 +6,10 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import Order, ReturnRequest
+from app.models import Order, ReturnRequest, Customer
 from app.schemas import ReturnEligibilityResponse, ReturnEligibilityRequest, CreateReturnRequest, ReturnResponse
 from app.logging_config import log_api_call
-from app.security import verify_api_key
+from app.security import verify_api_key, require_current_customer
 
 router = APIRouter(tags=["Returns"])
 
@@ -20,11 +20,12 @@ def check_return_eligibility(
     order_id: str,
     order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Check whether an order is eligible for return according to return policies.
-    Used by Kipps.AI Function: check_return_eligibility.
+    Enforces customer order isolation.
     """
     start_time = time.time()
     
@@ -51,6 +52,22 @@ def check_return_eligibility(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Order {effective_order_id} not found."
+        )
+
+    # Customer isolation check
+    if order.customer_id != current_customer.customer_id:
+        log_api_call(
+            db=db,
+            function_called="check_return_eligibility",
+            customer_id=current_customer.customer_id,
+            intent="Return Inquiry",
+            api_result={"error": f"Access denied for order {effective_order_id}"},
+            success=False,
+            response_time_ms=(time.time() - start_time) * 1000
+        )
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only view return eligibility for orders associated with your account."
         )
 
     # 1. Check if return request already exists
@@ -120,25 +137,27 @@ def check_return_eligibility(
 def check_return_eligibility_post(
     payload: ReturnEligibilityRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Check return eligibility using JSON body request payload.
-    Used by Kipps.AI Function: check_return_eligibility.
+    Enforces customer order isolation.
     """
     order_id_clean = payload.order_id.strip().upper()
-    return check_return_eligibility(order_id=order_id_clean, db=db, api_key=api_key)
+    return check_return_eligibility(order_id=order_id_clean, db=db, current_customer=current_customer, api_key=api_key)
 
 
 @router.post("/returns", response_model=ReturnResponse, status_code=status.HTTP_201_CREATED, summary="Create return request (create_return_request)")
 def create_return_request(
     payload: CreateReturnRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Submit a return request for an eligible order.
-    Used by Kipps.AI Function: create_return_request.
+    Enforces customer order isolation.
     """
     start_time = time.time()
     now = datetime.now(timezone.utc).replace(tzinfo=None)
@@ -152,8 +171,16 @@ def create_return_request(
             detail=f"Order {order_id} not found."
         )
 
+    # Customer isolation check
+    if order.customer_id != current_customer.customer_id:
+        log_api_call(db=db, function_called="create_return_request", customer_id=current_customer.customer_id, intent="Create Return", api_result={"error": f"Access denied for order {order_id}"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only create returns for orders associated with your account."
+        )
+
     # Check eligibility first
-    eligibility = check_return_eligibility(order_id=order_id, db=db, api_key=api_key)
+    eligibility = check_return_eligibility(order_id=order_id, db=db, current_customer=current_customer, api_key=api_key)
     if not eligibility["eligible"]:
         log_api_call(db=db, function_called="create_return_request", customer_id=order.customer_id, intent="Create Return", api_result={"error": eligibility["reason"]}, success=False, response_time_ms=(time.time() - start_time) * 1000)
         raise HTTPException(
@@ -198,3 +225,4 @@ def create_return_request(
     )
 
     return res
+

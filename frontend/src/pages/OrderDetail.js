@@ -4,11 +4,27 @@
 import { getOrderStatus, cancelOrder } from '../services/api.js';
 import { showToast } from '../components/Toast.js';
 import { showModal } from '../components/Modal.js';
+import { isAuthenticated } from '../store.js';
 
 const TIMELINE_STEPS = ['Order Placed', 'Confirmed', 'Packed', 'Shipped', 'Out for Delivery', 'Delivered'];
 
 export async function renderOrderDetail(container, params) {
   const orderId = params.id?.toUpperCase();
+
+  if (!isAuthenticated()) {
+    container.innerHTML = `
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view your orders and account information.</p>
+            <a href="#/login?redirect=/orders/${orderId}" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
 
   container.innerHTML = `
     <div class="page-content">
@@ -21,15 +37,16 @@ export async function renderOrderDetail(container, params) {
     const order = await getOrderStatus(orderId);
     renderOrderPage(container, order);
   } catch (err) {
+    const isForbidden = err.status === 403 || (err.message && err.message.includes('Access denied'));
     container.innerHTML = `
       <div class="page-content">
         <div class="container">
           <a href="#/orders" class="back-link">&larr; Back to Orders</a>
           <div class="empty-state" style="min-height:50vh;">
-            <div class="empty-state-icon">⚠️</div>
-            <h3>Order not found</h3>
-            <p>${err.message}</p>
-            <a href="#/orders" class="btn btn-primary" style="margin-top:var(--space-4);">View All Orders</a>
+            <div class="empty-state-icon">🔒</div>
+            <h3>${isForbidden ? 'Order Access Restricted' : 'Order not found'}</h3>
+            <p>${isForbidden ? 'You can only view orders associated with your account.' : (err.message || 'Order not found.')}</p>
+            <a href="#/orders" class="btn btn-primary" style="margin-top:var(--space-4);">View My Orders</a>
           </div>
         </div>
       </div>`;

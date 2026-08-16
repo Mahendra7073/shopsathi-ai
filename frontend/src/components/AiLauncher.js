@@ -13,6 +13,7 @@ import {
   getSupportTicket,
   escalateSupportTicket,
 } from '../services/api.js';
+import { getCurrentUser, isAuthenticated } from '../store.js';
 
 export function renderAiLauncher() {
   const wrapper = document.createElement('div');
@@ -265,10 +266,22 @@ export function renderAiLauncher() {
     const raw = queryText.trim();
     const lower = raw.toLowerCase();
 
-    // 1. Order tracking intent (e.g. ORD1001, order status, where is my order)
     const orderMatch = raw.match(/ORD\d{4}/i);
     const hasTrackingIntent = lower.includes('track') || lower.includes('where') || lower.includes('kaha') || lower.includes('status') || lower.includes('delivery');
 
+    // Handle authentication requirement for private operations
+    if (!isAuthenticated() && (orderMatch || lower.includes('ticket') || lower.includes('order') || lower.includes('return') || lower.includes('refund') || lower.includes('cancel'))) {
+      if (!lower.includes('shoe') && !lower.includes('headphone') && !lower.includes('shirt') && !lower.includes('watch') && !lower.includes('product') && !lower.includes('find') && !lower.includes('search') && !lower.includes('under')) {
+        return {
+          text: `🔒 **Login Required**\n\nPlease log in to access your order information.`,
+          actions: [
+            { label: 'Login to continue', url: '#/login?redirect=/orders' }
+          ]
+        };
+      }
+    }
+
+    // 1. Order tracking intent (e.g. ORD1001, order status, where is my order)
     if (orderMatch && hasTrackingIntent && !lower.includes('return') && !lower.includes('refund') && !lower.includes('cancel')) {
       const orderId = orderMatch[0].toUpperCase();
       try {
@@ -280,6 +293,12 @@ export function renderAiLauncher() {
           ]
         };
       } catch (err) {
+        if (err.status === 401) {
+          return { text: `🔒 **Login Required**\n\nPlease log in to access your order information.`, actions: [{ label: 'Login to continue', url: '#/login' }] };
+        }
+        if (err.status === 403) {
+          return { text: `🔒 **Order Access Restricted**\n\nYou can only view orders associated with your account.` };
+        }
         return { text: `Order **${orderId}** nahi mila. Kripya apna Order ID check karein.` };
       }
     }
@@ -308,6 +327,8 @@ export function renderAiLauncher() {
           };
         }
       } catch (err) {
+        if (err.status === 401) return { text: `🔒 **Login Required**\n\nPlease log in to request returns.`, actions: [{ label: 'Login to continue', url: '#/login' }] };
+        if (err.status === 403) return { text: `🔒 **Order Access Restricted**\n\nYou can only return orders associated with your account.` };
         return { text: `Return check failed: ${err.message}` };
       }
     }
@@ -324,6 +345,8 @@ export function renderAiLauncher() {
           ]
         };
       } catch (err) {
+        if (err.status === 401) return { text: `🔒 **Login Required**\n\nPlease log in to check refund status.`, actions: [{ label: 'Login to continue', url: '#/login' }] };
+        if (err.status === 403) return { text: `🔒 **Order Access Restricted**\n\nYou can only check refunds for orders associated with your account.` };
         return { text: `Order **${orderId}** ke liye refund details: ${err.message}` };
       }
     }
@@ -340,6 +363,8 @@ export function renderAiLauncher() {
           ]
         };
       } catch (err) {
+        if (err.status === 401) return { text: `🔒 **Login Required**\n\nPlease log in to cancel orders.`, actions: [{ label: 'Login to continue', url: '#/login' }] };
+        if (err.status === 403) return { text: `🔒 **Order Access Restricted**\n\nYou can only cancel orders associated with your account.` };
         return { text: `Order **${orderId}** cancel nahi ho saka: ${err.message}` };
       }
     }
@@ -375,9 +400,19 @@ export function renderAiLauncher() {
 
     // 6. Support ticket / human escalation intent
     if (lower.includes('human') || lower.includes('agent') || lower.includes('ticket') || lower.includes('dispute') || lower.includes('complain') || lower.includes('fraud') || lower.includes('deduct')) {
+      const user = getCurrentUser();
+      if (!isAuthenticated() || !user || !user.customer_id) {
+        return {
+          text: `🔒 **Login Required**\n\nPlease log in to create a support ticket.`,
+          actions: [
+            { label: 'Login to continue', url: '#/login?redirect=/support' }
+          ]
+        };
+      }
+
       try {
         const tkt = await createSupportTicket({
-          customerId: 'CUST101',
+          customerId: user.customer_id,
           description: raw,
           category: lower.includes('payment') ? 'Payment Issue' : 'General Support',
           priority: 'High',

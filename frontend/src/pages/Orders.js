@@ -3,12 +3,27 @@
  * Features real-time order tracking, status filters, and pagination for 50+ demo orders.
  */
 import { getOrders, getCustomerOrders, getOrderStatus } from '../services/api.js';
-import { getCurrentUser } from '../store.js';
+import { getCurrentUser, isAuthenticated } from '../store.js';
 
 const DEMO_ORDERS = ['ORD1001', 'ORD1002', 'ORD1003', 'ORD1004', 'ORD1005'];
 const ORDERS_PER_PAGE = 10;
 
 export async function renderOrders(container) {
+  if (!isAuthenticated()) {
+    container.innerHTML = `
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view your orders and account information.</p>
+            <a href="#/login?redirect=/orders" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+
   container.innerHTML = `
     <div class="page-content">
       <div class="container">

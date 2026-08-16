@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))a(i);new MutationObserver(i=>{for(const s of i)if(s.type==="childList")for(const r of s.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&a(r)}).observe(document,{childList:!0,subtree:!0});function n(i){const s={};return i.integrity&&(s.integrity=i.integrity),i.referrerPolicy&&(s.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?s.credentials="include":i.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function a(i){if(i.ep)return;i.ep=!0;const s=n(i);fetch(i.href,s)}})();const z={};let B=null;function C(e,t){z[e]=t}function Ne(){return(window.location.hash.slice(1)||"/").split("?")[0]}function Fe(e){if(z[e])return{handler:z[e],params:{}};for(const[t,n]of Object.entries(z)){const a=t.split("/").filter(Boolean),i=e.split("/").filter(Boolean);if(a.length!==i.length)continue;const s={};let r=!0;for(let o=0;o<a.length;o++)if(a[o].startsWith(":"))s[a[o].slice(1)]=i[o];else if(a[o]!==i[o]){r=!1;break}if(r)return{handler:n,params:s}}return null}function Be(e){async function t(){const n=Ne(),a=Fe(n);if(B&&(B(),B=null),a){const i=await a.handler(e,a.params);typeof i=="function"&&(B=i)}else e.innerHTML=`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))i(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const s of a.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&i(s)}).observe(document,{childList:!0,subtree:!0});function o(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function i(r){if(r.ep)return;r.ep=!0;const a=o(r);fetch(r.href,a)}})();const V={};let z=null;function C(e,t){V[e]=t}function Fe(){return(window.location.hash.slice(1)||"/").split("?")[0]}function Be(e){if(V[e])return{handler:V[e],params:{}};for(const[t,o]of Object.entries(V)){const i=t.split("/").filter(Boolean),r=e.split("/").filter(Boolean);if(i.length!==r.length)continue;const a={};let s=!0;for(let n=0;n<i.length;n++)if(i[n].startsWith(":"))a[i[n].slice(1)]=r[n];else if(i[n]!==r[n]){s=!1;break}if(s)return{handler:o,params:a}}return null}function Ue(e){async function t(){const o=Fe(),i=Be(o);if(z&&(z(),z=null),i){const r=await i.handler(e,i.params);typeof r=="function"&&(z=r)}else e.innerHTML=`
         <div class="container page-content">
           <div class="empty-state" style="min-height: 60vh;">
             <div class="empty-state-icon">🔍</div>
@@ -6,7 +6,7 @@
             <p>The page you're looking for doesn't exist.</p>
             <a href="#/" class="btn btn-primary" style="margin-top: var(--space-4);">Go Home</a>
           </div>
-        </div>`;window.scrollTo({top:0,behavior:"instant"})}return window.addEventListener("hashchange",t),t(),()=>window.removeEventListener("hashchange",t)}function ae(e=140){return`<svg width="${e}" height="${Math.round(e*.3)}" viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ShopSathi logo">
+        </div>`;window.scrollTo({top:0,behavior:"instant"})}return window.addEventListener("hashchange",t),t(),()=>window.removeEventListener("hashchange",t)}function ne(e=140){return`<svg width="${e}" height="${Math.round(e*.3)}" viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ShopSathi logo">
     <g>
       <!-- Shopping bag icon -->
       <rect x="10" y="35" width="50" height="55" rx="8" stroke="#2563EB" stroke-width="4" fill="none"/>
@@ -29,7 +29,7 @@
     <path d="M47 35 L43 35" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
     <path d="M24 27 L21.5 24.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
     <path d="M40 43 L42.5 45.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-  </svg>`}function R(e=32){return`<svg width="${e}" height="${e}" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  </svg>`}function O(e=32){return`<svg width="${e}" height="${e}" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="4" y="9" width="24" height="19" rx="5" fill="#2563EB"/>
     <path d="M10 9 C10 3, 22 3, 22 9" stroke="#2563EB" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <circle cx="16" cy="17.5" r="3.5" fill="white"/>
@@ -37,69 +37,85 @@
     <line x1="16" y1="24.5" x2="16" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
     <line x1="10.5" y1="17.5" x2="9" y2="17.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
     <line x1="23" y1="17.5" x2="21.5" y2="17.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-  </svg>`}function be(e=24){return`<svg width="${e}" height="${e}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  </svg>`}function ke(e=24){return`<svg width="${e}" height="${e}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
     <circle cx="12" cy="10" r="1.5" fill="currentColor" stroke="none"/>
     <circle cx="8" cy="10" r="1.5" fill="currentColor" stroke="none"/>
     <circle cx="16" cy="10" r="1.5" fill="currentColor" stroke="none"/>
-  </svg>`}function U(e=24){return`<svg width="${e}" height="${e}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  </svg>`}function j(e=24){return`<svg width="${e}" height="${e}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
     <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
     <line x1="12" y1="19" x2="12" y2="23"/>
     <line x1="8" y1="23" x2="16" y2="23"/>
-  </svg>`}const fe="shopsathi_cart",Z="shopsathi_user",ee=new Set;function Ue(e){return ee.add(e),()=>ee.delete(e)}function ke(e,t){ee.forEach(n=>n(e,t))}function se(){try{return JSON.parse(localStorage.getItem(Z))}catch{return null}}function we(e){e?localStorage.setItem(Z,JSON.stringify(e)):localStorage.removeItem(Z),ke("user-changed",e)}function Ve(){we(null)}function O(){try{return JSON.parse(localStorage.getItem(fe))||[]}catch{return[]}}function V(e){localStorage.setItem(fe,JSON.stringify(e)),ke("cart-changed",e)}function te(e,t=1){const n=O(),a=n.find(i=>i.product_id===e.product_id);return a?a.quantity+=t:n.push({product_id:e.product_id,name:e.name,price:e.price,category:e.category,description:e.description,quantity:t}),V(n),n}function ve(e,t){let n=O();if(t<=0)n=n.filter(a=>a.product_id!==e);else{const a=n.find(i=>i.product_id===e);a&&(a.quantity=t)}return V(n),n}function je(e){const t=O().filter(n=>n.product_id!==e);return V(t),t}function Se(){V([])}function Ge(){return O().reduce((e,t)=>e+t.quantity,0)}function xe(){return O().reduce((e,t)=>e+t.price*t.quantity,0)}function Ye(){var r,o;const e=document.createElement("header");e.className="site-header",e.innerHTML=`
-    <div class="header-inner container">
-      <a href="#/" class="header-logo" aria-label="ShopSathi Home">
-        <span class="header-logo-full">${ae(160)}</span>
-        <span class="header-logo-compact">${ze(36)}</span>
-      </a>
-
-      <nav class="header-nav" id="main-nav" aria-label="Main navigation">
-        <a href="#/" class="nav-link" data-route="/">Home</a>
-        <a href="#/products" class="nav-link" data-route="/products">Products</a>
-        <a href="#/orders" class="nav-link" data-route="/orders">My Orders</a>
-        <a href="#/returns" class="nav-link" data-route="/returns">Returns</a>
-        <a href="#/support" class="nav-link" data-route="/support">Support</a>
-      </nav>
-
-      <div class="header-actions">
-        <a href="#/products" class="btn-icon header-search-btn" aria-label="Search products" title="Search">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </a>
-        <a href="#/cart" class="btn-icon header-cart-btn" aria-label="Cart" title="Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span class="cart-badge" id="header-cart-badge" style="display: none;">0</span>
-        </a>
-        <a href="#/profile" class="btn-icon header-profile-btn" aria-label="Profile" title="Profile">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </a>
-        <button class="btn btn-primary btn-sm header-ai-btn" id="header-ai-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Ask ShopSathi
-        </button>
-        <button class="header-hamburger" id="hamburger-btn" aria-label="Menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile nav -->
-    <div class="mobile-nav" id="mobile-nav">
+  </svg>`}const we="shopsathi_cart",te="shopsathi_user",ae=new Set;function Ve(e){return ae.add(e),()=>ae.delete(e)}function Se(e,t){ae.forEach(o=>o(e,t))}function H(){try{return JSON.parse(localStorage.getItem(te))}catch{return null}}function E(){const e=H();return!(!e||e.customer_id==="CUST105"||e.isGuest)}function se(e){e?localStorage.setItem(te,JSON.stringify(e)):localStorage.removeItem(te),Se("user-changed",e)}function je(){se(null)}function P(){try{return JSON.parse(localStorage.getItem(we))||[]}catch{return[]}}function G(e){localStorage.setItem(we,JSON.stringify(e)),Se("cart-changed",e)}function ie(e,t=1){const o=P(),i=o.find(r=>r.product_id===e.product_id);return i?i.quantity+=t:o.push({product_id:e.product_id,name:e.name,price:e.price,category:e.category,description:e.description,quantity:t}),G(o),o}function ge(e,t){let o=P();if(t<=0)o=o.filter(i=>i.product_id!==e);else{const i=o.find(r=>r.product_id===e);i&&(i.quantity=t)}return G(o),o}function Ge(e){const t=P().filter(o=>o.product_id!==e);return G(t),t}function xe(){G([])}function Ye(){return P().reduce((e,t)=>e+t.quantity,0)}function $e(){return P().reduce((e,t)=>e+t.price*t.quantity,0)}function Qe(){const e=document.createElement("header");e.className="site-header";function t(){const a=E(),s=H(),n=a?`
+      <a href="#/" class="nav-link" data-route="/">Home</a>
+      <a href="#/products" class="nav-link" data-route="/products">Products</a>
+      <a href="#/orders" class="nav-link" data-route="/orders">My Orders</a>
+      <a href="#/returns" class="nav-link" data-route="/returns">Returns</a>
+      <a href="#/support" class="nav-link" data-route="/support">Support</a>
+    `:`
+      <a href="#/" class="nav-link" data-route="/">Home</a>
+      <a href="#/products" class="nav-link" data-route="/products">Products</a>
+    `,l=a?`
       <a href="#/" class="mobile-nav-link">🏠 Home</a>
       <a href="#/products" class="mobile-nav-link">🛍️ Products</a>
       <a href="#/orders" class="mobile-nav-link">📦 My Orders</a>
       <a href="#/returns" class="mobile-nav-link">↩️ Returns</a>
       <a href="#/support" class="mobile-nav-link">🎫 Support</a>
       <a href="#/cart" class="mobile-nav-link">🛒 Cart</a>
-      <a href="#/profile" class="mobile-nav-link">👤 Profile</a>
-      <div class="divider"></div>
-      <button class="btn btn-primary btn-lg" style="width:100%;" id="mobile-ai-btn">💬 Ask ShopSathi</button>
-    </div>
-  `;function t(){const l=Ge(),g=e.querySelector("#header-cart-badge");g&&(g.textContent=l,g.style.display=l>0?"flex":"none")}t(),Ue(l=>{l==="cart-changed"&&t()});function n(){const l=window.location.hash.slice(1)||"/";e.querySelectorAll(".nav-link, .mobile-nav-link").forEach(g=>{var p;const d=((p=g.getAttribute("href"))==null?void 0:p.replace("#",""))||"";g.classList.toggle("active",l===d||d!=="/"&&l.startsWith(d))})}n(),window.addEventListener("hashchange",n);const a=e.querySelector("#hamburger-btn"),i=e.querySelector("#mobile-nav");a==null||a.addEventListener("click",()=>{const l=a.getAttribute("aria-expanded")==="true";a.setAttribute("aria-expanded",!l),a.classList.toggle("open"),i.classList.toggle("open")}),i==null||i.querySelectorAll("a").forEach(l=>{l.addEventListener("click",()=>{a.setAttribute("aria-expanded","false"),a.classList.remove("open"),i.classList.remove("open")})});const s=()=>{window.dispatchEvent(new CustomEvent("open-ai-panel")),a==null||a.setAttribute("aria-expanded","false"),a==null||a.classList.remove("open"),i==null||i.classList.remove("open")};return(r=e.querySelector("#header-ai-btn"))==null||r.addEventListener("click",s),(o=e.querySelector("#mobile-ai-btn"))==null||o.addEventListener("click",s),e}function Qe(){const e=document.createElement("footer");return e.className="site-footer",e.innerHTML=`
+      <a href="#/profile" class="mobile-nav-link">👤 Profile (${(s==null?void 0:s.name)||"Account"})</a>
+    `:`
+      <a href="#/" class="mobile-nav-link">🏠 Home</a>
+      <a href="#/products" class="mobile-nav-link">🛍️ Products</a>
+      <a href="#/cart" class="mobile-nav-link">🛒 Cart</a>
+      <a href="#/login" class="mobile-nav-link" style="color:var(--color-primary);font-weight:600;">🔑 Login / Profiles</a>
+    `,y=a?`
+      <a href="#/profile" class="btn-icon header-profile-btn" aria-label="Profile" title="Profile (${s==null?void 0:s.name})">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+    `:`
+      <a href="#/login" class="btn btn-outline btn-sm header-login-btn" style="padding:4px 12px;font-size:0.85rem;">Login</a>
+    `;e.innerHTML=`
+      <div class="header-inner container">
+        <a href="#/" class="header-logo" aria-label="ShopSathi Home">
+          <span class="header-logo-full">${ne(160)}</span>
+          <span class="header-logo-compact">${ze(36)}</span>
+        </a>
+
+        <nav class="header-nav" id="main-nav" aria-label="Main navigation">
+          ${n}
+        </nav>
+
+        <div class="header-actions">
+          <a href="#/products" class="btn-icon header-search-btn" aria-label="Search products" title="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </a>
+          <a href="#/cart" class="btn-icon header-cart-btn" aria-label="Cart" title="Cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span class="cart-badge" id="header-cart-badge" style="display: none;">0</span>
+          </a>
+          ${y}
+          <button class="btn btn-primary btn-sm header-ai-btn" id="header-ai-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Ask ShopSathi
+          </button>
+          <button class="header-hamburger" id="hamburger-btn" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile nav -->
+      <div class="mobile-nav" id="mobile-nav">
+        ${l}
+        <div class="divider"></div>
+        <button class="btn btn-primary btn-lg" style="width:100%;" id="mobile-ai-btn">💬 Ask ShopSathi</button>
+      </div>
+    `,o()}function o(){var l,y;i(),r();const a=e.querySelector("#hamburger-btn"),s=e.querySelector("#mobile-nav");a==null||a.addEventListener("click",()=>{const d=a.getAttribute("aria-expanded")==="true";a.setAttribute("aria-expanded",!d),a.classList.toggle("open"),s.classList.toggle("open")}),s==null||s.querySelectorAll("a").forEach(d=>{d.addEventListener("click",()=>{a.setAttribute("aria-expanded","false"),a.classList.remove("open"),s.classList.remove("open")})});const n=()=>{window.dispatchEvent(new CustomEvent("open-ai-panel")),a==null||a.setAttribute("aria-expanded","false"),a==null||a.classList.remove("open"),s==null||s.classList.remove("open")};(l=e.querySelector("#header-ai-btn"))==null||l.addEventListener("click",n),(y=e.querySelector("#mobile-ai-btn"))==null||y.addEventListener("click",n)}function i(){const a=Ye(),s=e.querySelector("#header-cart-badge");s&&(s.textContent=a,s.style.display=a>0?"flex":"none")}function r(){const a=window.location.hash.slice(1)||"/";e.querySelectorAll(".nav-link, .mobile-nav-link").forEach(s=>{var l;const n=((l=s.getAttribute("href"))==null?void 0:l.replace("#",""))||"";s.classList.toggle("active",a===n||n!=="/"&&a.startsWith(n))})}return t(),Ve(a=>{a==="cart-changed"&&i(),a==="user-changed"&&t()}),window.addEventListener("hashchange",r),e}function Je(){const e=document.createElement("footer");return e.className="site-footer",e.innerHTML=`
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          ${ae(140)}
+          ${ne(140)}
           <p>Smart Shopping. Smarter Support.</p>
           <p class="footer-desc">AI-powered e-commerce support for seamless shopping, order tracking, returns, and instant assistance.</p>
         </div>
@@ -129,10 +145,10 @@
         <p>&copy; ${new Date().getFullYear()} ShopSathi. Built with ❤️ for Kipps.AI Hackathon.</p>
       </div>
     </div>
-  `,e}const Je=typeof window<"u"&&window.__API_BASE__?window.__API_BASE__:typeof window<"u"&&window.location.port==="5173"?"/api":"";class J extends Error{constructor(t,n,a){super(t),this.status=n,this.data=a}}async function x(e,t={}){const n=`${Je}${e}`,a={headers:{"Content-Type":"application/json",...t.headers},...t};try{const i=await fetch(n,a),s=await i.json().catch(()=>null);if(!i.ok){const r=(s==null?void 0:s.detail)||(s==null?void 0:s.message)||"Request failed";throw new J(r,i.status,s)}return s}catch(i){throw i instanceof J?i:new J("Network error. Please check your connection and try again.",0,null)}}async function We(){return x("/products")}async function $e(e="",t=null,n=null){const a=new URLSearchParams;return e&&a.set("query",e),t&&a.set("max_price",t),n&&a.set("category",n),x(`/products/search?${a.toString()}`)}async function Ke(e){return x(`/products/${e}`)}async function he(e=null){const t=e?`?customer_id=${e}`:"";return x(`/orders${t}`)}async function j(e){return x(`/orders/${e}`)}async function Le(e){return x(`/orders/${e}/cancel`,{method:"POST"})}async function Xe(e){return x(`/customers/${e}/orders`)}async function Ce(e){return x(`/orders/${e}/return-eligibility`)}async function Ee(e,t){return x("/returns",{method:"POST",body:JSON.stringify({order_id:e,reason:t})})}async function Te(e){return x(`/orders/${e}/refund`)}async function qe({customerId:e,description:t,subject:n,category:a,priority:i,orderId:s}){return x("/support/tickets",{method:"POST",body:JSON.stringify({customer_id:e,description:t,subject:n||void 0,category:a||void 0,priority:i||"Medium",order_id:s||void 0})})}async function Ze(e){return x(`/support/tickets/${e}`)}async function Re(e,t){return x(`/support/tickets/${e}/escalate`,{method:"POST",body:JSON.stringify({reason:t||void 0})})}async function et(e){return x(`/customers/${e}`)}function tt(){const e=document.createElement("div");e.className="ai-launcher-wrapper",e.innerHTML=`
+  `,e}const We=typeof window<"u"&&window.__API_BASE__?window.__API_BASE__:typeof window<"u"&&window.location.port==="5173"?"/api":"";class K extends Error{constructor(t,o,i){super(t),this.status=o,this.data=i}}async function x(e,t={}){const o=`${We}${e}`,i=H(),r={"Content-Type":"application/json",...t.headers};E()&&i&&i.customer_id&&(r["X-Customer-ID"]=i.customer_id);const a={...t,headers:r};try{const s=await fetch(o,a),n=await s.json().catch(()=>null);if(!s.ok){const l=(n==null?void 0:n.detail)||(n==null?void 0:n.message)||"Request failed";throw new K(l,s.status,n)}return n}catch(s){throw s instanceof K?s:new K("Network error. Please check your connection and try again.",0,null)}}async function Ke(){return x("/products")}async function Le(e="",t=null,o=null){const i=new URLSearchParams;return e&&i.set("query",e),t&&i.set("max_price",t),o&&i.set("category",o),x(`/products/search?${i.toString()}`)}async function Xe(e){return x(`/products/${e}`)}async function me(e=null){const t=e?`?customer_id=${e}`:"";return x(`/orders${t}`)}async function Y(e){return x(`/orders/${e}`)}async function Ce(e){return x(`/orders/${e}/cancel`,{method:"POST"})}async function Ze(e){return x(`/customers/${e}/orders`)}async function Te(e){return x(`/orders/${e}/return-eligibility`)}async function Ee(e,t){return x("/returns",{method:"POST",body:JSON.stringify({order_id:e,reason:t})})}async function qe(e){return x(`/orders/${e}/refund`)}async function Re({customerId:e,description:t,subject:o,category:i,priority:r,orderId:a}){return x("/support/tickets",{method:"POST",body:JSON.stringify({customer_id:e,description:t,subject:o||void 0,category:i||void 0,priority:r||"Medium",order_id:a||void 0})})}async function et(e){return x(`/support/tickets/${e}`)}async function Oe(e,t){return x(`/support/tickets/${e}/escalate`,{method:"POST",body:JSON.stringify({reason:t||void 0})})}async function tt(e){return x(`/customers/${e}`)}function at(){const e=document.createElement("div");e.className="ai-launcher-wrapper",e.innerHTML=`
     <!-- Floating Button -->
     <button class="ai-fab" id="ai-fab" aria-label="Ask ShopSathi AI">
-      <span class="ai-fab-icon">${be(24)}</span>
+      <span class="ai-fab-icon">${ke(24)}</span>
       <span class="ai-fab-label">Ask ShopSathi</span>
     </button>
 
@@ -140,7 +156,7 @@
     <div class="ai-menu" id="ai-menu">
       <div class="ai-menu-header">
         <div class="flex items-center gap-3">
-          ${R(28)}
+          ${O(28)}
           <div>
             <h4 style="margin:0;font-size:0.95rem;">Ask ShopSathi</h4>
             <p style="margin:0;font-size:0.75rem;color:var(--color-text-tertiary);">AI Shopping & Customer Support</p>
@@ -181,7 +197,7 @@
     <div class="ai-panel" id="ai-panel">
       <div class="ai-panel-header">
         <div class="flex items-center gap-3">
-          ${R(28)}
+          ${O(28)}
           <div>
             <h4 style="margin:0;font-size:0.95rem;">ShopSathi Chat Agent</h4>
             <div class="flex items-center gap-1">
@@ -191,13 +207,13 @@
           </div>
         </div>
         <div class="flex gap-1 items-center">
-          <button class="btn-icon" id="ai-panel-voice" aria-label="Switch to voice" title="Switch to Real-Time Voice" style="color:var(--color-accent);">${U(18)}</button>
+          <button class="btn-icon" id="ai-panel-voice" aria-label="Switch to voice" title="Switch to Real-Time Voice" style="color:var(--color-accent);">${j(18)}</button>
           <button class="btn-icon" id="ai-panel-close" aria-label="Close" style="font-size:1.3rem;opacity:0.6;">&times;</button>
         </div>
       </div>
       <div class="ai-panel-body" id="ai-chat-body">
         <div class="ai-message ai-message-bot">
-          <div class="ai-avatar">${R(24)}</div>
+          <div class="ai-avatar">${O(24)}</div>
           <div class="ai-bubble">
             <p>Namaste! I'm <strong>ShopSathi</strong>, your smart shopping & support assistant. 🙏</p>
             <p style="margin-top:8px;">You can ask me in English, Hindi, or Hinglish to:</p>
@@ -229,7 +245,7 @@
     <div class="ai-voice-panel" id="ai-voice-panel">
       <div class="ai-panel-header">
         <div class="flex items-center gap-3">
-          ${R(28)}
+          ${O(28)}
           <div>
             <h4 style="margin:0;font-size:0.95rem;">ShopSathi Voice Agent</h4>
             <div class="flex items-center gap-1">
@@ -243,7 +259,7 @@
       <div class="ai-voice-body">
         <div class="ai-voice-visual">
           <div class="ai-voice-ring" id="voice-ring"></div>
-          <div class="ai-voice-icon" id="voice-icon">${U(44)}</div>
+          <div class="ai-voice-icon" id="voice-icon">${j(44)}</div>
         </div>
 
         <div class="ai-voice-status-wrap">
@@ -260,7 +276,7 @@
 
         <div class="ai-voice-controls">
           <button class="btn btn-lg btn-primary ai-voice-start" id="voice-start-btn">
-            ${U(20)} Start Conversation
+            ${j(20)} Start Conversation
           </button>
           <div class="flex gap-2 justify-center" id="voice-active-controls" style="display:none;width:100%;">
             <button class="btn btn-outline btn-sm" id="voice-mute-btn" title="Mute Microphone">
@@ -289,43 +305,63 @@
         </div>
       </div>
     </div>
-  `;let t=!1,n=!1,a=!1,i=!1,s=!1,r=null,o=window.speechSynthesis||null;const l=e.querySelector("#ai-fab"),g=e.querySelector("#ai-menu"),d=e.querySelector("#ai-panel"),p=e.querySelector("#ai-voice-panel");function h(){t=n=a=!1,g.classList.remove("open"),d.classList.remove("open"),p.classList.remove("open"),l.classList.remove("active"),i&&ue()}function k(){h(),t=!0,g.classList.add("open"),l.classList.add("active")}function w(){var u;h(),n=!0,d.classList.add("open"),l.classList.add("active"),(u=e.querySelector("#ai-chat-input"))==null||u.focus()}function $(){h(),a=!0,p.classList.add("open"),l.classList.add("active")}l.addEventListener("click",()=>{t||n||a?h():k()}),e.querySelector("#ai-menu-close").addEventListener("click",h),e.querySelector("#ai-panel-close").addEventListener("click",h),e.querySelector("#ai-voice-close").addEventListener("click",h),e.querySelector("#ai-open-chat").addEventListener("click",w),e.querySelector("#ai-open-voice").addEventListener("click",$),e.querySelector("#ai-panel-voice").addEventListener("click",$),e.querySelectorAll(".ai-menu-options + .ai-quick-actions .ai-chip").forEach(u=>{u.addEventListener("click",()=>{const m=u.dataset.action;h();const c={track:"#/orders",cancel:"#/orders",return:"#/returns",refund:"#/returns",search:"#/products",ticket:"#/support"};c[m]&&(window.location.hash=c[m])})});const I=e.querySelector("#ai-chat-input"),S=e.querySelector("#ai-chat-body"),N=e.querySelector("#ai-send-btn");async function T(u){const m=u.trim(),c=m.toLowerCase(),f=m.match(/ORD\d{4}/i),E=c.includes("track")||c.includes("where")||c.includes("kaha")||c.includes("status")||c.includes("delivery");if(f&&E&&!c.includes("return")&&!c.includes("refund")&&!c.includes("cancel")){const v=f[0].toUpperCase();try{const y=await j(v);return{text:`Aapka order **${y.order_id}** (${y.product_name}) filhaal **${y.status}** hai.
+  `;let t=!1,o=!1,i=!1,r=!1,a=!1,s=null,n=window.speechSynthesis||null;const l=e.querySelector("#ai-fab"),y=e.querySelector("#ai-menu"),d=e.querySelector("#ai-panel"),u=e.querySelector("#ai-voice-panel");function h(){t=o=i=!1,y.classList.remove("open"),d.classList.remove("open"),u.classList.remove("open"),l.classList.remove("active"),r&&he()}function k(){h(),t=!0,y.classList.add("open"),l.classList.add("active")}function w(){var v;h(),o=!0,d.classList.add("open"),l.classList.add("active"),(v=e.querySelector("#ai-chat-input"))==null||v.focus()}function $(){h(),i=!0,u.classList.add("open"),l.classList.add("active")}l.addEventListener("click",()=>{t||o||i?h():k()}),e.querySelector("#ai-menu-close").addEventListener("click",h),e.querySelector("#ai-panel-close").addEventListener("click",h),e.querySelector("#ai-voice-close").addEventListener("click",h),e.querySelector("#ai-open-chat").addEventListener("click",w),e.querySelector("#ai-open-voice").addEventListener("click",$),e.querySelector("#ai-panel-voice").addEventListener("click",$),e.querySelectorAll(".ai-menu-options + .ai-quick-actions .ai-chip").forEach(v=>{v.addEventListener("click",()=>{const g=v.dataset.action;h();const c={track:"#/orders",cancel:"#/orders",return:"#/returns",refund:"#/returns",search:"#/products",ticket:"#/support"};c[g]&&(window.location.hash=c[g])})});const M=e.querySelector("#ai-chat-input"),S=e.querySelector("#ai-chat-body"),B=e.querySelector("#ai-send-btn");async function q(v){const g=v.trim(),c=g.toLowerCase(),f=g.match(/ORD\d{4}/i),T=c.includes("track")||c.includes("where")||c.includes("kaha")||c.includes("status")||c.includes("delivery");if(!E()&&(f||c.includes("ticket")||c.includes("order")||c.includes("return")||c.includes("refund")||c.includes("cancel"))&&!c.includes("shoe")&&!c.includes("headphone")&&!c.includes("shirt")&&!c.includes("watch")&&!c.includes("product")&&!c.includes("find")&&!c.includes("search")&&!c.includes("under"))return{text:`🔒 **Login Required**
 
-📅 Expected Delivery: **${y.expected_delivery||"Soon"}**
-💰 Amount: ₹${y.amount.toLocaleString("en-IN")}`,actions:[{label:`View Timeline for ${y.order_id}`,url:`#/orders/${y.order_id}`}]}}catch{return{text:`Order **${v}** nahi mila. Kripya apna Order ID check karein.`}}}if(f&&(c.includes("return")||c.includes("wapas")||c.includes("exchange"))){const v=f[0].toUpperCase();try{const y=await Ce(v);if(y.eligible){const q=m.replace(new RegExp(`.*${v}`,"i"),"").trim()||"Size issue / Not as expected",M=await Ee(v,q);return{text:`✅ Order **${v}** return ke liye eligible hai!
+Please log in to access your order information.`,actions:[{label:"Login to continue",url:"#/login?redirect=/orders"}]};if(f&&T&&!c.includes("return")&&!c.includes("refund")&&!c.includes("cancel")){const m=f[0].toUpperCase();try{const p=await Y(m);return{text:`Aapka order **${p.order_id}** (${p.product_name}) filhaal **${p.status}** hai.
+
+📅 Expected Delivery: **${p.expected_delivery||"Soon"}**
+💰 Amount: ₹${p.amount.toLocaleString("en-IN")}`,actions:[{label:`View Timeline for ${p.order_id}`,url:`#/orders/${p.order_id}`}]}}catch(p){return p.status===401?{text:`🔒 **Login Required**
+
+Please log in to access your order information.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
+
+You can only view orders associated with your account.`}:{text:`Order **${m}** nahi mila. Kripya apna Order ID check karein.`}}}if(f&&(c.includes("return")||c.includes("wapas")||c.includes("exchange"))){const m=f[0].toUpperCase();try{const p=await Te(m);if(p.eligible){const R=g.replace(new RegExp(`.*${m}`,"i"),"").trim()||"Size issue / Not as expected",D=await Ee(m,R);return{text:`✅ Order **${m}** return ke liye eligible hai!
 
 Maine aapka Return Request submit kar diya hai.
-🆔 **Return ID: ${M.return_id}**
-🚚 Pickup agle 24-48 ghanto me schedule ho jayega.`,actions:[{label:"Check Returns & Refunds",url:`#/returns?order=${v}`}]}}else return{text:`⚠️ Order **${v}** return ke liye eligible nahi hai.
+🆔 **Return ID: ${D.return_id}**
+🚚 Pickup agle 24-48 ghanto me schedule ho jayega.`,actions:[{label:"Check Returns & Refunds",url:`#/returns?order=${m}`}]}}else return{text:`⚠️ Order **${m}** return ke liye eligible nahi hai.
 
-**Reason**: ${y.reason}`,actions:[{label:"View Return Policy",url:"#/returns"}]}}catch(y){return{text:`Return check failed: ${y.message}`}}}if(f&&(c.includes("refund")||c.includes("paise")||c.includes("money back"))){const v=f[0].toUpperCase();try{const y=await Te(v);return{text:`💰 **Refund Status for ${v}**
+**Reason**: ${p.reason}`,actions:[{label:"View Return Policy",url:"#/returns"}]}}catch(p){return p.status===401?{text:`🔒 **Login Required**
 
-- Refund ID: **${y.refund_id}**
-- Amount: **₹${y.amount.toLocaleString("en-IN")}**
-- Status: **${y.refund_status}**
-- Expected Date: **${y.expected_date||"N/A"}**
+Please log in to request returns.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
 
-${y.message}`,actions:[{label:"View Refund Details",url:`#/returns?order=${v}&action=refund`}]}}catch(y){return{text:`Order **${v}** ke liye refund details: ${y.message}`}}}if(f&&(c.includes("cancel")||c.includes("radd")||c.includes("band"))){const v=f[0].toUpperCase();try{return{text:`❌ ${(await Le(v)).message}
+You can only return orders associated with your account.`}:{text:`Return check failed: ${p.message}`}}}if(f&&(c.includes("refund")||c.includes("paise")||c.includes("money back"))){const m=f[0].toUpperCase();try{const p=await qe(m);return{text:`💰 **Refund Status for ${m}**
 
-Agar payment ho chuka tha toh 3-5 working days me aapke source account me refund aa jayega.`,actions:[{label:"View Order Status",url:`#/orders/${v}`}]}}catch(y){return{text:`Order **${v}** cancel nahi ho saka: ${y.message}`}}}if(c.includes("shoe")||c.includes("headphone")||c.includes("shirt")||c.includes("watch")||c.includes("product")||c.includes("dikh")||c.includes("find")||c.includes("search")||c.includes("under")||c.includes("budget")){const v=m.match(/(?:under|below|less than|₹|rs\.?)\s*(\d+)/i)||m.match(/(\d+)\s*(?:rs|rupees|tak)/i),y=v?parseFloat(v[1]):null;let q=null;c.includes("shoe")||c.includes("footwear")?q="Footwear":c.includes("headphone")||c.includes("earphone")||c.includes("audio")||c.includes("watch")?q="Electronics":(c.includes("shirt")||c.includes("cloth")||c.includes("fashion"))&&(q="Fashion");const M=m.replace(/(?:show|me|find|search|please|give|under|below|less than|rs\.?|₹|\d+|tak|kuch|achha)/gi,"").trim();try{const _=await $e(M,y,q);if(_&&_.length>0)return{text:`Here is what I found for you in our catalog:
+- Refund ID: **${p.refund_id}**
+- Amount: **₹${p.amount.toLocaleString("en-IN")}**
+- Status: **${p.refund_status}**
+- Expected Date: **${p.expected_date||"N/A"}**
 
-${_.slice(0,3).map(H=>`• **${H.name}** — ₹${H.price.toLocaleString("en-IN")} (${H.category})`).join(`
-`)}`,actions:_.slice(0,2).map(H=>({label:`View ${H.name}`,url:`#/products/${H.product_id}`}))}}catch{}}if(c.includes("human")||c.includes("agent")||c.includes("ticket")||c.includes("dispute")||c.includes("complain")||c.includes("fraud")||c.includes("deduct"))try{const v=await qe({customerId:"CUST101",description:m,category:c.includes("payment")?"Payment Issue":"General Support",priority:"High",orderId:f?f[0].toUpperCase():void 0});return c.includes("human")||c.includes("agent")||c.includes("escalate")?(await Re(v.ticket_id,"Customer explicitly requested Tier 2 Human Support assistance."),{text:`I understand your concern. I have created **Support Ticket ${v.ticket_id}** and escalated it directly to our **Tier 2 Human Support Manager**.
+${p.message}`,actions:[{label:"View Refund Details",url:`#/returns?order=${m}&action=refund`}]}}catch(p){return p.status===401?{text:`🔒 **Login Required**
 
-A human representative will review your issue and reach out shortly.`,actions:[{label:`Check Ticket ${v.ticket_id}`,url:"#/support"}]}):{text:`I have created Support Ticket **${v.ticket_id}** for you with High priority.
+Please log in to check refund status.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
 
-Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticket",url:"#/support"}]}}catch(v){return{text:`Ticket creation note: ${v.message}`}}return{text:"I'm ShopSathi AI Assistant! You can ask me to track orders (e.g. *ORD1001*), manage returns (e.g. *ORD1003*), check refund status (*ORD1004*), search products under your budget, or connect you with human support."}}async function D(u){if(!u||!u.trim())return;const m=u.trim(),c=document.createElement("div");c.className="ai-message ai-message-user",c.innerHTML=`<div class="ai-bubble">${W(m)}</div>`,S.appendChild(c),I.value="",S.scrollTop=S.scrollHeight;const f=document.createElement("div");f.className="ai-message ai-message-bot",f.innerHTML=`<div class="ai-avatar">${R(24)}</div><div class="ai-bubble ai-typing"><span></span><span></span><span></span></div>`,S.appendChild(f),S.scrollTop=S.scrollHeight;try{const E=await T(m);f.remove();const v=document.createElement("div");v.className="ai-message ai-message-bot";let y=at(E.text),q="";E.actions&&E.actions.length>0&&(q=`<div class="ai-bubble-actions" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
-          ${E.actions.map(M=>`<a href="${M.url}" class="btn btn-outline btn-sm" style="font-size:0.75rem;padding:4px 8px;">${M.label}</a>`).join("")}
-        </div>`),v.innerHTML=`
-        <div class="ai-avatar">${R(24)}</div>
+You can only check refunds for orders associated with your account.`}:{text:`Order **${m}** ke liye refund details: ${p.message}`}}}if(f&&(c.includes("cancel")||c.includes("radd")||c.includes("band"))){const m=f[0].toUpperCase();try{return{text:`❌ ${(await Ce(m)).message}
+
+Agar payment ho chuka tha toh 3-5 working days me aapke source account me refund aa jayega.`,actions:[{label:"View Order Status",url:`#/orders/${m}`}]}}catch(p){return p.status===401?{text:`🔒 **Login Required**
+
+Please log in to cancel orders.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
+
+You can only cancel orders associated with your account.`}:{text:`Order **${m}** cancel nahi ho saka: ${p.message}`}}}if(c.includes("shoe")||c.includes("headphone")||c.includes("shirt")||c.includes("watch")||c.includes("product")||c.includes("dikh")||c.includes("find")||c.includes("search")||c.includes("under")||c.includes("budget")){const m=g.match(/(?:under|below|less than|₹|rs\.?)\s*(\d+)/i)||g.match(/(\d+)\s*(?:rs|rupees|tak)/i),p=m?parseFloat(m[1]):null;let R=null;c.includes("shoe")||c.includes("footwear")?R="Footwear":c.includes("headphone")||c.includes("earphone")||c.includes("audio")||c.includes("watch")?R="Electronics":(c.includes("shirt")||c.includes("cloth")||c.includes("fashion"))&&(R="Fashion");const D=g.replace(/(?:show|me|find|search|please|give|under|below|less than|rs\.?|₹|\d+|tak|kuch|achha)/gi,"").trim();try{const F=await Le(D,p,R);if(F&&F.length>0)return{text:`Here is what I found for you in our catalog:
+
+${F.slice(0,3).map(_=>`• **${_.name}** — ₹${_.price.toLocaleString("en-IN")} (${_.category})`).join(`
+`)}`,actions:F.slice(0,2).map(_=>({label:`View ${_.name}`,url:`#/products/${_.product_id}`}))}}catch{}}if(c.includes("human")||c.includes("agent")||c.includes("ticket")||c.includes("dispute")||c.includes("complain")||c.includes("fraud")||c.includes("deduct")){const m=H();if(!E()||!m||!m.customer_id)return{text:`🔒 **Login Required**
+
+Please log in to create a support ticket.`,actions:[{label:"Login to continue",url:"#/login?redirect=/support"}]};try{const p=await Re({customerId:m.customer_id,description:g,category:c.includes("payment")?"Payment Issue":"General Support",priority:"High",orderId:f?f[0].toUpperCase():void 0});return c.includes("human")||c.includes("agent")||c.includes("escalate")?(await Oe(p.ticket_id,"Customer explicitly requested Tier 2 Human Support assistance."),{text:`I understand your concern. I have created **Support Ticket ${p.ticket_id}** and escalated it directly to our **Tier 2 Human Support Manager**.
+
+A human representative will review your issue and reach out shortly.`,actions:[{label:`Check Ticket ${p.ticket_id}`,url:"#/support"}]}):{text:`I have created Support Ticket **${p.ticket_id}** for you with High priority.
+
+Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticket",url:"#/support"}]}}catch(p){return{text:`Ticket creation note: ${p.message}`}}}return{text:"I'm ShopSathi AI Assistant! You can ask me to track orders (e.g. *ORD1001*), manage returns (e.g. *ORD1003*), check refund status (*ORD1004*), search products under your budget, or connect you with human support."}}async function N(v){if(!v||!v.trim())return;const g=v.trim(),c=document.createElement("div");c.className="ai-message ai-message-user",c.innerHTML=`<div class="ai-bubble">${X(g)}</div>`,S.appendChild(c),M.value="",S.scrollTop=S.scrollHeight;const f=document.createElement("div");f.className="ai-message ai-message-bot",f.innerHTML=`<div class="ai-avatar">${O(24)}</div><div class="ai-bubble ai-typing"><span></span><span></span><span></span></div>`,S.appendChild(f),S.scrollTop=S.scrollHeight;try{const T=await q(g);f.remove();const m=document.createElement("div");m.className="ai-message ai-message-bot";let p=st(T.text),R="";T.actions&&T.actions.length>0&&(R=`<div class="ai-bubble-actions" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+          ${T.actions.map(D=>`<a href="${D.url}" class="btn btn-outline btn-sm" style="font-size:0.75rem;padding:4px 8px;">${D.label}</a>`).join("")}
+        </div>`),m.innerHTML=`
+        <div class="ai-avatar">${O(24)}</div>
         <div class="ai-bubble">
-          ${y}
-          ${q}
-        </div>`,S.appendChild(v),S.scrollTop=S.scrollHeight}catch{f.remove();const v=document.createElement("div");v.className="ai-message ai-message-bot",v.innerHTML=`
-        <div class="ai-avatar">${R(24)}</div>
+          ${p}
+          ${R}
+        </div>`,S.appendChild(m),S.scrollTop=S.scrollHeight}catch{f.remove();const m=document.createElement("div");m.className="ai-message ai-message-bot",m.innerHTML=`
+        <div class="ai-avatar">${O(24)}</div>
         <div class="ai-bubble" style="border-left:3px solid var(--color-error);">
           <p>Sorry, I encountered an issue processing that. Please try again or check your connection.</p>
-        </div>`,S.appendChild(v),S.scrollTop=S.scrollHeight}}N.addEventListener("click",()=>D(I.value)),I.addEventListener("keydown",u=>{u.key==="Enter"&&D(I.value)}),e.querySelectorAll(".ai-panel-chips .ai-chip").forEach(u=>{u.addEventListener("click",()=>D(u.dataset.msg))});const P=e.querySelector("#voice-start-btn"),Pe=e.querySelector("#voice-stop-btn"),Q=e.querySelector("#voice-mute-btn"),re=e.querySelector("#mute-label"),Ae=e.querySelector("#voice-speaker-btn"),ne=e.querySelector("#voice-active-controls"),Ie=e.querySelector("#voice-status"),Me=e.querySelector("#voice-hint"),oe=e.querySelector("#voice-state-badge"),F=e.querySelector("#voice-ring");e.querySelector("#voice-icon");const ce=e.querySelector("#voice-transcript-box"),He=e.querySelector("#voice-user-transcript"),De=e.querySelector("#voice-agent-transcript");function L(u,m,c){const f={Ready:"badge-neutral",Connecting:"badge-warning",Connected:"badge-success",Listening:"badge-accent",Processing:"badge-primary",Speaking:"badge-success",Error:"badge-error",Ended:"badge-neutral"};oe.className=`badge ${f[u]||"badge-neutral"}`,oe.textContent=u,m&&(Ie.textContent=m),c&&(Me.textContent=c),F.className="ai-voice-ring",u==="Connecting"||u==="Processing"?F.classList.add("active"):u==="Listening"?F.classList.add("listening"):u==="Speaking"&&F.classList.add("speaking")}async function le(u){if(!o)return;o.cancel(),L("Speaking","ShopSathi is speaking...","Voice Agent Active (Gemini 2.5 Audio)"),De.innerHTML=`<strong>ShopSathi:</strong> ${W(u)}`;const m=new SpeechSynthesisUtterance(u.replace(/[*_#•]/g,""));m.lang="en-IN",m.rate=1,m.pitch=1,m.onend=()=>{i&&!s&&L("Listening","Listening for your voice...","Speak in English, Hindi, or Hinglish")},m.onerror=()=>{i&&L("Listening","Listening...","Tap mute or speak")},o.speak(m)}async function de(u){if(!u.trim())return;L("Processing","Processing with ShopSathi AI...","Executing API tools..."),He.innerHTML=`<strong>You:</strong> "${W(u)}"`,ce.style.display="block";const m=await T(u);await le(m.text)}function _e(){const u=window.SpeechRecognition||window.webkitSpeechRecognition;if(!u)return null;const m=new u;return m.continuous=!0,m.interimResults=!1,m.lang="en-IN",m.onresult=c=>{const f=c.results.length-1,E=c.results[f][0].transcript;E&&de(E)},m.onerror=c=>{i&&c.error!=="no-speech"&&L("Connected","Microphone active","You can speak anytime")},m}function pe(){i=!0,s=!1,P.style.display="none",ne.style.display="flex",ce.style.display="block",L("Connecting","Connecting to Real-Time Voice Agent...","Provider: Gemini 2.5 Flash Audio Preview (Voice: Puck)"),setTimeout(()=>{if(L("Connected","Voice Session Connected!","Ready for spoken conversation"),r=_e(),r)try{r.start()}catch{}le("Namaste! ShopSathi Real-Time Voice Support is active. How can I help you today?")},1200)}function ue(){if(i=!1,o&&o.cancel(),r){try{r.stop()}catch{}r=null}ne.style.display="none",P.style.display="inline-flex",L("Ended","Call ended","Tap Start Conversation to reconnect")}return P.addEventListener("click",pe),Pe.addEventListener("click",ue),Q.addEventListener("click",()=>{if(s=!s,s){if(re.textContent="Unmute",Q.classList.add("btn-danger"),r)try{r.stop()}catch{}L("Connected","Microphone Muted","Tap Unmute to speak")}else{if(re.textContent="Mute",Q.classList.remove("btn-danger"),r)try{r.start()}catch{}L("Listening","Listening...","Speak now")}}),Ae.addEventListener("click",()=>{o&&o.speaking&&(o.cancel(),L("Listening","Audio stopped","Listening for speech"))}),e.querySelectorAll(".voice-demo-chip").forEach(u=>{u.addEventListener("click",()=>{const m=u.dataset.speak;i||pe(),setTimeout(()=>de(m),1500)})}),window.addEventListener("open-ai-panel",()=>{n||a||k()}),e}function W(e){if(!e)return"";const t=document.createElement("div");return t.textContent=e,t.innerHTML}function at(e){return e?e.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\*(.*?)\*/g,"<em>$1</em>").replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>"):""}async function st(e){var n,a,i,s,r;e.innerHTML=`
+        </div>`,S.appendChild(m),S.scrollTop=S.scrollHeight}}B.addEventListener("click",()=>N(M.value)),M.addEventListener("keydown",v=>{v.key==="Enter"&&N(M.value)}),e.querySelectorAll(".ai-panel-chips .ai-chip").forEach(v=>{v.addEventListener("click",()=>N(v.dataset.msg))});const A=e.querySelector("#voice-start-btn"),Ae=e.querySelector("#voice-stop-btn"),W=e.querySelector("#voice-mute-btn"),oe=e.querySelector("#mute-label"),Ie=e.querySelector("#voice-speaker-btn"),ce=e.querySelector("#voice-active-controls"),He=e.querySelector("#voice-status"),Me=e.querySelector("#voice-hint"),le=e.querySelector("#voice-state-badge"),U=e.querySelector("#voice-ring");e.querySelector("#voice-icon");const de=e.querySelector("#voice-transcript-box"),De=e.querySelector("#voice-user-transcript"),_e=e.querySelector("#voice-agent-transcript");function L(v,g,c){const f={Ready:"badge-neutral",Connecting:"badge-warning",Connected:"badge-success",Listening:"badge-accent",Processing:"badge-primary",Speaking:"badge-success",Error:"badge-error",Ended:"badge-neutral"};le.className=`badge ${f[v]||"badge-neutral"}`,le.textContent=v,g&&(He.textContent=g),c&&(Me.textContent=c),U.className="ai-voice-ring",v==="Connecting"||v==="Processing"?U.classList.add("active"):v==="Listening"?U.classList.add("listening"):v==="Speaking"&&U.classList.add("speaking")}async function pe(v){if(!n)return;n.cancel(),L("Speaking","ShopSathi is speaking...","Voice Agent Active (Gemini 2.5 Audio)"),_e.innerHTML=`<strong>ShopSathi:</strong> ${X(v)}`;const g=new SpeechSynthesisUtterance(v.replace(/[*_#•]/g,""));g.lang="en-IN",g.rate=1,g.pitch=1,g.onend=()=>{r&&!a&&L("Listening","Listening for your voice...","Speak in English, Hindi, or Hinglish")},g.onerror=()=>{r&&L("Listening","Listening...","Tap mute or speak")},n.speak(g)}async function ue(v){if(!v.trim())return;L("Processing","Processing with ShopSathi AI...","Executing API tools..."),De.innerHTML=`<strong>You:</strong> "${X(v)}"`,de.style.display="block";const g=await q(v);await pe(g.text)}function Ne(){const v=window.SpeechRecognition||window.webkitSpeechRecognition;if(!v)return null;const g=new v;return g.continuous=!0,g.interimResults=!1,g.lang="en-IN",g.onresult=c=>{const f=c.results.length-1,T=c.results[f][0].transcript;T&&ue(T)},g.onerror=c=>{r&&c.error!=="no-speech"&&L("Connected","Microphone active","You can speak anytime")},g}function ve(){r=!0,a=!1,A.style.display="none",ce.style.display="flex",de.style.display="block",L("Connecting","Connecting to Real-Time Voice Agent...","Provider: Gemini 2.5 Flash Audio Preview (Voice: Puck)"),setTimeout(()=>{if(L("Connected","Voice Session Connected!","Ready for spoken conversation"),s=Ne(),s)try{s.start()}catch{}pe("Namaste! ShopSathi Real-Time Voice Support is active. How can I help you today?")},1200)}function he(){if(r=!1,n&&n.cancel(),s){try{s.stop()}catch{}s=null}ce.style.display="none",A.style.display="inline-flex",L("Ended","Call ended","Tap Start Conversation to reconnect")}return A.addEventListener("click",ve),Ae.addEventListener("click",he),W.addEventListener("click",()=>{if(a=!a,a){if(oe.textContent="Unmute",W.classList.add("btn-danger"),s)try{s.stop()}catch{}L("Connected","Microphone Muted","Tap Unmute to speak")}else{if(oe.textContent="Mute",W.classList.remove("btn-danger"),s)try{s.start()}catch{}L("Listening","Listening...","Speak now")}}),Ie.addEventListener("click",()=>{n&&n.speaking&&(n.cancel(),L("Listening","Audio stopped","Listening for speech"))}),e.querySelectorAll(".voice-demo-chip").forEach(v=>{v.addEventListener("click",()=>{const g=v.dataset.speak;r||ve(),setTimeout(()=>ue(g),1500)})}),window.addEventListener("open-ai-panel",()=>{o||i||k()}),e}function X(e){if(!e)return"";const t=document.createElement("div");return t.textContent=e,t.innerHTML}function st(e){return e?e.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\*(.*?)\*/g,"<em>$1</em>").replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>"):""}async function it(e){var o,i,r,a,s;e.innerHTML=`
     <div class="page-content">
       <!-- Hero Section -->
       <section class="hero">
@@ -343,11 +379,11 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
                   Explore Products
                 </a>
                 <button class="btn btn-outline btn-lg" id="hero-ai-btn">
-                  ${be(18)} Ask ShopSathi
+                  ${ke(18)} Ask ShopSathi
                 </button>
               </div>
               <button class="hero-voice-cta" id="hero-voice-btn">
-                ${U(16)}
+                ${j(16)}
                 <span>🎙️ Talk to ShopSathi — Voice Assistant</span>
               </button>
             </div>
@@ -368,7 +404,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
                   </div>
                 </div>
                 <div class="hero-card hero-card-3">
-                  <div class="hero-card-icon">${R(28)}</div>
+                  <div class="hero-card-icon">${O(28)}</div>
                   <div class="ai-typing-demo"><span></span><span></span><span></span></div>
                 </div>
               </div>
@@ -436,7 +472,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
               <div class="ai-cta-demo">
                 <div class="ai-message ai-message-user"><div class="ai-bubble" style="font-size:0.85rem;">Where is my order ORD1001?</div></div>
                 <div class="ai-message ai-message-bot">
-                  <div class="ai-avatar" style="width:28px;height:28px;">${R(24)}</div>
+                  <div class="ai-avatar" style="width:28px;height:28px;">${O(24)}</div>
                   <div class="ai-bubble" style="font-size:0.85rem;">Your order ORD1001 (AirPro Headphones) is <strong>Out for Delivery</strong> and expected today by 7:00 PM! 🚚</div>
                 </div>
               </div>
@@ -469,11 +505,11 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
         </div>
       </section>
     </div>
-  `;const t=()=>window.dispatchEvent(new CustomEvent("open-ai-panel"));(n=e.querySelector("#hero-ai-btn"))==null||n.addEventListener("click",t),(a=e.querySelector("#hero-voice-btn"))==null||a.addEventListener("click",t),(i=e.querySelector("#cta-chat-btn"))==null||i.addEventListener("click",t),(s=e.querySelector("#cta-voice-btn"))==null||s.addEventListener("click",t),(r=e.querySelector("#feature-voice-card"))==null||r.addEventListener("click",t)}let A=null;function it(){return A||(A=document.createElement("div"),A.className="toast-container",A.setAttribute("role","alert"),A.setAttribute("aria-live","polite"),document.body.appendChild(A)),A}function b(e,t="info",n=4e3){const a=it(),i=document.createElement("div");i.className=`toast toast-${t}`;const s={success:"✓",error:"✕",warning:"⚠",info:"ℹ"};i.innerHTML=`
-    <span style="font-size: 1.1rem; flex-shrink: 0;">${s[t]||s.info}</span>
+  `;const t=()=>window.dispatchEvent(new CustomEvent("open-ai-panel"));(o=e.querySelector("#hero-ai-btn"))==null||o.addEventListener("click",t),(i=e.querySelector("#hero-voice-btn"))==null||i.addEventListener("click",t),(r=e.querySelector("#cta-chat-btn"))==null||r.addEventListener("click",t),(a=e.querySelector("#cta-voice-btn"))==null||a.addEventListener("click",t),(s=e.querySelector("#feature-voice-card"))==null||s.addEventListener("click",t)}let I=null;function nt(){return I||(I=document.createElement("div"),I.className="toast-container",I.setAttribute("role","alert"),I.setAttribute("aria-live","polite"),document.body.appendChild(I)),I}function b(e,t="info",o=4e3){const i=nt(),r=document.createElement("div");r.className=`toast toast-${t}`;const a={success:"✓",error:"✕",warning:"⚠",info:"ℹ"};r.innerHTML=`
+    <span style="font-size: 1.1rem; flex-shrink: 0;">${a[t]||a.info}</span>
     <span style="flex: 1;">${e}</span>
     <button class="btn-ghost" style="padding: 2px 6px; font-size: 1.1rem; opacity: 0.6;" aria-label="Close">&times;</button>
-  `,i.querySelector("button").addEventListener("click",()=>ge(i)),a.appendChild(i);const r=setTimeout(()=>ge(i),n);i._timer=r}function ge(e){clearTimeout(e._timer),e.classList.add("toast-exit"),e.addEventListener("animationend",()=>e.remove())}let me=null;async function rt(e){e.innerHTML=`
+  `,r.querySelector("button").addEventListener("click",()=>ye(r)),i.appendChild(r);const s=setTimeout(()=>ye(r),o);r._timer=s}function ye(e){clearTimeout(e._timer),e.classList.add("toast-exit"),e.addEventListener("animationend",()=>e.remove())}let be=null;async function rt(e){e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <div class="page-header">
@@ -506,28 +542,28 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
 
         <!-- Product Grid -->
         <div id="products-grid" class="products-grid">
-          ${ye(6)}
+          ${fe(6)}
         </div>
       </div>
     </div>
-  `;const t=e.querySelector("#search-input"),n=e.querySelector("#category-filter"),a=e.querySelector("#max-price"),i=e.querySelector("#products-grid"),s=e.querySelector("#result-count"),r=window.location.hash,o=r.indexOf("?");if(o!==-1){const d=new URLSearchParams(r.slice(o));d.get("category")&&(n.value=d.get("category")),d.get("query")&&(t.value=d.get("query"))}async function l(){var k;const d=t.value.trim(),p=n.value,h=a.value?parseFloat(a.value):null;i.innerHTML=ye(6);try{let w;d||p||h?w=await $e(d,h,p):w=await We(),w.length===0?(i.innerHTML=`
+  `;const t=e.querySelector("#search-input"),o=e.querySelector("#category-filter"),i=e.querySelector("#max-price"),r=e.querySelector("#products-grid"),a=e.querySelector("#result-count"),s=window.location.hash,n=s.indexOf("?");if(n!==-1){const d=new URLSearchParams(s.slice(n));d.get("category")&&(o.value=d.get("category")),d.get("query")&&(t.value=d.get("query"))}async function l(){var k;const d=t.value.trim(),u=o.value,h=i.value?parseFloat(i.value):null;r.innerHTML=fe(6);try{let w;d||u||h?w=await Le(d,h,u):w=await Ke(),w.length===0?(r.innerHTML=`
           <div class="empty-state" style="grid-column: 1/-1;">
             <div class="empty-state-icon">🔍</div>
             <h3>No products found</h3>
             <p>Try adjusting your search or filters.</p>
-          </div>`,s.textContent="0 products"):(i.innerHTML=w.map($=>nt($)).join(""),s.textContent=`${w.length} product${w.length!==1?"s":""} found`,ct(i))}catch(w){i.innerHTML=`
+          </div>`,a.textContent="0 products"):(r.innerHTML=w.map($=>ot($)).join(""),a.textContent=`${w.length} product${w.length!==1?"s":""} found`,lt(r))}catch(w){r.innerHTML=`
         <div class="empty-state" style="grid-column: 1/-1;">
           <div class="empty-state-icon">⚠️</div>
           <h3>Failed to load products</h3>
           <p>${w.message}</p>
           <button class="btn btn-primary" style="margin-top:var(--space-4);" id="retry-btn">Try Again</button>
-        </div>`,(k=e.querySelector("#retry-btn"))==null||k.addEventListener("click",l)}}function g(){clearTimeout(me),me=setTimeout(l,350)}t.addEventListener("input",g),n.addEventListener("change",l),a.addEventListener("input",g),await l()}function nt(e){const t=e.stock>0,a={Electronics:"primary",Footwear:"success",Fashion:"accent",Home:"warning"}[e.category]||"neutral";return`
+        </div>`,(k=e.querySelector("#retry-btn"))==null||k.addEventListener("click",l)}}function y(){clearTimeout(be),be=setTimeout(l,350)}t.addEventListener("input",y),o.addEventListener("change",l),i.addEventListener("input",y),await l()}function ot(e){const t=e.stock>0,i={Electronics:"primary",Footwear:"success",Fashion:"accent",Home:"warning"}[e.category]||"neutral";return`
     <div class="product-card card card-hover" data-id="${e.product_id}">
       <div class="product-image">
         <div class="product-image-placeholder">
-          ${ot(e.category)}
+          ${ct(e.category)}
         </div>
-        <span class="badge badge-${a} product-category-badge">${e.category}</span>
+        <span class="badge badge-${i} product-category-badge">${e.category}</span>
       </div>
       <div class="product-info">
         <h3 class="product-name">${e.name}</h3>
@@ -543,45 +579,45 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           </button>
         </div>
       </div>
-    </div>`}function ot(e){return`<span style="font-size:3rem;">${{Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"}[e]||"📦"}</span>`}function ye(e){return Array(e).fill(`
+    </div>`}function ct(e){return`<span style="font-size:3rem;">${{Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"}[e]||"📦"}</span>`}function fe(e){return Array(e).fill(`
     <div class="skeleton-card">
       <div class="skeleton skeleton-image" style="height:180px;margin-bottom:16px;"></div>
       <div class="skeleton skeleton-title"></div>
       <div class="skeleton skeleton-text" style="width:80%;"></div>
       <div class="skeleton skeleton-text" style="width:40%;margin-top:12px;"></div>
-    </div>`).join("")}function ct(e){e.querySelectorAll(".add-to-cart-btn").forEach(t=>{t.addEventListener("click",n=>{n.stopPropagation();const a=JSON.parse(t.dataset.product);te(a,1),b(`${a.name} added to cart`,"success")})})}async function lt(e,t){const n=t.id;e.innerHTML=`
+    </div>`).join("")}function lt(e){e.querySelectorAll(".add-to-cart-btn").forEach(t=>{t.addEventListener("click",o=>{o.stopPropagation();const i=JSON.parse(t.dataset.product);ie(i,1),b(`${i.name} added to cart`,"success")})})}async function dt(e,t){const o=t.id;e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <div class="loading-container"><div class="spinner spinner-lg"></div><p>Loading product...</p></div>
       </div>
-    </div>`;try{const a=await Ke(n),i=a.stock>0,s={Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"};e.innerHTML=`
+    </div>`;try{const i=await Xe(o),r=i.stock>0,a={Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"};e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <a href="#/products" class="back-link">&larr; Back to Products</a>
           <div class="product-detail">
             <div class="product-detail-image">
               <div class="product-image-placeholder-lg">
-                <span style="font-size:6rem;">${s[a.category]||"📦"}</span>
+                <span style="font-size:6rem;">${a[i.category]||"📦"}</span>
               </div>
             </div>
             <div class="product-detail-info">
-              <span class="badge badge-primary">${a.category}</span>
-              <h1 style="margin-top:var(--space-3);">${a.name}</h1>
-              <p class="product-detail-price">₹${a.price.toLocaleString("en-IN")}</p>
-              <p class="product-detail-desc">${a.description||"No description available."}</p>
+              <span class="badge badge-primary">${i.category}</span>
+              <h1 style="margin-top:var(--space-3);">${i.name}</h1>
+              <p class="product-detail-price">₹${i.price.toLocaleString("en-IN")}</p>
+              <p class="product-detail-desc">${i.description||"No description available."}</p>
 
               <div class="product-detail-meta">
                 <div class="meta-item">
                   <span class="meta-label">Availability</span>
-                  <span class="badge ${i?"badge-success":"badge-error"}">${i?`In Stock (${a.stock} units)`:"Out of Stock"}</span>
+                  <span class="badge ${r?"badge-success":"badge-error"}">${r?`In Stock (${i.stock} units)`:"Out of Stock"}</span>
                 </div>
                 <div class="meta-item">
                   <span class="meta-label">Return Policy</span>
-                  <span class="badge ${a.returnable?"badge-success":"badge-warning"}">${a.returnable?"7-Day Returns":"Non-Returnable"}</span>
+                  <span class="badge ${i.returnable?"badge-success":"badge-warning"}">${i.returnable?"7-Day Returns":"Non-Returnable"}</span>
                 </div>
                 <div class="meta-item">
                   <span class="meta-label">Product ID</span>
-                  <span class="text-secondary">${a.product_id}</span>
+                  <span class="text-secondary">${i.product_id}</span>
                 </div>
               </div>
 
@@ -589,16 +625,16 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
                 <label class="form-label">Quantity</label>
                 <div class="qty-selector">
                   <button class="btn btn-ghost qty-btn" id="qty-minus" aria-label="Decrease">−</button>
-                  <input type="number" id="qty-input" class="form-input" value="1" min="1" max="${a.stock}" style="width:60px;text-align:center;">
+                  <input type="number" id="qty-input" class="form-input" value="1" min="1" max="${i.stock}" style="width:60px;text-align:center;">
                   <button class="btn btn-ghost qty-btn" id="qty-plus" aria-label="Increase">+</button>
                 </div>
               </div>
 
               <div class="product-detail-actions">
-                <button class="btn btn-primary btn-lg" id="add-to-cart-btn" ${i?"":"disabled"} style="flex:1;">
+                <button class="btn btn-primary btn-lg" id="add-to-cart-btn" ${r?"":"disabled"} style="flex:1;">
                   🛒 Add to Cart
                 </button>
-                <button class="btn btn-secondary btn-lg" id="buy-now-btn" ${i?"":"disabled"} style="flex:1;">
+                <button class="btn btn-secondary btn-lg" id="buy-now-btn" ${r?"":"disabled"} style="flex:1;">
                   ⚡ Buy Now
                 </button>
               </div>
@@ -609,17 +645,17 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
             </div>
           </div>
         </div>
-      </div>`;const r=e.querySelector("#qty-input");e.querySelector("#qty-minus").addEventListener("click",()=>{const o=parseInt(r.value)||1;o>1&&(r.value=o-1)}),e.querySelector("#qty-plus").addEventListener("click",()=>{const o=parseInt(r.value)||1;o<a.stock&&(r.value=o+1)}),e.querySelector("#add-to-cart-btn").addEventListener("click",()=>{const o=parseInt(r.value)||1;te(a,o),b(`${a.name} (x${o}) added to cart`,"success")}),e.querySelector("#buy-now-btn").addEventListener("click",()=>{const o=parseInt(r.value)||1;te(a,o),window.location.hash="/checkout"}),e.querySelector("#ask-ai-btn").addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))})}catch(a){e.innerHTML=`
+      </div>`;const s=e.querySelector("#qty-input");e.querySelector("#qty-minus").addEventListener("click",()=>{const n=parseInt(s.value)||1;n>1&&(s.value=n-1)}),e.querySelector("#qty-plus").addEventListener("click",()=>{const n=parseInt(s.value)||1;n<i.stock&&(s.value=n+1)}),e.querySelector("#add-to-cart-btn").addEventListener("click",()=>{const n=parseInt(s.value)||1;ie(i,n),b(`${i.name} (x${n}) added to cart`,"success")}),e.querySelector("#buy-now-btn").addEventListener("click",()=>{const n=parseInt(s.value)||1;ie(i,n),window.location.hash="/checkout"}),e.querySelector("#ask-ai-btn").addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))})}catch(i){e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
             <div class="empty-state-icon">⚠️</div>
             <h3>Product not found</h3>
-            <p>${a.message}</p>
+            <p>${i.message}</p>
             <a href="#/products" class="btn btn-primary" style="margin-top:var(--space-4);">Browse Products</a>
           </div>
         </div>
-      </div>`}}function G({title:e,message:t,confirmText:n="Confirm",cancelText:a="Cancel",type:i="danger"}){return new Promise(s=>{const r=document.createElement("div");r.className="modal-overlay",r.innerHTML=`
+      </div>`}}function Q({title:e,message:t,confirmText:o="Confirm",cancelText:i="Cancel",type:r="danger"}){return new Promise(a=>{const s=document.createElement("div");s.className="modal-overlay",s.innerHTML=`
       <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-header">
           <h3 id="modal-title">${e}</h3>
@@ -628,11 +664,11 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <p>${t}</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-ghost" id="modal-cancel">${a}</button>
-          <button class="btn btn-${i}" id="modal-confirm">${n}</button>
+          <button class="btn btn-ghost" id="modal-cancel">${i}</button>
+          <button class="btn btn-${r}" id="modal-confirm">${o}</button>
         </div>
       </div>
-    `,document.body.appendChild(r);const o=()=>{r.style.opacity="0",setTimeout(()=>r.remove(),200)};r.querySelector("#modal-confirm").addEventListener("click",()=>{o(),s(!0)}),r.querySelector("#modal-cancel").addEventListener("click",()=>{o(),s(!1)}),r.addEventListener("click",l=>{l.target===r&&(o(),s(!1))}),setTimeout(()=>r.querySelector("#modal-cancel").focus(),100)})}async function dt(e){function t(){var i;const n=O(),a=xe();if(n.length===0){e.innerHTML=`
+    `,document.body.appendChild(s);const n=()=>{s.style.opacity="0",setTimeout(()=>s.remove(),200)};s.querySelector("#modal-confirm").addEventListener("click",()=>{n(),a(!0)}),s.querySelector("#modal-cancel").addEventListener("click",()=>{n(),a(!1)}),s.addEventListener("click",l=>{l.target===s&&(n(),a(!1))}),setTimeout(()=>s.querySelector("#modal-cancel").focus(),100)})}async function pt(e){function t(){var r;const o=P(),i=$e();if(o.length===0){e.innerHTML=`
         <div class="page-content">
           <div class="container">
             <div class="empty-state" style="min-height:60vh;">
@@ -647,32 +683,32 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
         <div class="container">
           <div class="page-header">
             <h1>Shopping Cart</h1>
-            <p>${n.length} item${n.length!==1?"s":""} in your cart</p>
+            <p>${o.length} item${o.length!==1?"s":""} in your cart</p>
           </div>
 
           <div class="cart-layout">
             <div class="cart-items">
-              ${n.map(s=>`
-                <div class="cart-item card" data-id="${s.product_id}">
+              ${o.map(a=>`
+                <div class="cart-item card" data-id="${a.product_id}">
                   <div class="cart-item-image">
-                    <span style="font-size:2rem;">${pt(s.category)}</span>
+                    <span style="font-size:2rem;">${ut(a.category)}</span>
                   </div>
                   <div class="cart-item-info">
-                    <h4><a href="#/products/${s.product_id}">${s.name}</a></h4>
-                    <p class="text-secondary text-sm">${s.category||""}</p>
-                    <span class="product-price">₹${s.price.toLocaleString("en-IN")}</span>
+                    <h4><a href="#/products/${a.product_id}">${a.name}</a></h4>
+                    <p class="text-secondary text-sm">${a.category||""}</p>
+                    <span class="product-price">₹${a.price.toLocaleString("en-IN")}</span>
                   </div>
                   <div class="cart-item-qty">
                     <div class="qty-selector">
-                      <button class="btn btn-ghost qty-btn qty-dec" data-id="${s.product_id}" aria-label="Decrease">−</button>
-                      <span class="qty-value">${s.quantity}</span>
-                      <button class="btn btn-ghost qty-btn qty-inc" data-id="${s.product_id}" aria-label="Increase">+</button>
+                      <button class="btn btn-ghost qty-btn qty-dec" data-id="${a.product_id}" aria-label="Decrease">−</button>
+                      <span class="qty-value">${a.quantity}</span>
+                      <button class="btn btn-ghost qty-btn qty-inc" data-id="${a.product_id}" aria-label="Increase">+</button>
                     </div>
                   </div>
                   <div class="cart-item-total">
-                    <strong>₹${(s.price*s.quantity).toLocaleString("en-IN")}</strong>
+                    <strong>₹${(a.price*a.quantity).toLocaleString("en-IN")}</strong>
                   </div>
-                  <button class="btn btn-ghost cart-remove-btn" data-id="${s.product_id}" aria-label="Remove">
+                  <button class="btn btn-ghost cart-remove-btn" data-id="${a.product_id}" aria-label="Remove">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                   </button>
                 </div>`).join("")}
@@ -681,8 +717,8 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
             <div class="cart-summary card card-elevated">
               <h3 style="margin-bottom:var(--space-4);">Order Summary</h3>
               <div class="summary-row">
-                <span>Subtotal (${n.reduce((s,r)=>s+r.quantity,0)} items)</span>
-                <span>₹${a.toLocaleString("en-IN")}</span>
+                <span>Subtotal (${o.reduce((a,s)=>a+s.quantity,0)} items)</span>
+                <span>₹${i.toLocaleString("en-IN")}</span>
               </div>
               <div class="summary-row">
                 <span>Shipping</span>
@@ -691,14 +727,24 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
               <div class="divider"></div>
               <div class="summary-row summary-total">
                 <span>Total</span>
-                <span>₹${a.toLocaleString("en-IN")}</span>
+                <span>₹${i.toLocaleString("en-IN")}</span>
               </div>
               <a href="#/checkout" class="btn btn-primary btn-lg" style="width:100%;margin-top:var(--space-4);">Proceed to Checkout</a>
               <button class="btn btn-ghost" style="width:100%;margin-top:var(--space-2);font-size:var(--font-sm);" id="clear-cart-btn">Clear Cart</button>
             </div>
           </div>
         </div>
-      </div>`,e.querySelectorAll(".qty-dec").forEach(s=>{s.addEventListener("click",()=>{const r=s.dataset.id,o=O().find(l=>l.product_id===r);o&&o.quantity>1&&(ve(r,o.quantity-1),t())})}),e.querySelectorAll(".qty-inc").forEach(s=>{s.addEventListener("click",()=>{const r=s.dataset.id,o=O().find(l=>l.product_id===r);o&&(ve(r,o.quantity+1),t())})}),e.querySelectorAll(".cart-remove-btn").forEach(s=>{s.addEventListener("click",()=>{je(s.dataset.id),b("Item removed from cart","info"),t()})}),(i=e.querySelector("#clear-cart-btn"))==null||i.addEventListener("click",async()=>{await G({title:"Clear Cart",message:"Are you sure you want to remove all items from your cart?",confirmText:"Clear All",type:"danger"})&&(Se(),b("Cart cleared","info"),t())})}t()}function pt(e){return{Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"}[e]||"📦"}async function ut(e){const t=O(),n=xe();if(t.length===0){e.innerHTML=`
+      </div>`,e.querySelectorAll(".qty-dec").forEach(a=>{a.addEventListener("click",()=>{const s=a.dataset.id,n=P().find(l=>l.product_id===s);n&&n.quantity>1&&(ge(s,n.quantity-1),t())})}),e.querySelectorAll(".qty-inc").forEach(a=>{a.addEventListener("click",()=>{const s=a.dataset.id,n=P().find(l=>l.product_id===s);n&&(ge(s,n.quantity+1),t())})}),e.querySelectorAll(".cart-remove-btn").forEach(a=>{a.addEventListener("click",()=>{Ge(a.dataset.id),b("Item removed from cart","info"),t()})}),(r=e.querySelector("#clear-cart-btn"))==null||r.addEventListener("click",async()=>{await Q({title:"Clear Cart",message:"Are you sure you want to remove all items from your cart?",confirmText:"Clear All",type:"danger"})&&(xe(),b("Cart cleared","info"),t())})}t()}function ut(e){return{Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"}[e]||"📦"}async function vt(e){if(!E()){e.innerHTML=`
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required for Checkout</h3>
+            <p>Please log in to continue with checkout.</p>
+            <a href="#/login?redirect=/checkout" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;return}const t=P(),o=$e();if(t.length===0){e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
@@ -807,18 +853,18 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <div class="checkout-summary">
             <div class="card card-elevated" style="position:sticky;top:calc(var(--header-height) + var(--space-4));">
               <h3 style="margin-bottom:var(--space-4);">Order Summary</h3>
-              ${t.map(a=>`
+              ${t.map(i=>`
                 <div class="summary-item">
                   <div>
-                    <span class="text-sm">${a.name}</span>
-                    <span class="text-secondary text-sm"> × ${a.quantity}</span>
+                    <span class="text-sm">${i.name}</span>
+                    <span class="text-secondary text-sm"> × ${i.quantity}</span>
                   </div>
-                  <span class="text-sm">₹${(a.price*a.quantity).toLocaleString("en-IN")}</span>
+                  <span class="text-sm">₹${(i.price*i.quantity).toLocaleString("en-IN")}</span>
                 </div>`).join("")}
               <div class="divider"></div>
               <div class="summary-row">
                 <span>Subtotal</span>
-                <span>₹${n.toLocaleString("en-IN")}</span>
+                <span>₹${o.toLocaleString("en-IN")}</span>
               </div>
               <div class="summary-row">
                 <span>Shipping</span>
@@ -827,30 +873,40 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
               <div class="divider"></div>
               <div class="summary-row summary-total">
                 <span>Total</span>
-                <span>₹${n.toLocaleString("en-IN")}</span>
+                <span>₹${o.toLocaleString("en-IN")}</span>
               </div>
               <button class="btn btn-primary btn-lg" style="width:100%;margin-top:var(--space-6);" id="place-order-btn">
-                Place Order — ₹${n.toLocaleString("en-IN")}
+                Place Order — ₹${o.toLocaleString("en-IN")}
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>`,e.querySelector("#place-order-btn").addEventListener("click",()=>{const a=e.querySelector("#checkout-name").value.trim(),i=e.querySelector("#checkout-email").value.trim(),s=e.querySelector("#checkout-phone").value.trim(),r=e.querySelector("#checkout-address").value.trim();if(!a||!i||!s||!r){b("Please fill in all required fields","warning");return}const o="ORD"+Math.floor(1e3+Math.random()*9e3);Se(),e.innerHTML=`
+    </div>`,e.querySelector("#place-order-btn").addEventListener("click",()=>{const i=e.querySelector("#checkout-name").value.trim(),r=e.querySelector("#checkout-email").value.trim(),a=e.querySelector("#checkout-phone").value.trim(),s=e.querySelector("#checkout-address").value.trim();if(!i||!r||!a||!s){b("Please fill in all required fields","warning");return}const n="ORD"+Math.floor(1e3+Math.random()*9e3);xe(),e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="order-success-card card card-elevated text-center" style="max-width:600px;margin:var(--space-12) auto;padding:var(--space-12);">
             <div style="font-size:4rem;margin-bottom:var(--space-4);">🎉</div>
             <h2>Order Placed Successfully!</h2>
-            <p class="text-secondary" style="margin-top:var(--space-3);font-size:var(--font-lg);">Thank you, ${a}! Your order <strong>${o}</strong> has been placed.</p>
-            <p class="text-secondary" style="margin-top:var(--space-2);">You'll receive a confirmation at ${i}</p>
+            <p class="text-secondary" style="margin-top:var(--space-3);font-size:var(--font-lg);">Thank you, ${i}! Your order <strong>${n}</strong> has been placed.</p>
+            <p class="text-secondary" style="margin-top:var(--space-2);">You'll receive a confirmation at ${r}</p>
             <div class="flex gap-4 justify-center" style="margin-top:var(--space-8);flex-wrap:wrap;">
               <a href="#/orders" class="btn btn-primary btn-lg">View My Orders</a>
               <a href="#/products" class="btn btn-outline btn-lg">Continue Shopping</a>
             </div>
           </div>
         </div>
-      </div>`,b("Order placed successfully!","success")})}const vt=["ORD1001","ORD1002","ORD1003","ORD1004","ORD1005"],K=10;async function ht(e){e.innerHTML=`
+      </div>`,b("Order placed successfully!","success")})}const ht=["ORD1001","ORD1002","ORD1003","ORD1004","ORD1005"],Z=10;async function gt(e){if(!E()){e.innerHTML=`
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view your orders and account information.</p>
+            <a href="#/login?redirect=/orders" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;return}e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <div class="page-header">
@@ -887,37 +943,37 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <div class="loading-container"><div class="spinner spinner-lg"></div><p>Loading orders...</p></div>
         </div>
       </div>
-    </div>`;const t=e.querySelector("#orders-container"),n=e.querySelector("#order-lookup-input"),a=e.querySelector("#order-lookup-btn"),i=e.querySelector("#status-filter");let s=[],r=1,o="ALL";const l=()=>{const p=n.value.trim();p&&(window.location.hash=`/orders/${p.toUpperCase()}`)};a.addEventListener("click",l),n.addEventListener("keydown",p=>{p.key==="Enter"&&l()}),i.addEventListener("change",p=>{o=p.target.value,r=1,d()});function g(){return o==="ALL"?s:o==="Returned"?s.filter(p=>p.status==="Returned"||p.status==="Return Requested"):s.filter(p=>p.status===o)}function d(){const p=g(),h=p.length,k=Math.ceil(h/K)||1;if(r>k&&(r=k),r<1&&(r=1),h===0){t.innerHTML=`
+    </div>`;const t=e.querySelector("#orders-container"),o=e.querySelector("#order-lookup-input"),i=e.querySelector("#order-lookup-btn"),r=e.querySelector("#status-filter");let a=[],s=1,n="ALL";const l=()=>{const u=o.value.trim();u&&(window.location.hash=`/orders/${u.toUpperCase()}`)};i.addEventListener("click",l),o.addEventListener("keydown",u=>{u.key==="Enter"&&l()}),r.addEventListener("change",u=>{n=u.target.value,s=1,d()});function y(){return n==="ALL"?a:n==="Returned"?a.filter(u=>u.status==="Returned"||u.status==="Return Requested"):a.filter(u=>u.status===n)}function d(){const u=y(),h=u.length,k=Math.ceil(h/Z)||1;if(s>k&&(s=k),s<1&&(s=1),h===0){t.innerHTML=`
         <div class="empty-state">
           <div class="empty-state-icon">📦</div>
           <h3>No orders found</h3>
-          <p>${o!=="ALL"?`No orders with status "${o}".`:"When you place orders, they'll appear here."}</p>
-          ${o!=="ALL"?'<button class="btn btn-secondary" style="margin-top:var(--space-4);" id="reset-filter-btn">Show All Orders</button>':'<a href="#/products" class="btn btn-primary" style="margin-top:var(--space-4);">Start Shopping</a>'}
-        </div>`;const T=t.querySelector("#reset-filter-btn");T&&T.addEventListener("click",()=>{i.value="ALL",o="ALL",d()});return}const w=(r-1)*K,$=Math.min(w+K,h),I=p.slice(w,$);t.innerHTML=`
+          <p>${n!=="ALL"?`No orders with status "${n}".`:"When you place orders, they'll appear here."}</p>
+          ${n!=="ALL"?'<button class="btn btn-secondary" style="margin-top:var(--space-4);" id="reset-filter-btn">Show All Orders</button>':'<a href="#/products" class="btn btn-primary" style="margin-top:var(--space-4);">Start Shopping</a>'}
+        </div>`;const q=t.querySelector("#reset-filter-btn");q&&q.addEventListener("click",()=>{r.value="ALL",n="ALL",d()});return}const w=(s-1)*Z,$=Math.min(w+Z,h),M=u.slice(w,$);t.innerHTML=`
       <div class="flex items-center justify-between" style="margin-bottom:var(--space-4);flex-wrap:wrap;gap:var(--space-2);">
         <span class="text-secondary text-sm">
           Showing <strong>${w+1}–${$}</strong> of <strong>${h}</strong> orders
         </span>
-        <span class="badge badge-neutral">Page ${r} of ${k}</span>
+        <span class="badge badge-neutral">Page ${s} of ${k}</span>
       </div>
 
       <div class="orders-list">
-        ${I.map(T=>mt(T)).join("")}
+        ${M.map(q=>yt(q)).join("")}
       </div>
 
       ${k>1?`
         <div class="pagination flex items-center justify-center gap-2" style="margin-top:var(--space-8);flex-wrap:wrap;">
-          <button class="btn btn-secondary btn-sm" id="prev-page-btn" ${r===1?"disabled":""}>← Previous</button>
-          ${gt(r,k)}
-          <button class="btn btn-secondary btn-sm" id="next-page-btn" ${r===k?"disabled":""}>Next →</button>
+          <button class="btn btn-secondary btn-sm" id="prev-page-btn" ${s===1?"disabled":""}>← Previous</button>
+          ${mt(s,k)}
+          <button class="btn btn-secondary btn-sm" id="next-page-btn" ${s===k?"disabled":""}>Next →</button>
         </div>`:""}
-    `;const S=t.querySelector("#prev-page-btn"),N=t.querySelector("#next-page-btn");S&&S.addEventListener("click",()=>{r>1&&(r--,d(),window.scrollTo({top:0,behavior:"smooth"}))}),N&&N.addEventListener("click",()=>{r<k&&(r++,d(),window.scrollTo({top:0,behavior:"smooth"}))}),t.querySelectorAll(".page-num-btn").forEach(T=>{T.addEventListener("click",D=>{const P=parseInt(D.target.dataset.page,10);P&&P!==r&&(r=P,d(),window.scrollTo({top:0,behavior:"smooth"}))})})}try{const p=se();let h=[];if(p&&p.customer_id)try{h=await Xe(p.customer_id)}catch{h=await he()}else try{h=await he()}catch{h=(await Promise.allSettled(vt.map($=>j($)))).filter($=>$.status==="fulfilled").map($=>$.value)}s=(h||[]).sort((k,w)=>new Date(w.order_date)-new Date(k.order_date)),d()}catch(p){t.innerHTML=`
+    `;const S=t.querySelector("#prev-page-btn"),B=t.querySelector("#next-page-btn");S&&S.addEventListener("click",()=>{s>1&&(s--,d(),window.scrollTo({top:0,behavior:"smooth"}))}),B&&B.addEventListener("click",()=>{s<k&&(s++,d(),window.scrollTo({top:0,behavior:"smooth"}))}),t.querySelectorAll(".page-num-btn").forEach(q=>{q.addEventListener("click",N=>{const A=parseInt(N.target.dataset.page,10);A&&A!==s&&(s=A,d(),window.scrollTo({top:0,behavior:"smooth"}))})})}try{const u=H();let h=[];if(u&&u.customer_id)try{h=await Ze(u.customer_id)}catch{h=await me()}else try{h=await me()}catch{h=(await Promise.allSettled(ht.map($=>Y($)))).filter($=>$.status==="fulfilled").map($=>$.value)}a=(h||[]).sort((k,w)=>new Date(w.order_date)-new Date(k.order_date)),d()}catch(u){t.innerHTML=`
       <div class="empty-state">
         <div class="empty-state-icon">⚠️</div>
         <h3>Failed to load orders</h3>
-        <p>${p.message}</p>
+        <p>${u.message}</p>
         <button class="btn btn-primary" style="margin-top:var(--space-4);" onclick="location.reload()">Try Again</button>
-      </div>`}}function gt(e,t){let n="";for(let a=1;a<=t;a++)a===1||a===t||a>=e-1&&a<=e+1?n+=`<button class="btn btn-sm ${a===e?"btn-primary":"btn-secondary"} page-num-btn" data-page="${a}">${a}</button>`:(a===e-2||a===e+2)&&(n+='<span class="text-secondary" style="padding:0 0.3rem;">...</span>');return n}function mt(e){const t=yt(e.status),n=new Date(e.order_date).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});return`
+      </div>`}}function mt(e,t){let o="";for(let i=1;i<=t;i++)i===1||i===t||i>=e-1&&i<=e+1?o+=`<button class="btn btn-sm ${i===e?"btn-primary":"btn-secondary"} page-num-btn" data-page="${i}">${i}</button>`:(i===e-2||i===e+2)&&(o+='<span class="text-secondary" style="padding:0 0.3rem;">...</span>');return o}function yt(e){const t=bt(e.status),o=new Date(e.order_date).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});return`
     <div class="order-card card card-hover" style="cursor:pointer;" onclick="location.hash='/orders/${e.order_id}'">
       <div class="order-card-top">
         <div>
@@ -928,10 +984,10 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
       </div>
       <div class="order-card-body">
         <div class="order-product-info">
-          <span style="font-size:1.5rem;">${bt(e.product_name)}</span>
+          <span style="font-size:1.5rem;">${ft(e.product_name)}</span>
           <div>
             <strong>${e.product_name}</strong>
-            <div class="text-secondary text-sm">Qty: ${e.quantity} • ${n}</div>
+            <div class="text-secondary text-sm">Qty: ${e.quantity} • ${o}</div>
           </div>
         </div>
         <div class="order-amount">
@@ -943,23 +999,33 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
         <span class="text-secondary text-sm">${e.expected_delivery||""}</span>
         <span class="btn btn-ghost btn-sm">View Details →</span>
       </div>
-    </div>`}function yt(e){return{Processing:{badge:"badge-primary",icon:"🔄"},"Order Placed":{badge:"badge-primary",icon:"📋"},Confirmed:{badge:"badge-primary",icon:"✅"},Packed:{badge:"badge-accent",icon:"📦"},Shipped:{badge:"badge-accent",icon:"🚛"},"Out for Delivery":{badge:"badge-warning",icon:"🚚"},Delivered:{badge:"badge-success",icon:"✅"},Cancelled:{badge:"badge-error",icon:"❌"},Returned:{badge:"badge-neutral",icon:"↩️"},"Return Requested":{badge:"badge-warning",icon:"↩️"}}[e]||{badge:"badge-neutral",icon:"📋"}}function bt(e){if(!e)return"📦";const t=e.toLowerCase();return t.includes("headphone")||t.includes("watch")||t.includes("smart")?"🎧":t.includes("shoe")||t.includes("running")?"👟":t.includes("shirt")||t.includes("cotton")?"👔":t.includes("bottle")||t.includes("pillow")?"🏠":"📦"}const ft=["Order Placed","Confirmed","Packed","Shipped","Out for Delivery","Delivered"];async function kt(e,t){var a;const n=(a=t.id)==null?void 0:a.toUpperCase();e.innerHTML=`
+    </div>`}function bt(e){return{Processing:{badge:"badge-primary",icon:"🔄"},"Order Placed":{badge:"badge-primary",icon:"📋"},Confirmed:{badge:"badge-primary",icon:"✅"},Packed:{badge:"badge-accent",icon:"📦"},Shipped:{badge:"badge-accent",icon:"🚛"},"Out for Delivery":{badge:"badge-warning",icon:"🚚"},Delivered:{badge:"badge-success",icon:"✅"},Cancelled:{badge:"badge-error",icon:"❌"},Returned:{badge:"badge-neutral",icon:"↩️"},"Return Requested":{badge:"badge-warning",icon:"↩️"}}[e]||{badge:"badge-neutral",icon:"📋"}}function ft(e){if(!e)return"📦";const t=e.toLowerCase();return t.includes("headphone")||t.includes("watch")||t.includes("smart")?"🎧":t.includes("shoe")||t.includes("running")?"👟":t.includes("shirt")||t.includes("cotton")?"👔":t.includes("bottle")||t.includes("pillow")?"🏠":"📦"}const kt=["Order Placed","Confirmed","Packed","Shipped","Out for Delivery","Delivered"];async function wt(e,t){var i;const o=(i=t.id)==null?void 0:i.toUpperCase();if(!E()){e.innerHTML=`
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view your orders and account information.</p>
+            <a href="#/login?redirect=/orders/${o}" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;return}e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <div class="loading-container"><div class="spinner spinner-lg"></div><p>Checking your order...</p></div>
       </div>
-    </div>`;try{const i=await j(n);Oe(e,i)}catch(i){e.innerHTML=`
+    </div>`;try{const r=await Y(o);Pe(e,r)}catch(r){const a=r.status===403||r.message&&r.message.includes("Access denied");e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <a href="#/orders" class="back-link">&larr; Back to Orders</a>
           <div class="empty-state" style="min-height:50vh;">
-            <div class="empty-state-icon">⚠️</div>
-            <h3>Order not found</h3>
-            <p>${i.message}</p>
-            <a href="#/orders" class="btn btn-primary" style="margin-top:var(--space-4);">View All Orders</a>
+            <div class="empty-state-icon">🔒</div>
+            <h3>${a?"Order Access Restricted":"Order not found"}</h3>
+            <p>${a?"You can only view orders associated with your account.":r.message||"Order not found."}</p>
+            <a href="#/orders" class="btn btn-primary" style="margin-top:var(--space-4);">View My Orders</a>
           </div>
         </div>
-      </div>`}}function Oe(e,t){var o,l;const n=wt(t.status),a=["Processing","Order Placed","Preparing to Ship"].includes(t.status),i=t.status==="Delivered",s=new Date(t.order_date).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}),r=St(t.status);e.innerHTML=`
+      </div>`}}function Pe(e,t){var n,l;const o=St(t.status),i=["Processing","Order Placed","Preparing to Ship"].includes(t.status),r=t.status==="Delivered",a=new Date(t.order_date).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}),s=xt(t.status);e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <a href="#/orders" class="back-link">&larr; Back to Orders</a>
@@ -967,16 +1033,16 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
         <div class="order-detail-header">
           <div>
             <h1>Order ${t.order_id}</h1>
-            <p class="text-secondary">Placed on ${s}</p>
+            <p class="text-secondary">Placed on ${a}</p>
           </div>
-          <span class="badge ${n.badge}" style="font-size:var(--font-sm);padding:8px 16px;">${n.icon} ${t.status}</span>
+          <span class="badge ${o.badge}" style="font-size:var(--font-sm);padding:8px 16px;">${o.icon} ${t.status}</span>
         </div>
 
         <!-- Timeline -->
         <div class="card" style="margin-bottom:var(--space-6);">
           <h3 style="margin-bottom:var(--space-6);">Order Timeline</h3>
           <div class="order-timeline">
-            ${ft.map((g,d)=>{const p=d<=r,h=d===r,k=t.status==="Cancelled";return t.status==="Returned"||t.status,k&&d>0?d===1?`
+            ${kt.map((y,d)=>{const u=d<=s,h=d===s,k=t.status==="Cancelled";return t.status==="Returned"||t.status,k&&d>0?d===1?`
                   <div class="timeline-step cancelled">
                     <div class="timeline-dot cancelled"></div>
                     <div class="timeline-label">
@@ -984,10 +1050,10 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
                       <span>Order has been cancelled</span>
                     </div>
                   </div>`:"":`
-                <div class="timeline-step ${p?"complete":""} ${h?"current":""}">
-                  <div class="timeline-dot ${p?"complete":""} ${h?"current":""}"></div>
+                <div class="timeline-step ${u?"complete":""} ${h?"current":""}">
+                  <div class="timeline-dot ${u?"complete":""} ${h?"current":""}"></div>
                   <div class="timeline-label">
-                    <strong>${g}</strong>
+                    <strong>${y}</strong>
                     ${h?'<span class="text-primary" style="font-size:0.75rem;">Current</span>':""}
                   </div>
                 </div>`}).join("")}
@@ -1035,11 +1101,11 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <div class="card">
             <h3 style="margin-bottom:var(--space-4);">Actions</h3>
             <div class="order-actions-list">
-              ${a?`
+              ${i?`
                 <button class="btn btn-danger" id="cancel-order-btn" style="width:100%;">
                   ❌ Cancel This Order
                 </button>`:""}
-              ${i?`
+              ${r?`
                 <a href="#/returns?order=${t.order_id}" class="btn btn-outline" style="width:100%;">
                   ↩️ Return This Order
                 </a>`:""}
@@ -1053,14 +1119,24 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
                 💬 Ask ShopSathi About This Order
               </button>
             </div>
-            ${!a&&t.status!=="Delivered"&&t.status!=="Cancelled"?`
+            ${!i&&t.status!=="Delivered"&&t.status!=="Cancelled"?`
               <p class="text-secondary text-sm" style="margin-top:var(--space-3);">
                 This order cannot be cancelled in its current state (${t.status}).
               </p>`:""}
           </div>
         </div>
       </div>
-    </div>`,(o=e.querySelector("#cancel-order-btn"))==null||o.addEventListener("click",async()=>{if(await G({title:`Cancel Order ${t.order_id}?`,message:`Are you sure you want to cancel order ${t.order_id}? Any charged amount will be refunded within 3-5 business days.`,confirmText:"Yes, Cancel Order",type:"danger"}))try{const d=await Le(t.order_id);b(d.message||"Order cancelled successfully","success");const p=await j(t.order_id);Oe(e,p)}catch(d){b(d.message||"Failed to cancel order","error")}}),(l=e.querySelector("#ask-ai-order"))==null||l.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))})}function wt(e){return{Processing:{badge:"badge-primary",icon:"🔄"},"Order Placed":{badge:"badge-primary",icon:"📋"},Confirmed:{badge:"badge-primary",icon:"✅"},Packed:{badge:"badge-accent",icon:"📦"},Shipped:{badge:"badge-accent",icon:"🚛"},"Out for Delivery":{badge:"badge-warning",icon:"🚚"},Delivered:{badge:"badge-success",icon:"✅"},Cancelled:{badge:"badge-error",icon:"❌"},Returned:{badge:"badge-neutral",icon:"↩️"},"Return Requested":{badge:"badge-warning",icon:"↩️"}}[e]||{badge:"badge-neutral",icon:"📋"}}function St(e){return{"Order Placed":0,Processing:0,Confirmed:1,Packed:2,Shipped:3,"Out for Delivery":4,Delivered:5}[e]??-1}async function xt(e){const t=window.location.hash,n=t.indexOf("?"),a=n!==-1?new URLSearchParams(t.slice(n)):new URLSearchParams,i=a.get("order")||"",s=a.get("action")||"";e.innerHTML=`
+    </div>`,(n=e.querySelector("#cancel-order-btn"))==null||n.addEventListener("click",async()=>{if(await Q({title:`Cancel Order ${t.order_id}?`,message:`Are you sure you want to cancel order ${t.order_id}? Any charged amount will be refunded within 3-5 business days.`,confirmText:"Yes, Cancel Order",type:"danger"}))try{const d=await Ce(t.order_id);b(d.message||"Order cancelled successfully","success");const u=await Y(t.order_id);Pe(e,u)}catch(d){b(d.message||"Failed to cancel order","error")}}),(l=e.querySelector("#ask-ai-order"))==null||l.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))})}function St(e){return{Processing:{badge:"badge-primary",icon:"🔄"},"Order Placed":{badge:"badge-primary",icon:"📋"},Confirmed:{badge:"badge-primary",icon:"✅"},Packed:{badge:"badge-accent",icon:"📦"},Shipped:{badge:"badge-accent",icon:"🚛"},"Out for Delivery":{badge:"badge-warning",icon:"🚚"},Delivered:{badge:"badge-success",icon:"✅"},Cancelled:{badge:"badge-error",icon:"❌"},Returned:{badge:"badge-neutral",icon:"↩️"},"Return Requested":{badge:"badge-warning",icon:"↩️"}}[e]||{badge:"badge-neutral",icon:"📋"}}function xt(e){return{"Order Placed":0,Processing:0,Confirmed:1,Packed:2,Shipped:3,"Out for Delivery":4,Delivered:5}[e]??-1}async function $t(e){if(!E()){e.innerHTML=`
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view return eligibility and refund details.</p>
+            <a href="#/login?redirect=/returns" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;return}const t=window.location.hash,o=t.indexOf("?"),i=o!==-1?new URLSearchParams(t.slice(o)):new URLSearchParams,r=i.get("order")||"",a=i.get("action")||"";e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <div class="page-header">
@@ -1079,7 +1155,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
               <div class="return-step" id="return-step-1">
                 <div class="step-label"><span class="step-num">1</span> Enter Order ID</div>
                 <div class="flex gap-3" style="flex-wrap:wrap;">
-                  <input type="text" id="return-order-id" class="form-input" placeholder="e.g. ORD1003" value="${i}" style="max-width:250px;">
+                  <input type="text" id="return-order-id" class="form-input" placeholder="e.g. ORD1003" value="${r}" style="max-width:250px;">
                   <button class="btn btn-primary" id="check-eligibility-btn">Check Eligibility</button>
                 </div>
               </div>
@@ -1109,7 +1185,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
               <h3>💰 Check Refund Status</h3>
               <p class="text-secondary" style="margin-bottom:var(--space-4);">Track your refund for returned or cancelled orders.</p>
               <div class="flex gap-3" style="flex-wrap:wrap;">
-                <input type="text" id="refund-order-id" class="form-input" placeholder="e.g. ORD1004" value="${s==="refund"?i:""}" style="max-width:250px;">
+                <input type="text" id="refund-order-id" class="form-input" placeholder="e.g. ORD1004" value="${a==="refund"?r:""}" style="max-width:250px;">
                 <button class="btn btn-primary" id="check-refund-btn">Check Refund</button>
               </div>
               <div id="refund-result" style="margin-top:var(--space-4);"></div>
@@ -1135,7 +1211,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           </div>
         </div>
       </div>
-    </div>`;let r="";e.querySelector("#check-eligibility-btn").addEventListener("click",async()=>{const o=e.querySelector("#return-order-id").value.trim().toUpperCase();if(!o){b("Please enter an Order ID","warning");return}r=o;const l=e.querySelector("#eligibility-result"),g=e.querySelector("#return-step-2"),d=e.querySelector("#return-step-3"),p=e.querySelector("#return-result");g.style.display="block",d.style.display="none",p.style.display="none",l.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Checking eligibility...</span></div>';try{const h=await Ce(o);h.eligible?(l.innerHTML=`
+    </div>`;let s="";e.querySelector("#check-eligibility-btn").addEventListener("click",async()=>{const n=e.querySelector("#return-order-id").value.trim().toUpperCase();if(!n){b("Please enter an Order ID","warning");return}s=n;const l=e.querySelector("#eligibility-result"),y=e.querySelector("#return-step-2"),d=e.querySelector("#return-step-3"),u=e.querySelector("#return-result");y.style.display="block",d.style.display="none",u.style.display="none",l.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Checking eligibility...</span></div>';try{const h=await Te(n);h.eligible?(l.innerHTML=`
           <div class="eligibility-card eligible">
             <span class="badge badge-success">✅ Eligible for Return</span>
             <p style="margin-top:var(--space-2);">${h.reason}</p>
@@ -1144,7 +1220,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <div class="eligibility-card ineligible">
             <span class="badge badge-error">❌ Not Eligible</span>
             <p style="margin-top:var(--space-2);">${h.reason}</p>
-          </div>`}catch(h){l.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${h.message}</p></div>`}}),e.querySelector("#submit-return-btn").addEventListener("click",async()=>{const o=e.querySelector("#return-reason").value.trim();if(!o){b("Please enter a reason for return","warning");return}if(!await G({title:"Create Return Request?",message:`Are you sure you want to create a return request for order ${r}?`,confirmText:"Yes, Submit Return",type:"primary"}))return;const g=e.querySelector("#return-result");g.style.display="block",g.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Submitting return request...</span></div>';try{const d=await Ee(r,o);e.querySelector("#return-reason").value="",g.innerHTML=`
+          </div>`}catch(h){l.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${h.message}</p></div>`}}),e.querySelector("#submit-return-btn").addEventListener("click",async()=>{const n=e.querySelector("#return-reason").value.trim();if(!n){b("Please enter a reason for return","warning");return}if(!await Q({title:"Create Return Request?",message:`Are you sure you want to create a return request for order ${s}?`,confirmText:"Yes, Submit Return",type:"primary"}))return;const y=e.querySelector("#return-result");y.style.display="block",y.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Submitting return request...</span></div>';try{const d=await Ee(s,n);e.querySelector("#return-reason").value="",y.innerHTML=`
         <div class="return-success-card card card-elevated" style="margin-top:var(--space-4);">
           <span style="font-size:2rem;">🎉</span>
           <h3>Return Request Submitted!</h3>
@@ -1155,20 +1231,30 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
             <div class="detail-row"><span>Reason</span><span>${d.reason}</span></div>
           </div>
           <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${d.message}</p>
-        </div>`,b("Return request submitted successfully!","success")}catch(d){g.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${d.message}</p></div>`,b(d.message||"Failed to create return","error")}}),e.querySelector("#check-refund-btn").addEventListener("click",async()=>{const o=e.querySelector("#refund-order-id").value.trim().toUpperCase();if(!o){b("Please enter an Order ID","warning");return}const l=e.querySelector("#refund-result");l.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Checking refund status...</span></div>';try{const g=await Te(o);l.innerHTML=`
+        </div>`,b("Return request submitted successfully!","success")}catch(d){y.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${d.message}</p></div>`,b(d.message||"Failed to create return","error")}}),e.querySelector("#check-refund-btn").addEventListener("click",async()=>{const n=e.querySelector("#refund-order-id").value.trim().toUpperCase();if(!n){b("Please enter an Order ID","warning");return}const l=e.querySelector("#refund-result");l.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Checking refund status...</span></div>';try{const y=await qe(n);l.innerHTML=`
         <div class="refund-card card card-elevated">
           <div class="flex items-center gap-3" style="margin-bottom:var(--space-3);">
             <span style="font-size:1.5rem;">💰</span>
             <h4>Refund Status</h4>
           </div>
           <div class="detail-rows">
-            <div class="detail-row"><span>Refund ID</span><strong>${g.refund_id}</strong></div>
-            <div class="detail-row"><span>Amount</span><strong>₹${g.amount.toLocaleString("en-IN")}</strong></div>
-            <div class="detail-row"><span>Status</span><span class="badge badge-primary">${g.refund_status}</span></div>
-            <div class="detail-row"><span>Expected</span><span>${g.expected_date||"N/A"}</span></div>
+            <div class="detail-row"><span>Refund ID</span><strong>${y.refund_id}</strong></div>
+            <div class="detail-row"><span>Amount</span><strong>₹${y.amount.toLocaleString("en-IN")}</strong></div>
+            <div class="detail-row"><span>Status</span><span class="badge badge-primary">${y.refund_status}</span></div>
+            <div class="detail-row"><span>Expected</span><span>${y.expected_date||"N/A"}</span></div>
           </div>
-          <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${g.message}</p>
-        </div>`}catch(g){l.innerHTML=`<div class="eligibility-card ineligible"><p>${g.message}</p></div>`}}),e.querySelector("#return-ai-btn").addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))}),i&&s!=="refund"&&e.querySelector("#check-eligibility-btn").click(),i&&s==="refund"&&e.querySelector("#check-refund-btn").click()}async function $t(e){var t,n,a,i;e.innerHTML=`
+          <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${y.message}</p>
+        </div>`}catch(y){l.innerHTML=`<div class="eligibility-card ineligible"><p>${y.message}</p></div>`}}),e.querySelector("#return-ai-btn").addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))}),r&&a!=="refund"&&e.querySelector("#check-eligibility-btn").click(),r&&a==="refund"&&e.querySelector("#check-refund-btn").click()}async function Lt(e){var t,o,i,r;if(!E()){e.innerHTML=`
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to create and manage support tickets.</p>
+            <a href="#/login?redirect=/support" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;return}e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <div class="page-header text-center" style="margin-bottom:var(--space-12);">
@@ -1226,7 +1312,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
             <h3 style="margin-bottom:var(--space-4);">🎫 Create Support Ticket</h3>
             <div class="form-group">
               <label class="form-label">Customer ID *</label>
-              <input type="text" id="ticket-customer-id" class="form-input" placeholder="e.g. CUST101" value="${((t=se())==null?void 0:t.customer_id)||""}">
+              <input type="text" id="ticket-customer-id" class="form-input" placeholder="e.g. CUST101" value="${((t=H())==null?void 0:t.customer_id)||""}">
             </div>
             <div class="form-group" style="margin-top:var(--space-4);">
               <label class="form-label">Issue Category</label>
@@ -1284,28 +1370,28 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           </div>
         </div>
       </div>
-    </div>`,(n=e.querySelector("#scroll-to-ticket"))==null||n.addEventListener("click",()=>{var s;(s=e.querySelector("#ticket-create-section"))==null||s.scrollIntoView({behavior:"smooth"})}),(a=e.querySelector("#scroll-to-check"))==null||a.addEventListener("click",()=>{var s;(s=e.querySelector("#ticket-check-section"))==null||s.scrollIntoView({behavior:"smooth"})}),(i=e.querySelector("#open-ai-support"))==null||i.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))}),e.querySelector("#create-ticket-btn").addEventListener("click",async()=>{const s=e.querySelector("#ticket-customer-id").value.trim(),r=e.querySelector("#ticket-category").value,o=e.querySelector("#ticket-order-id").value.trim(),l=e.querySelector("#ticket-description").value.trim(),g=e.querySelector("#ticket-priority").value,d=e.querySelector("#ticket-create-result");if(!s||!l){b("Please fill Customer ID and Description","warning");return}d.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Creating ticket...</span></div>';try{const p=await qe({customerId:s,description:l,category:r||void 0,priority:g,orderId:o||void 0});e.querySelector("#ticket-description").value="";const h=e.querySelector("#ticket-order-id");h&&(h.value=""),d.innerHTML=`
+    </div>`,(o=e.querySelector("#scroll-to-ticket"))==null||o.addEventListener("click",()=>{var a;(a=e.querySelector("#ticket-create-section"))==null||a.scrollIntoView({behavior:"smooth"})}),(i=e.querySelector("#scroll-to-check"))==null||i.addEventListener("click",()=>{var a;(a=e.querySelector("#ticket-check-section"))==null||a.scrollIntoView({behavior:"smooth"})}),(r=e.querySelector("#open-ai-support"))==null||r.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))}),e.querySelector("#create-ticket-btn").addEventListener("click",async()=>{const a=e.querySelector("#ticket-customer-id").value.trim(),s=e.querySelector("#ticket-category").value,n=e.querySelector("#ticket-order-id").value.trim(),l=e.querySelector("#ticket-description").value.trim(),y=e.querySelector("#ticket-priority").value,d=e.querySelector("#ticket-create-result");if(!a||!l){b("Please fill Customer ID and Description","warning");return}d.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Creating ticket...</span></div>';try{const u=await Re({customerId:a,description:l,category:s||void 0,priority:y,orderId:n||void 0});e.querySelector("#ticket-description").value="";const h=e.querySelector("#ticket-order-id");h&&(h.value=""),d.innerHTML=`
         <div class="return-success-card card card-elevated">
           <h4>✅ Ticket Created</h4>
           <div class="detail-rows" style="margin-top:var(--space-3);">
-            <div class="detail-row"><span>Ticket ID</span><strong>${p.ticket_id}</strong></div>
-            <div class="detail-row"><span>Priority</span><span class="badge badge-primary">${p.priority}</span></div>
-            <div class="detail-row"><span>Status</span><span class="badge badge-success">${p.status}</span></div>
-            <div class="detail-row"><span>Assigned To</span><span>${p.assigned_to}</span></div>
+            <div class="detail-row"><span>Ticket ID</span><strong>${u.ticket_id}</strong></div>
+            <div class="detail-row"><span>Priority</span><span class="badge badge-primary">${u.priority}</span></div>
+            <div class="detail-row"><span>Status</span><span class="badge badge-success">${u.status}</span></div>
+            <div class="detail-row"><span>Assigned To</span><span>${u.assigned_to}</span></div>
           </div>
-          <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${p.message}</p>
-        </div>`,b("Support ticket created!","success")}catch(p){d.innerHTML=`<div class="eligibility-card ineligible"><p>${p.message}</p></div>`,b(p.message||"Failed to create ticket","error")}}),e.querySelector("#check-ticket-btn").addEventListener("click",async()=>{const s=e.querySelector("#check-ticket-id").value.trim();if(!s){b("Please enter a Ticket ID","warning");return}const r=e.querySelector("#ticket-check-result");r.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Loading ticket...</span></div>';try{const o=await Ze(s),l=o.status==="Escalated"?"badge-warning":o.status==="Resolved"?"badge-success":"badge-primary";r.innerHTML=`
+          <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${u.message}</p>
+        </div>`,b("Support ticket created!","success")}catch(u){d.innerHTML=`<div class="eligibility-card ineligible"><p>${u.message}</p></div>`,b(u.message||"Failed to create ticket","error")}}),e.querySelector("#check-ticket-btn").addEventListener("click",async()=>{const a=e.querySelector("#check-ticket-id").value.trim();if(!a){b("Please enter a Ticket ID","warning");return}const s=e.querySelector("#ticket-check-result");s.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Loading ticket...</span></div>';try{const n=await et(a),l=n.status==="Escalated"?"badge-warning":n.status==="Resolved"?"badge-success":"badge-primary";s.innerHTML=`
         <div class="card card-elevated">
           <div class="detail-rows">
-            <div class="detail-row"><span>Ticket</span><strong>${o.ticket_id}</strong></div>
-            <div class="detail-row"><span>Status</span><span class="badge ${l}">${o.status}</span></div>
-            <div class="detail-row"><span>Priority</span><span class="badge badge-primary">${o.priority}</span></div>
-            <div class="detail-row"><span>Category</span><span>${o.category}</span></div>
-            <div class="detail-row"><span>Assigned To</span><span>${o.assigned_to}</span></div>
-            <div class="detail-row"><span>Description</span><span class="text-sm">${o.description}</span></div>
-            ${o.reason_for_escalation?`<div class="detail-row"><span>Escalation Reason</span><span class="text-sm">${o.reason_for_escalation}</span></div>`:""}
+            <div class="detail-row"><span>Ticket</span><strong>${n.ticket_id}</strong></div>
+            <div class="detail-row"><span>Status</span><span class="badge ${l}">${n.status}</span></div>
+            <div class="detail-row"><span>Priority</span><span class="badge badge-primary">${n.priority}</span></div>
+            <div class="detail-row"><span>Category</span><span>${n.category}</span></div>
+            <div class="detail-row"><span>Assigned To</span><span>${n.assigned_to}</span></div>
+            <div class="detail-row"><span>Description</span><span class="text-sm">${n.description}</span></div>
+            ${n.reason_for_escalation?`<div class="detail-row"><span>Escalation Reason</span><span class="text-sm">${n.reason_for_escalation}</span></div>`:""}
           </div>
-        </div>`}catch(o){r.innerHTML=`<div class="eligibility-card ineligible"><p>${o.message}</p></div>`}}),e.querySelector("#escalate-btn").addEventListener("click",async()=>{const s=e.querySelector("#escalate-ticket-id").value.trim();if(!s){b("Please enter a Ticket ID","warning");return}if(!await G({title:"Escalate to Human Support?",message:`This will escalate ticket ${s} to a Tier 2 Human Support Agent. Continue?`,confirmText:"Yes, Escalate",type:"primary"}))return;const o=e.querySelector("#escalate-result");o.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Escalating...</span></div>';try{const l=await Re(s);o.innerHTML=`
+        </div>`}catch(n){s.innerHTML=`<div class="eligibility-card ineligible"><p>${n.message}</p></div>`}}),e.querySelector("#escalate-btn").addEventListener("click",async()=>{const a=e.querySelector("#escalate-ticket-id").value.trim();if(!a){b("Please enter a Ticket ID","warning");return}if(!await Q({title:"Escalate to Human Support?",message:`This will escalate ticket ${a} to a Tier 2 Human Support Agent. Continue?`,confirmText:"Yes, Escalate",type:"primary"}))return;const n=e.querySelector("#escalate-result");n.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Escalating...</span></div>';try{const l=await Oe(a);n.innerHTML=`
         <div class="return-success-card card card-elevated">
           <h4>👨‍💼 Ticket Escalated</h4>
           <div class="detail-rows" style="margin-top:var(--space-3);">
@@ -1314,17 +1400,17 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
             <div class="detail-row"><span>Assigned To</span><span>${l.assigned_to}</span></div>
           </div>
           <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${l.message}</p>
-        </div>`,b("Ticket escalated to human support","success")}catch(l){o.innerHTML=`<div class="eligibility-card ineligible"><p>${l.message}</p></div>`,b(l.message||"Failed to escalate","error")}})}async function Lt(e){var i,s;const t=se();if(!t){e.innerHTML=`
+        </div>`,b("Ticket escalated to human support","success")}catch(l){n.innerHTML=`<div class="eligibility-card ineligible"><p>${l.message}</p></div>`,b(l.message||"Failed to escalate","error")}})}async function Ct(e){var r,a;const t=H();if(!E()||!t){e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
-            <div class="empty-state-icon">👤</div>
-            <h3>Not Logged In</h3>
-            <p>Please log in to view your profile.</p>
-            <a href="#/login" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Log In</a>
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view your account profile.</p>
+            <a href="#/login?redirect=/profile" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Log In</a>
           </div>
         </div>
-      </div>`;return}const a={CUST101:"Customer / Owner Demo",CUST102:"Administrator",CUST103:"HR / Operations",CUST104:"Support Team",CUST105:"Guest User"}[t.customer_id]||"Customer";e.innerHTML=`
+      </div>`;return}const i={CUST101:"Customer / Owner Demo",CUST102:"Administrator",CUST103:"HR / Operations",CUST104:"Support Team",CUST105:"Guest User"}[t.customer_id]||"Customer";e.innerHTML=`
     <div class="page-content">
       <div class="container" style="max-width:800px;">
         <div class="page-header">
@@ -1334,13 +1420,13 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
         <div class="card" style="margin-bottom:var(--space-6);">
           <div class="profile-header">
             <div class="profile-avatar">
-              <span>${((s=(i=t.name)==null?void 0:i.charAt(0))==null?void 0:s.toUpperCase())||"?"}</span>
+              <span>${((a=(r=t.name)==null?void 0:r.charAt(0))==null?void 0:a.toUpperCase())||"?"}</span>
             </div>
             <div>
               <h2>${t.name}</h2>
               <div class="flex items-center gap-2" style="margin-top:var(--space-1);">
                 <span class="badge badge-primary">${t.customer_id}</span>
-                <span class="badge badge-accent">${a}</span>
+                <span class="badge badge-accent">${i}</span>
               </div>
             </div>
           </div>
@@ -1348,7 +1434,7 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <div class="detail-rows">
             <div class="detail-row">
               <span>🎭 Role</span>
-              <strong>${a}</strong>
+              <strong>${i}</strong>
             </div>
             <div class="detail-row">
               <span>📧 Email</span>
@@ -1389,12 +1475,12 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           Log Out
         </button>
       </div>
-    </div>`,e.querySelector("#logout-btn").addEventListener("click",()=>{Ve(),b("Logged out successfully","info"),window.location.hash="/login"})}const Ct=[{id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},{id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},{id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},{id:"CUST104",name:"ShopSathi Team",role:"Support Team",email:"team@shopsathi.ai"},{id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai"}];async function Et(e){e.innerHTML=`
+    </div>`,e.querySelector("#logout-btn").addEventListener("click",()=>{je(),b("Logged out successfully","info"),window.location.hash="/login"})}const Tt=[{id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},{id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},{id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},{id:"CUST104",name:"ShopSathi Team",role:"Support Team",email:"team@shopsathi.ai"},{id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai"}];async function Et(e){const t=window.location.hash,o=t.indexOf("?"),r=(o!==-1?new URLSearchParams(t.slice(o)):new URLSearchParams).get("redirect")||null;e.innerHTML=`
     <div class="page-content">
       <div class="login-page">
         <div class="login-card card card-elevated">
           <div class="text-center" style="margin-bottom:var(--space-8);">
-            ${ae(180)}
+            ${ne(180)}
             <p class="text-secondary" style="margin-top:var(--space-3);">Smart Shopping. Smarter Support.</p>
           </div>
 
@@ -1402,17 +1488,17 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           <p class="text-secondary" style="margin-bottom:var(--space-6);">Select a profile to enter the demo experience:</p>
 
           <div class="login-customers" style="display:flex;flex-direction:column;gap:var(--space-3);">
-            ${Ct.map(t=>`
-              <button class="login-customer-btn card card-hover" data-id="${t.id}" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-3) var(--space-4);width:100%;text-align:left;border:1px solid var(--color-border);background:var(--color-surface);">
+            ${Tt.map(a=>`
+              <button class="login-customer-btn card card-hover" data-id="${a.id}" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-3) var(--space-4);width:100%;text-align:left;border:1px solid var(--color-border);background:var(--color-surface);">
                 <div class="profile-avatar" style="width:42px;height:42px;font-size:1rem;flex-shrink:0;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">
-                  <span>${t.name.charAt(0)}</span>
+                  <span>${a.name.charAt(0)}</span>
                 </div>
                 <div style="flex:1;">
                   <div style="display:flex;align-items:center;justify-content:space-between;">
-                    <strong style="font-size:0.95rem;">${t.name}</strong>
-                    <span class="badge badge-primary" style="font-size:0.7rem;padding:2px 6px;">${t.role}</span>
+                    <strong style="font-size:0.95rem;">${a.name}</strong>
+                    <span class="badge ${a.id==="CUST105"?"badge-neutral":"badge-primary"}" style="font-size:0.7rem;padding:2px 6px;">${a.role}</span>
                   </div>
-                  <span class="text-secondary text-sm" style="font-size:0.8rem;">${t.id} • ${t.email}</span>
+                  <span class="text-secondary text-sm" style="font-size:0.8rem;">${a.id} • ${a.email}</span>
                 </div>
               </button>`).join("")}
           </div>
@@ -1432,4 +1518,4 @@ Status: ${v.status} (Assigned to: ${v.assigned_to})`,actions:[{label:"View Ticke
           </p>
         </div>
       </div>
-    </div>`,e.querySelectorAll(".login-customer-btn").forEach(t=>{t.addEventListener("click",async()=>{await X(t.dataset.id)})}),e.querySelector("#custom-login-btn").addEventListener("click",async()=>{const t=e.querySelector("#custom-id-input").value.trim();t?await X(t.toUpperCase()):b("Please enter a Customer ID","warning")}),e.querySelector("#custom-id-input").addEventListener("keydown",async t=>{if(t.key==="Enter"){const n=t.target.value.trim();n&&await X(n.toUpperCase())}})}async function X(e){try{const t=await et(e);we(t),b(`Welcome, ${t.name}!`,"success"),window.location.hash="/"}catch(t){b(t.message||"Customer not found","error")}}C("/",st);C("/products",rt);C("/products/:id",lt);C("/cart",dt);C("/checkout",ut);C("/orders",ht);C("/orders/:id",kt);C("/returns",xt);C("/support",$t);C("/profile",Lt);C("/login",Et);const ie=document.getElementById("app"),Tt=Ye();ie.appendChild(Tt);const Y=document.createElement("main");Y.id="main-content";Y.setAttribute("role","main");ie.appendChild(Y);const qt=Qe();ie.appendChild(qt);const Rt=tt();document.body.appendChild(Rt);Be(Y);
+    </div>`,e.querySelectorAll(".login-customer-btn").forEach(a=>{a.addEventListener("click",async()=>{await ee(a.dataset.id,r)})}),e.querySelector("#custom-login-btn").addEventListener("click",async()=>{const a=e.querySelector("#custom-id-input").value.trim();a?await ee(a.toUpperCase(),r):b("Please enter a Customer ID","warning")}),e.querySelector("#custom-id-input").addEventListener("keydown",async a=>{if(a.key==="Enter"){const s=a.target.value.trim();s&&await ee(s.toUpperCase(),r)}})}async function ee(e,t){if(e==="CUST105"||e==="GUEST"){se({id:"CUST105",customer_id:"CUST105",name:"Guest",isGuest:!0,role:"Guest User",email:"guest@shopsathi.ai"}),b("Browsing as Guest","info"),window.location.hash="/products";return}try{const o=await tt(e);se(o),b(`Welcome, ${o.name}!`,"success"),t?window.location.hash=t:window.location.hash="/orders"}catch(o){b(o.message||"Customer not found","error")}}C("/",it);C("/products",rt);C("/products/:id",dt);C("/cart",pt);C("/checkout",vt);C("/orders",gt);C("/orders/:id",wt);C("/returns",$t);C("/support",Lt);C("/profile",Ct);C("/login",Et);const re=document.getElementById("app"),qt=Qe();re.appendChild(qt);const J=document.createElement("main");J.id="main-content";J.setAttribute("role","main");re.appendChild(J);const Rt=Je();re.appendChild(Rt);const Ot=at();document.body.appendChild(Ot);Ue(J);

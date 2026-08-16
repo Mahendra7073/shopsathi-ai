@@ -8,7 +8,7 @@ from app.database import get_db
 from app.models import SupportTicket, Customer, Order
 from app.schemas import CreateSupportTicketRequest, SupportTicketResponse, EscalateTicketRequest, EscalateTicketPostRequest, TicketStatusPostRequest
 from app.logging_config import log_api_call
-from app.security import verify_api_key
+from app.security import verify_api_key, require_current_customer
 
 router = APIRouter(prefix="/support", tags=["Support Tickets"])
 
@@ -28,12 +28,12 @@ def clean_ticket_id(raw_id: str) -> str:
 def create_support_ticket(
     payload: CreateSupportTicketRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Create a new support ticket for a customer query.
-    Used by Kipps.AI Function: create_support_ticket.
-    Accepts customer_id, subject/category, description, priority, order_id.
+    Enforces customer isolation.
     """
     start_time = time.time()
     
@@ -44,6 +44,13 @@ def create_support_ticket(
             detail="customer_id is required."
         )
     customer_id = payload.customer_id.strip().upper()
+    
+    if customer_id != current_customer.customer_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only create support tickets for your own account."
+        )
+
     customer = db.query(Customer).filter(Customer.customer_id == customer_id).first()
 
     if not customer:
@@ -80,6 +87,12 @@ def create_support_ticket(
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Order {order_id} not found."
+            )
+        if order.customer_id != current_customer.customer_id:
+            log_api_call(db=db, function_called="create_support_ticket", customer_id=current_customer.customer_id, intent="Support Ticket Creation", api_result={"error": f"Access denied for order {order_id}"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Access denied. You can only attach your own orders to support tickets."
             )
 
     # 6. Generate real unique ticket ID & persist to DB
@@ -133,11 +146,12 @@ def create_support_ticket(
 def get_support_ticket_post(
     payload: TicketStatusPostRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Retrieve support ticket details using JSON body payload.
-    Used by Kipps.AI Function: get_ticket_status.
+    Enforces customer ticket isolation.
     """
     start_time = time.time()
     t_id = clean_ticket_id(payload.ticket_id)
@@ -148,6 +162,13 @@ def get_support_ticket_post(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Support ticket {t_id} not found."
+        )
+
+    if ticket.customer_id != current_customer.customer_id:
+        log_api_call(db=db, function_called="get_support_ticket_post", customer_id=current_customer.customer_id, intent="Ticket Details Lookup", api_result={"error": f"Access denied for ticket {t_id}"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only view support tickets for your own account."
         )
 
     res = {
@@ -184,11 +205,12 @@ def get_support_ticket_post(
 def escalate_support_ticket_post(
     payload: EscalateTicketPostRequest,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Escalate a support ticket using JSON body payload.
-    Used by Kipps.AI Function: escalate_support_ticket.
+    Enforces customer ticket isolation.
     """
     start_time = time.time()
     t_id = clean_ticket_id(payload.ticket_id)
@@ -199,6 +221,13 @@ def escalate_support_ticket_post(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Support ticket {t_id} not found."
+        )
+
+    if ticket.customer_id != current_customer.customer_id:
+        log_api_call(db=db, function_called="escalate_support_ticket", customer_id=current_customer.customer_id, intent="Human Escalation", api_result={"error": f"Access denied for ticket {t_id}"}, success=False, escalation=True, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only escalate support tickets for your own account."
         )
 
     # Check if ticket is already escalated
@@ -266,11 +295,12 @@ def escalate_support_ticket(
     ticket_id: str,
     payload: EscalateTicketRequest = None,
     db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
     api_key: str = Security(verify_api_key)
 ):
     """
     Escalate an unresolved support ticket to a Tier 2 human customer support agent (URL path parameter).
-    Used by Kipps.AI Function: escalate_support_ticket.
+    Enforces customer ticket isolation.
     """
     start_time = time.time()
     t_id = clean_ticket_id(ticket_id)
@@ -281,6 +311,13 @@ def escalate_support_ticket(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Support ticket {t_id} not found."
+        )
+
+    if ticket.customer_id != current_customer.customer_id:
+        log_api_call(db=db, function_called="escalate_support_ticket", customer_id=current_customer.customer_id, intent="Human Escalation", api_result={"error": f"Access denied for ticket {t_id}"}, success=False, escalation=True, response_time_ms=(time.time() - start_time) * 1000)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only escalate support tickets for your own account."
         )
 
     if ticket.status == "Escalated":
@@ -343,14 +380,24 @@ def escalate_support_ticket(
 
 
 @router.get("/tickets/{ticket_id}", response_model=SupportTicketResponse, summary="Get support ticket details")
-def get_support_ticket(ticket_id: str, db: Session = Depends(get_db)):
-    """Retrieve details of a support ticket by ticket_id."""
+def get_support_ticket(
+    ticket_id: str,
+    db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer)
+):
+    """Retrieve details of a support ticket by ticket_id. Enforces customer ticket isolation."""
     t_id = clean_ticket_id(ticket_id)
     ticket = db.query(SupportTicket).filter(SupportTicket.ticket_id == t_id).first()
     if not ticket:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Support ticket {t_id} not found."
+        )
+
+    if ticket.customer_id != current_customer.customer_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. You can only view support tickets for your own account."
         )
 
     return {
@@ -369,3 +416,4 @@ def get_support_ticket(ticket_id: str, db: Session = Depends(get_db)):
         "created_at": ticket.created_at,
         "message": f"Ticket {ticket.ticket_id} is currently '{ticket.status}' (Assigned to: {ticket.assigned_to})."
     }
+

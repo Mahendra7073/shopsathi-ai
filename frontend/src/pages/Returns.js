@@ -4,8 +4,24 @@
 import { checkReturnEligibility, createReturnRequest, checkRefundStatus } from '../services/api.js';
 import { showToast } from '../components/Toast.js';
 import { showModal } from '../components/Modal.js';
+import { isAuthenticated } from '../store.js';
 
 export async function renderReturns(container) {
+  if (!isAuthenticated()) {
+    container.innerHTML = `
+      <div class="page-content">
+        <div class="container">
+          <div class="empty-state" style="min-height:60vh;">
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view return eligibility and refund details.</p>
+            <a href="#/login?redirect=/returns" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
+
   // Check URL params
   const hash = window.location.hash;
   const qIndex = hash.indexOf('?');

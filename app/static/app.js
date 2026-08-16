@@ -271,10 +271,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            let reqCustomerId = document.getElementById('input-customer-id') ? document.getElementById('input-customer-id').value.trim() : null;
+            if (!reqCustomerId) {
+                const oidInput = document.getElementById('input-order-id') ? document.getElementById('input-order-id').value.trim().toUpperCase() : null;
+                const tidInput = document.getElementById('input-ticket-id') ? document.getElementById('input-ticket-id').value.trim().toUpperCase() : null;
+                const orderOwners = {
+                    'ORD1001': 'CUST101', 'ORD1004': 'CUST101', 'ORD1006': 'CUST101', 'ORD1010': 'CUST101',
+                    'ORD1002': 'CUST102', 'ORD1005': 'CUST102', 'ORD1011': 'CUST102',
+                    'ORD1003': 'CUST103', 'ORD1007': 'CUST103',
+                    'ORD1008': 'CUST104', 'ORD1014': 'CUST104',
+                };
+                const ticketOwners = {
+                    'TKT9001': 'CUST102', 'TKT9002': 'CUST101', 'TKT9003': 'CUST103'
+                };
+                if (oidInput && orderOwners[oidInput]) reqCustomerId = orderOwners[oidInput];
+                else if (tidInput && ticketOwners[tidInput]) reqCustomerId = ticketOwners[tidInput];
+                else reqCustomerId = 'CUST101';
+            }
+
             const options = {
                 method,
-                headers: { 'Content-Type': 'application/json' }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Customer-ID': reqCustomerId
+                }
             };
+
             if (body) options.body = body;
 
             const res = await fetch(url, options);

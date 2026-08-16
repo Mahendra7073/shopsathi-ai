@@ -1,22 +1,22 @@
 /**
  * ShopSathi Profile Page
  */
-import { getCurrentUser, setCurrentUser, logout } from '../store.js';
+import { getCurrentUser, setCurrentUser, logout, isAuthenticated } from '../store.js';
 import { getCustomer } from '../services/api.js';
 import { showToast } from '../components/Toast.js';
 
 export async function renderProfile(container) {
   const user = getCurrentUser();
 
-  if (!user) {
+  if (!isAuthenticated() || !user) {
     container.innerHTML = `
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
-            <div class="empty-state-icon">👤</div>
-            <h3>Not Logged In</h3>
-            <p>Please log in to view your profile.</p>
-            <a href="#/login" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Log In</a>
+            <div class="empty-state-icon">🔒</div>
+            <h3>Login Required</h3>
+            <p>Please log in to view your account profile.</p>
+            <a href="#/login?redirect=/profile" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Log In</a>
           </div>
         </div>
       </div>`;

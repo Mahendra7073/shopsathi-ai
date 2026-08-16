@@ -26,6 +26,13 @@ export function getCurrentUser() {
   }
 }
 
+export function isAuthenticated() {
+  const user = getCurrentUser();
+  if (!user) return false;
+  if (user.customer_id === 'CUST105' || user.isGuest) return false;
+  return true;
+}
+
 export function setCurrentUser(user) {
   if (user) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
