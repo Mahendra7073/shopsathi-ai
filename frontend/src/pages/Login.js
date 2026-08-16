@@ -14,6 +14,14 @@ const DEMO_CUSTOMERS = [
   { id: 'CUST105', name: 'Guest', role: 'Guest User', email: 'guest@shopsathi.ai' },
 ];
 
+const DEMO_PROFILES_MAP = {
+  'CUST101': { customer_id: 'CUST101', name: 'Mahendra Gurjar', role: 'Customer / Owner Demo', email: 'mahendra.gurjar@shopsathi.ai' },
+  'CUST102': { customer_id: 'CUST102', name: 'ShopSathi Admin', role: 'Administrator', email: 'admin@shopsathi.ai' },
+  'CUST103': { customer_id: 'CUST103', name: 'ShopSathi HR', role: 'HR / Operations', email: 'hr@shopsathi.ai' },
+  'CUST104': { customer_id: 'CUST104', name: 'ShopSathi Team', role: 'Support Team', email: 'team@shopsathi.ai' },
+  'CUST105': { customer_id: 'CUST105', name: 'Guest', role: 'Guest User', email: 'guest@shopsathi.ai', isGuest: true }
+};
+
 export async function renderLogin(container) {
   const hash = window.location.hash;
   const qIndex = hash.indexOf('?');
@@ -24,13 +32,16 @@ export async function renderLogin(container) {
     <div class="page-content">
       <div class="login-page">
         <div class="login-card card card-elevated">
-          <div class="text-center" style="margin-bottom:var(--space-8);">
+          <div class="text-center" style="margin-bottom:var(--space-6);">
             ${logoFull(180)}
-            <p class="text-secondary" style="margin-top:var(--space-3);">Smart Shopping. Smarter Support.</p>
+            <p class="text-secondary" style="margin-top:var(--space-2);">Smart Shopping. Smarter Support.</p>
           </div>
 
-          <h3 style="margin-bottom:var(--space-2);">Welcome to ShopSathi</h3>
-          <p class="text-secondary" style="margin-bottom:var(--space-6);">Select a profile to enter the demo experience:</p>
+          <div style="text-center;margin-bottom:var(--space-6);">
+            <span class="badge badge-primary" style="font-size:0.75rem;padding:4px 10px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:var(--space-2);display:inline-block;">Demo Login</span>
+            <h3 style="margin-bottom:var(--space-2);">Welcome to ShopSathi</h3>
+            <p class="text-secondary" style="font-size:0.9rem;">Select a profile or enter a valid Customer ID to continue.</p>
+          </div>
 
           <div class="login-customers" style="display:flex;flex-direction:column;gap:var(--space-3);">
             ${DEMO_CUSTOMERS.map(c => `
@@ -51,7 +62,7 @@ export async function renderLogin(container) {
           <div class="divider" style="margin:var(--space-6) 0;"></div>
 
           <div class="form-group">
-            <label class="form-label">Or enter Customer ID</label>
+            <label class="form-label" style="font-weight:600;">Customer ID</label>
             <div class="flex gap-3">
               <input type="text" id="custom-id-input" class="form-input" placeholder="e.g. CUST101">
               <button class="btn btn-primary" id="custom-login-btn">Login</button>
@@ -59,52 +70,64 @@ export async function renderLogin(container) {
           </div>
 
           <p class="text-secondary text-sm text-center" style="margin-top:var(--space-6);">
-            <em>Demo login — select any customer profile above.</em>
+            <em>Hackathon Demo Authentication — select any profile above or enter a valid Customer ID.</em>
           </p>
         </div>
       </div>
     </div>`;
 
-  // Quick customer login
+  // Quick customer profile login
   container.querySelectorAll('.login-customer-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
       await loginCustomer(btn.dataset.id, redirectTarget);
     });
   });
 
-  // Custom ID login
+  // Custom Customer ID login
   container.querySelector('#custom-login-btn').addEventListener('click', async () => {
     const id = container.querySelector('#custom-id-input').value.trim();
-    if (id) await loginCustomer(id.toUpperCase(), redirectTarget);
-    else showToast('Please enter a Customer ID', 'warning');
+    await loginCustomer(id, redirectTarget);
   });
 
   container.querySelector('#custom-id-input').addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
       const id = e.target.value.trim();
-      if (id) await loginCustomer(id.toUpperCase(), redirectTarget);
+      await loginCustomer(id, redirectTarget);
     }
   });
 }
 
-async function loginCustomer(customerId, redirectTarget) {
-  if (customerId === 'CUST105' || customerId === 'GUEST') {
-    setCurrentUser({ id: 'CUST105', customer_id: 'CUST105', name: 'Guest', isGuest: true, role: 'Guest User', email: 'guest@shopsathi.ai' });
+async function loginCustomer(rawInputId, redirectTarget) {
+  const cleanId = (rawInputId || '').trim().toUpperCase();
+
+  if (!cleanId) {
+    showToast('Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.', 'error');
+    return;
+  }
+
+  if (cleanId === 'CUST105' || cleanId === 'GUEST') {
+    setCurrentUser(DEMO_PROFILES_MAP['CUST105']);
     showToast('Browsing as Guest', 'info');
     window.location.hash = '/products';
     return;
   }
 
+  if (!DEMO_PROFILES_MAP[cleanId]) {
+    showToast('Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.', 'error');
+    return;
+  }
+
   try {
-    const customer = await getCustomer(customerId);
-    setCurrentUser(customer);
-    showToast(`Welcome, ${customer.name}!`, 'success');
+    const customer = await getCustomer(cleanId);
+    const fullProfile = { ...DEMO_PROFILES_MAP[cleanId], ...customer, customer_id: cleanId };
+    setCurrentUser(fullProfile);
+    showToast(`Welcome, ${fullProfile.name}`, 'success');
     if (redirectTarget) {
       window.location.hash = redirectTarget;
     } else {
-      window.location.hash = '/orders';
+      window.location.hash = '/';
     }
   } catch (err) {
-    showToast(err.message || 'Customer not found', 'error');
+    showToast('Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.', 'error');
   }
 }

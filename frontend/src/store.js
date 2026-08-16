@@ -4,8 +4,17 @@
  */
 
 const CART_KEY = 'shopsathi_cart';
-const USER_KEY = 'shopsathi_user';
+const USER_KEY = 'shopsathi_current_customer';
+const OLD_USER_KEY = 'shopsathi_user';
 const listeners = new Set();
+
+const VALID_DEMO_PROFILES = {
+  'CUST101': { customer_id: 'CUST101', name: 'Mahendra Gurjar', role: 'Customer / Owner Demo', email: 'mahendra.gurjar@shopsathi.ai' },
+  'CUST102': { customer_id: 'CUST102', name: 'ShopSathi Admin', role: 'Administrator', email: 'admin@shopsathi.ai' },
+  'CUST103': { customer_id: 'CUST103', name: 'ShopSathi HR', role: 'HR / Operations', email: 'hr@shopsathi.ai' },
+  'CUST104': { customer_id: 'CUST104', name: 'ShopSathi Team', role: 'Support Team', email: 'team@shopsathi.ai' },
+  'CUST105': { customer_id: 'CUST105', name: 'Guest', role: 'Guest User', email: 'guest@shopsathi.ai', isGuest: true }
+};
 
 // ---- Event System ----
 export function subscribe(fn) {
@@ -20,8 +29,24 @@ function notify(event, data) {
 // ---- User / Auth ----
 export function getCurrentUser() {
   try {
-    return JSON.parse(localStorage.getItem(USER_KEY));
+    const raw = localStorage.getItem(USER_KEY) || localStorage.getItem(OLD_USER_KEY);
+    if (!raw) return null;
+    const user = JSON.parse(raw);
+    if (!user || !user.customer_id) {
+      localStorage.removeItem(USER_KEY);
+      localStorage.removeItem(OLD_USER_KEY);
+      return null;
+    }
+    const cid = user.customer_id.toUpperCase();
+    if (!VALID_DEMO_PROFILES[cid]) {
+      localStorage.removeItem(USER_KEY);
+      localStorage.removeItem(OLD_USER_KEY);
+      return null;
+    }
+    return { ...VALID_DEMO_PROFILES[cid], ...user, customer_id: cid };
   } catch {
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(OLD_USER_KEY);
     return null;
   }
 }
@@ -34,6 +59,7 @@ export function isAuthenticated() {
 }
 
 export function setCurrentUser(user) {
+  localStorage.removeItem(OLD_USER_KEY);
   if (user) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   } else {

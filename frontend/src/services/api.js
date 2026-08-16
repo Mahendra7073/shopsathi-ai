@@ -141,7 +141,10 @@ export async function escalateSupportTicket(ticketId, reason) {
 // Customers
 // ============================================
 export async function getCustomer(customerId) {
-  return request(`/customers/${customerId}`);
+  const cid = (customerId || '').trim().toUpperCase();
+  return request(`/customers/${cid}`, {
+    headers: { 'X-Customer-ID': cid }
+  });
 }
 
 // ============================================

@@ -38,6 +38,8 @@ export async function renderCheckout(container) {
     return;
   }
 
+  const user = getCurrentUser();
+
   container.innerHTML = `
     <div class="page-content">
       <div class="container">
@@ -46,24 +48,28 @@ export async function renderCheckout(container) {
           <h1>Checkout</h1>
         </div>
 
-        <div class="checkout-layout">
-          <div class="checkout-form">
-            <!-- Customer Info -->
-            <div class="card" style="margin-bottom:var(--space-6);">
-              <h3 style="margin-bottom:var(--space-4);">Customer Information</h3>
+        <div class="checkout-grid">
+          <!-- Shipping Form -->
+          <div class="checkout-form-col">
+            <div class="card card-elevated" style="margin-bottom:var(--space-6);">
+              <h3 style="margin-bottom:var(--space-4);">Shipping Address</h3>
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="checkout-name" class="form-input" value="${user?.name || ''}" placeholder="e.g. Mahendra Gurjar">
+              </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label class="form-label" for="checkout-name">Full Name *</label>
-                  <input type="text" id="checkout-name" class="form-input" placeholder="Enter your full name" required>
+                  <label class="form-label">Email</label>
+                  <input type="email" id="checkout-email" class="form-input" value="${user?.email || ''}" placeholder="mahendra.gurjar@shopsathi.ai">
                 </div>
                 <div class="form-group">
-                  <label class="form-label" for="checkout-email">Email *</label>
-                  <input type="email" id="checkout-email" class="form-input" placeholder="your@email.com" required>
+                  <label class="form-label">Phone</label>
+                  <input type="tel" id="checkout-phone" class="form-input" value="${user?.phone || '+91 98765 43210'}" placeholder="+91 98765 43210">
                 </div>
               </div>
-              <div class="form-group" style="margin-top:var(--space-4);">
-                <label class="form-label" for="checkout-phone">Phone Number *</label>
-                <input type="tel" id="checkout-phone" class="form-input" placeholder="10-digit mobile number" required>
+              <div class="form-group">
+                <label class="form-label">Address</label>
+                <input type="text" id="checkout-address" class="form-input" value="123 Tech Park, MG Road, Jaipur, Rajasthan 302001" placeholder="House no, Street, Area">
               </div>
             </div>
 
