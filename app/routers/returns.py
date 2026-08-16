@@ -15,53 +15,37 @@ router = APIRouter(tags=["Returns"])
 
 RETURN_POLICY_DAYS = 7
 
-@router.get("/orders/{order_id}/return-eligibility", response_model=ReturnEligibilityResponse, summary="Check return eligibility (check_return_eligibility)")
-def check_return_eligibility(
-    order_id: str,
-    order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
-    db: Session = Depends(get_db),
-    current_customer: Customer = Depends(require_current_customer),
-    api_key: str = Security(verify_api_key)
-):
-    """
-    Check whether an order is eligible for return according to return policies.
-    Enforces customer order isolation.
-    """
-    start_time = time.time()
-    
-    decoded_path = urllib.parse.unquote(order_id).strip()
-    if (decoded_path.startswith("{") and decoded_path.endswith("}")) or not decoded_path:
-        if order_id_query and order_id_query.strip():
-            effective_order_id = urllib.parse.unquote(order_id_query).strip().upper()
-        else:
-            effective_order_id = decoded_path.upper()
-    else:
-        effective_order_id = decoded_path.upper()
 
-    order = db.query(Order).filter(Order.order_id == effective_order_id).first()
+def _check_eligibility(order_id: str, db: Session, current_customer: Customer, start_time: float) -> dict:
+    """
+    Private helper that performs the return eligibility business logic.
+    Called by both GET and POST route handlers to avoid code duplication
+    and to allow direct Python calls without FastAPI dependency injection.
+    """
+    order = db.query(Order).filter(Order.order_id == order_id).first()
 
     if not order:
         log_api_call(
             db=db,
             function_called="check_return_eligibility",
             intent="Return Inquiry",
-            api_result={"error": f"Order {effective_order_id} not found"},
+            api_result={"error": f"Order {order_id} not found"},
             success=False,
             response_time_ms=(time.time() - start_time) * 1000
         )
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Order {effective_order_id} not found."
+            detail=f"Order {order_id} not found."
         )
 
-    # Customer isolation check
+    # Customer isolation check — 403 Forbidden
     if order.customer_id != current_customer.customer_id:
         log_api_call(
             db=db,
             function_called="check_return_eligibility",
             customer_id=current_customer.customer_id,
             intent="Return Inquiry",
-            api_result={"error": f"Access denied for order {effective_order_id}"},
+            api_result={"error": f"Access denied for order {order_id}"},
             success=False,
             response_time_ms=(time.time() - start_time) * 1000
         )
@@ -133,6 +117,32 @@ def check_return_eligibility(
     return res
 
 
+@router.get("/orders/{order_id}/return-eligibility", response_model=ReturnEligibilityResponse, summary="Check return eligibility (check_return_eligibility)")
+def check_return_eligibility(
+    order_id: str,
+    order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
+    db: Session = Depends(get_db),
+    current_customer: Customer = Depends(require_current_customer),
+    api_key: str = Security(verify_api_key)
+):
+    """
+    Check whether an order is eligible for return according to return policies.
+    Enforces customer order isolation.
+    """
+    start_time = time.time()
+
+    decoded_path = urllib.parse.unquote(order_id).strip()
+    if (decoded_path.startswith("{") and decoded_path.endswith("}")) or not decoded_path:
+        if order_id_query and order_id_query.strip():
+            effective_order_id = urllib.parse.unquote(order_id_query).strip().upper()
+        else:
+            effective_order_id = decoded_path.upper()
+    else:
+        effective_order_id = decoded_path.upper()
+
+    return _check_eligibility(effective_order_id, db, current_customer, start_time)
+
+
 @router.post("/orders/return-eligibility", response_model=ReturnEligibilityResponse, summary="Check return eligibility via JSON body (check_return_eligibility_post)")
 def check_return_eligibility_post(
     payload: ReturnEligibilityRequest,
@@ -144,8 +154,9 @@ def check_return_eligibility_post(
     Check return eligibility using JSON body request payload.
     Enforces customer order isolation.
     """
+    start_time = time.time()
     order_id_clean = payload.order_id.strip().upper()
-    return check_return_eligibility(order_id=order_id_clean, db=db, current_customer=current_customer, api_key=api_key)
+    return _check_eligibility(order_id_clean, db, current_customer, start_time)
 
 
 @router.post("/returns", response_model=ReturnResponse, status_code=status.HTTP_201_CREATED, summary="Create return request (create_return_request)")
@@ -171,7 +182,7 @@ def create_return_request(
             detail=f"Order {order_id} not found."
         )
 
-    # Customer isolation check
+    # Customer isolation check — 403 Forbidden
     if order.customer_id != current_customer.customer_id:
         log_api_call(db=db, function_called="create_return_request", customer_id=current_customer.customer_id, intent="Create Return", api_result={"error": f"Access denied for order {order_id}"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
         raise HTTPException(
@@ -179,8 +190,8 @@ def create_return_request(
             detail="Access denied. You can only create returns for orders associated with your account."
         )
 
-    # Check eligibility first
-    eligibility = check_return_eligibility(order_id=order_id, db=db, current_customer=current_customer, api_key=api_key)
+    # Check eligibility first — call helper directly (no FastAPI dependency injection needed)
+    eligibility = _check_eligibility(order_id, db, current_customer, start_time)
     if not eligibility["eligible"]:
         log_api_call(db=db, function_called="create_return_request", customer_id=order.customer_id, intent="Create Return", api_result={"error": eligibility["reason"]}, success=False, response_time_ms=(time.time() - start_time) * 1000)
         raise HTTPException(
@@ -198,7 +209,7 @@ def create_return_request(
         created_at=now
     )
     db.add(return_req)
-    
+
     # Update order status to Return Requested
     order.status = "Return Requested"
     db.commit()
@@ -225,4 +236,3 @@ def create_return_request(
     )
 
     return res
-
