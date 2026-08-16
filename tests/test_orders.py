@@ -120,3 +120,21 @@ def test_expanded_order_lookups(client):
             "Returned", "Return Requested"
         ]
 
+def test_get_order_with_template_placeholder_encoded(client):
+    # Test Kipps.AI querying /orders/%7Border_id%7D?order_id=ORD1001
+    response = client.get("/orders/%7Border_id%7D?order_id=ORD1001")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["order_id"] == "ORD1001"
+    assert data["status"] == "Out for Delivery"
+
+def test_list_orders_filtered_by_order_id(client):
+    # Test querying /orders?order_id=ORD1001
+    response = client.get("/orders?order_id=ORD1001")
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) == 1
+    assert data[0]["order_id"] == "ORD1001"
+
+

@@ -1,6 +1,7 @@
 import time
+import urllib.parse
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, status, Security
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Order
@@ -14,13 +15,16 @@ router = APIRouter(prefix="/orders", tags=["Orders"])
 @router.get("", response_model=List[OrderResponse], summary="List all orders")
 def list_orders(
     customer_id: Optional[str] = None,
+    order_id: Optional[str] = Query(None, description="Optional order ID filter e.g. ORD1001"),
     db: Session = Depends(get_db),
     api_key: str = Security(verify_api_key)
 ):
     """
-    Retrieve list of orders, optionally filtered by customer_id.
+    Retrieve list of orders, optionally filtered by customer_id or order_id.
     """
     query = db.query(Order)
+    if order_id and order_id.strip():
+        query = query.filter(Order.order_id == order_id.strip().upper())
     if customer_id and customer_id.strip():
         query = query.filter(Order.customer_id == customer_id.strip().upper())
     orders = query.order_by(Order.order_date.desc()).all()
@@ -44,28 +48,41 @@ def list_orders(
 @router.get("/{order_id}", response_model=OrderResponse, summary="Retrieve order status (check_order_status)")
 def get_order_status(
     order_id: str,
+    order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
     db: Session = Depends(get_db),
     api_key: str = Security(verify_api_key)
 ):
     """
     Retrieve real-time status and shipping details for an order.
     Used by Kipps.AI Function: check_order_status.
+    Supports both path param `/orders/ORD1001` and placeholder with query param `/orders/%7Border_id%7D?order_id=ORD1001`.
     """
     start_time = time.time()
-    order = db.query(Order).filter(Order.order_id == order_id.upper()).first()
+    
+    # Handle URL-decoded path and query param fallback for template placeholders
+    decoded_path = urllib.parse.unquote(order_id).strip()
+    if (decoded_path.startswith("{") and decoded_path.endswith("}")) or not decoded_path:
+        if order_id_query and order_id_query.strip():
+            effective_order_id = urllib.parse.unquote(order_id_query).strip().upper()
+        else:
+            effective_order_id = decoded_path.upper()
+    else:
+        effective_order_id = decoded_path.upper()
+
+    order = db.query(Order).filter(Order.order_id == effective_order_id).first()
 
     if not order:
         log_api_call(
             db=db,
             function_called="check_order_status",
             intent="Order Tracking",
-            api_result={"error": f"Order {order_id} not found"},
+            api_result={"error": f"Order {effective_order_id} not found"},
             success=False,
             response_time_ms=(time.time() - start_time) * 1000
         )
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Order {order_id} not found. Please verify the order ID."
+            detail=f"Order {effective_order_id} not found. Please verify the order ID."
         )
 
     response_data = {

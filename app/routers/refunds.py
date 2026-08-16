@@ -1,5 +1,7 @@
 import time
-from fastapi import APIRouter, Depends, HTTPException, status, Security
+import urllib.parse
+from typing import Optional
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Order, Refund
@@ -12,6 +14,7 @@ router = APIRouter(prefix="/orders", tags=["Refunds"])
 @router.get("/{order_id}/refund", response_model=RefundResponse, summary="Retrieve refund status (check_refund_status)")
 def check_refund_status(
     order_id: str,
+    order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
     db: Session = Depends(get_db),
     api_key: str = Security(verify_api_key)
 ):
@@ -20,14 +23,23 @@ def check_refund_status(
     Used by Kipps.AI Function: check_refund_status.
     """
     start_time = time.time()
-    order_id_clean = order_id.upper()
+    
+    decoded_path = urllib.parse.unquote(order_id).strip()
+    if (decoded_path.startswith("{") and decoded_path.endswith("}")) or not decoded_path:
+        if order_id_query and order_id_query.strip():
+            order_id_clean = urllib.parse.unquote(order_id_query).strip().upper()
+        else:
+            order_id_clean = decoded_path.upper()
+    else:
+        order_id_clean = decoded_path.upper()
+
     order = db.query(Order).filter(Order.order_id == order_id_clean).first()
 
     if not order:
-        log_api_call(db=db, function_called="check_refund_status", intent="Refund Check", api_result={"error": f"Order {order_id} not found"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
+        log_api_call(db=db, function_called="check_refund_status", intent="Refund Check", api_result={"error": f"Order {order_id_clean} not found"}, success=False, response_time_ms=(time.time() - start_time) * 1000)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Order {order_id} not found."
+            detail=f"Order {order_id_clean} not found."
         )
 
     refund = db.query(Refund).filter(Refund.order_id == order_id_clean).first()

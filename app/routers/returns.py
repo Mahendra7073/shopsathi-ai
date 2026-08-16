@@ -1,7 +1,9 @@
 import time
+import urllib.parse
+from typing import Optional
 from datetime import datetime, timezone
 import uuid
-from fastapi import APIRouter, Depends, HTTPException, status, Security
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Order, ReturnRequest
@@ -16,6 +18,7 @@ RETURN_POLICY_DAYS = 7
 @router.get("/orders/{order_id}/return-eligibility", response_model=ReturnEligibilityResponse, summary="Check return eligibility (check_return_eligibility)")
 def check_return_eligibility(
     order_id: str,
+    order_id_query: Optional[str] = Query(None, alias="order_id", description="Optional query parameter fallback for order_id"),
     db: Session = Depends(get_db),
     api_key: str = Security(verify_api_key)
 ):
@@ -24,20 +27,30 @@ def check_return_eligibility(
     Used by Kipps.AI Function: check_return_eligibility.
     """
     start_time = time.time()
-    order = db.query(Order).filter(Order.order_id == order_id.upper()).first()
+    
+    decoded_path = urllib.parse.unquote(order_id).strip()
+    if (decoded_path.startswith("{") and decoded_path.endswith("}")) or not decoded_path:
+        if order_id_query and order_id_query.strip():
+            effective_order_id = urllib.parse.unquote(order_id_query).strip().upper()
+        else:
+            effective_order_id = decoded_path.upper()
+    else:
+        effective_order_id = decoded_path.upper()
+
+    order = db.query(Order).filter(Order.order_id == effective_order_id).first()
 
     if not order:
         log_api_call(
             db=db,
             function_called="check_return_eligibility",
             intent="Return Inquiry",
-            api_result={"error": f"Order {order_id} not found"},
+            api_result={"error": f"Order {effective_order_id} not found"},
             success=False,
             response_time_ms=(time.time() - start_time) * 1000
         )
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Order {order_id} not found."
+            detail=f"Order {effective_order_id} not found."
         )
 
     # 1. Check if return request already exists
