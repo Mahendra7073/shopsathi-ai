@@ -2,7 +2,7 @@
 
 ## 🧪 Automated Backend Test Suite
 
-ShopSathi maintains a 100% pass rate across **63 automated Pytest test suites**:
+ShopSathi maintains a 100% pass rate across **80 automated Pytest test suites**:
 
 ```bash
 .\venv\Scripts\python -m pytest -v

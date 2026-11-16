@@ -13,7 +13,7 @@
 ---
 
 ## 🔑 Core Value Propositions
-* **Zero Hallucinations**: Grounded directly in live database state via deterministic REST APIs.
-* **Multi-Modal Accessibility**: Seamless switching between text chat (English, Hindi, Hinglish) and real-time natural voice (`+91 8031339824`).
+* **Ground-Truth Data Integration**: Grounded directly in live database state via deterministic REST APIs.
+* **Multi-Modal Accessibility**: Seamless switching between text chat (English, Hindi, Hinglish) and browser-based real-time voice assistant.
 * **Deterministic Policy Enforcement**: Enforces genuine business rules (e.g., 7-day return policy window, hygiene restrictions, state-based cancellation blocks).
 * **Intelligent Human Escalation**: Automatically recognizes unresolvable friction (e.g., failed UPI gateway confirmations) and transitions issues to human supervisors.

@@ -1,6 +1,6 @@
 # AI Functions & Tools
 
-ShopSathi exposes **9 core autonomous backend tools** registered with the Kipps.AI agent framework.
+ShopSathi exposes **9 core backend tool functions** callable by the AI Chat Agent and Voice Assistant.
 
 ---
 

@@ -1,6 +1,6 @@
-# ShopSathi AI — Judge Talking Points & FAQ
+# ShopSathi AI — Faculty Evaluator Q&A Guide
 
-This document provides concise, fact-based answers to key architectural, product, and technical questions likely to be asked by hackathon judges.
+This document provides concise, fact-based answers to key architectural, product, and technical questions likely to be asked by faculty evaluators during the Minor Project demonstration.
 
 ---
 
@@ -50,7 +50,7 @@ This document provides concise, fact-based answers to key architectural, product
 ---
 
 ### 7. Why include both Chat and Real-Time Voice?
-**Answer:** E-commerce shoppers have diverse interaction preferences. Chat is ideal for visual product browsing, cart reviews, and reviewing detailed return policies. Real-Time Voice (powered by Gemini 2.5 Flash Native Audio Preview with voice *Puck* and direct PSTN number `+91 8031339824`) provides hands-free accessibility for quick status checks and on-the-go inquiries with sub-second response times.
+**Answer:** E-commerce shoppers have diverse interaction preferences. Chat is ideal for visual product browsing, cart reviews, and reviewing detailed return policies. The Real-Time Voice Agent uses the browser's native Web Speech API (`SpeechRecognition` and `SpeechSynthesis`), providing hands-free accessibility for quick status checks and on-the-go inquiries — no external service or subscription is required.
 
 ---
 
@@ -74,7 +74,7 @@ This document provides concise, fact-based answers to key architectural, product
 ### 10. How is customer data and security protected?
 **Answer:**
 - Zero secrets, API keys, or database credentials are baked into client-side code or git repositories.
-- All external LLM keys (`GEMINI_API_KEY`, `KIPPS_API_KEY`) remain strictly server-side.
+- All external LLM keys (e.g. `GEMINI_API_KEY`) remain strictly server-side in environment variables.
 - The backend supports header-based API key authentication (`X-API-Key`) for production function-calling protection.
 
 ---
@@ -85,7 +85,7 @@ This document provides concise, fact-based answers to key architectural, product
 - **Backend:** Python 3.12, FastAPI, Uvicorn, SQLAlchemy ORM, Pydantic v2.
 - **AI Models:** Gemini 3.1 Flash Lite (Chat Agent), Gemini 2.5 Flash Native Audio Preview (Voice Agent).
 - **Deployment:** Render Web Services (Docker / Python), GitHub Version Control.
-- **Testing:** Pytest (63 automated unit/integration tests, 100% pass rate).
+- **Testing:** Pytest (80 automated unit/integration tests, 100% pass rate).
 
 ---
 

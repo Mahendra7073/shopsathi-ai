@@ -1,72 +1,88 @@
 # ShopSathi AI — System Architecture & Design Document
 
+**B.Tech CSE Minor Project — MBM University, Jodhpur**  
+Mahendra Gurjar (24UCSE4018) · Kailash (24UCSE4014)
+
+---
+
 ## 1. System Overview
 
-ShopSathi AI is an agentic customer support platform built for e-commerce. It uses Kipps.AI as the multi-agent reasoning and orchestration layer while serving business data, order actions, policies, and ticketing via a clean, high-performance FastAPI backend.
+ShopSathi AI is a full-stack AI-powered e-commerce and customer support platform. It integrates a Vanilla JavaScript Single Page Application frontend, a FastAPI Python backend, a SQLite database via SQLAlchemy ORM, and browser-based AI Chat and Voice assistants — all in one cohesive system.
 
 ```
-                  +-----------------------------------+
-                  |        Customer Interface         |
-                  |     (Web Chat & Voice Phone)      |
-                  +-----------------+-----------------+
-                                    |
-            +-----------------------+-----------------------+
-            |                                               |
-  +---------v----------+                         +----------v---------+
-  |  Kipps Chat Agent  |                         |  Kipps Voice Agent |
-  | (Text Prompt/LLM)  |                         | (Conversational)   |
-  +---------+----------+                         +----------+---------+
-            |                                               |
-            +-----------------------+-----------------------+
-                                    |
-                     +--------------v--------------+
-                     |    Kipps Knowledge Base     |
-                     | (Static Policies & FAQs)    |
-                     +--------------+--------------+
-                                    |
-                     +--------------v--------------+
-                     |    Kipps.AI API Functions   |
-                     |  (Tool Calls / JSON Specs)  |
-                     +--------------+--------------+
-                                    | REST (HTTP)
-                     +--------------v--------------+
-                     |     ShopSathi REST API      |
-                     |    (FastAPI / Python)       |
-                     +--------------+--------------+
-                                    |
-        +---------------------------+---------------------------+
-        |                           |                           |
-+-------v-------+           +-------v-------+           +-------v-------+
-| Orders &      |           | Products &    |           | Support &     |
-| Returns API   |           | Search API    |           | Escalation    |
-+-------+-------+           +-------+-------+           +-------+-------+
-        |                           |                           |
-        +---------------------------+---------------------------+
-                                    |
-                     +--------------v--------------+
-                     |     SQLite / PostgreSQL     |
-                     |    (Database Layer)         |
-                     +-----------------------------+
+                  +--------------------------------------+
+                  |      Customer Browser (SPA)          |
+                  |   11 Pages + AI Chat + Voice UI      |
+                  +------------------+-------------------+
+                                     |
+                                     | HTTP + X-Customer-ID
+                                     |
+                  +------------------v-------------------+
+                  |    ShopSathi FastAPI Backend         |
+                  |  Products | Orders | Returns         |
+                  |  Refunds  | Support | Analytics      |
+                  |  Security | Logging | Health         |
+                  +------------------+-------------------+
+                                     |
+                                     | SQLAlchemy ORM
+                                     |
+                  +------------------v-------------------+
+                  |    SQLite Database (shopsathi.db)    |
+                  |  7 Tables: customers, products,      |
+                  |  orders, returns, refunds,           |
+                  |  support_tickets, audit_logs         |
+                  +--------------------------------------+
 ```
 
 ---
 
-## 2. Intent-to-Function Mapping Matrix
+## 2. AI Assistant Architecture
 
-| User Intent | Kipps Function Called | REST Endpoint | HTTP Method | Expected Output |
-| :--- | :--- | :--- | :--- | :--- |
-| Order Tracking | `check_order_status` | `/orders/{order_id}` | `GET` | Real-time status, expected delivery date |
-| Return Eligibility | `check_return_eligibility` | `/orders/{order_id}/return-eligibility` | `GET` | Eligibility boolean, window calculation |
-| Request Return | `create_return_request` | `/returns` | `POST` | Return ID (`RETxxxx`), confirmation message |
-| Refund Inquiry | `check_refund_status` | `/orders/{order_id}/refund` | `GET` | Refund ID (`REFxxxx`), status, payout date |
-| Product Recommendation | `search_products` | `/products/search` | `GET` | Product catalog array matching budget & query |
-| Cancel Order | `cancel_order` | `/orders/{order_id}/cancel` | `POST` | Status `Cancelled`, refund notification |
-| Create Ticket | `create_support_ticket` | `/support/tickets` | `POST` | Ticket ID (`TKTxxxx`), category, priority |
-| Human Escalation | `escalate_support_ticket` | `/support/tickets/{ticket_id}/escalate` | `POST` | Status `Escalated`, assigned agent tier |
+The Chat Agent and Voice Assistant are built entirely within the browser and ShopSathi backend:
+
+```
+User Input (Text or Voice)
+         |
+         v
+processAgentQuery()     ← JavaScript NLP (AiLauncher.js)
+         |
+   Pattern Matching
+   (intent + params)
+         |
+         v
+Backend REST API Call   ← fetch() with X-Customer-ID header
+  GET /orders/{id}
+  POST /returns
+  GET /products/search
+  POST /support/tickets
+         |
+         v
+JSON Response           ← FastAPI + SQLAlchemy
+         |
+         v
+Formatted Reply (Chat)  ← Markdown to HTML
+     OR
+Spoken Reply (Voice)    ← SpeechSynthesis API
+```
 
 ---
 
-## 3. Data Schema & Relationships
+## 3. Intent-to-Function Mapping
+
+| User Intent | AI Tool Called | REST Endpoint | Method | Output |
+|---|---|---|---|---|
+| Order Tracking | `check_order_status` | `/orders/{order_id}` | GET | Status, delivery date |
+| Return Eligibility | `check_return_eligibility` | `/orders/{id}/return-eligibility` | GET | Eligible boolean |
+| Request Return | `create_return_request` | `/returns` | POST | Return ID |
+| Refund Status | `check_refund_status` | `/orders/{id}/refund` | GET | Refund ID, payout date |
+| Product Search | `search_products` | `/products/search` | GET | Matching products |
+| Cancel Order | `cancel_order` | `/orders/{id}/cancel` | POST | Cancelled status |
+| Create Ticket | `create_support_ticket` | `/support/tickets` | POST | Ticket ID |
+| Human Escalation | `escalate_support_ticket` | `/support/tickets/{id}/escalate` | POST | Escalated status |
+
+---
+
+## 4. Database Entity Relationships
 
 ```mermaid
 erDiagram
@@ -125,3 +141,71 @@ erDiagram
         string assigned_to
     }
 ```
+
+---
+
+## 5. Security Architecture
+
+| Layer | Mechanism | Enforcement |
+|---|---|---|
+| Authentication | `X-Customer-ID` HTTP header | Required on all private endpoints |
+| Authorization | `require_current_customer` FastAPI dependency | 401 if missing, 403 if cross-account |
+| Guest Blocking | `CUST105`/`GUEST` identity check | Treated as unauthenticated |
+| API Key | `X-API-Key` header + env var | Optional; enforced if `SHOP_SATHI_API_KEY` is set |
+| Error masking | Global exception handler | 500 response with no stack trace |
+| SQL Injection | SQLAlchemy ORM parameterized queries | Automatic |
+| Secrets | All keys in `.env` only | Never in frontend code or git commits |
+
+---
+
+## 6. Order Management & Cancellation Workflow
+
+```mermaid
+flowchart TD
+    A["Customer Places Order"] --> B["Processing"]
+    B --> C["Confirmed"]
+    C --> D["Packed"]
+    D --> E["Shipped"]
+    E --> F["Out for Delivery"]
+    F --> G["Delivered"]
+
+    B -- "Cancel Request (Allowed)" --> H["Cancelled"]
+    C -- "Cancel Request (Allowed)" --> H
+    D -- "Cancel Request" --> I["HTTP 400 Blocked: Dispatch Started"]
+    E -- "Cancel Request" --> I
+    F -- "Cancel Request" --> I
+    G -- "Cancel Request" --> I
+```
+
+---
+
+## 7. Return & Refund Evaluation Workflow
+
+```mermaid
+flowchart TD
+    Start["Customer Requests Return for Delivered Order"] --> ChkHygiene{"Product Returnable? (e.g. PRD105 Hygiene Check)"}
+    ChkHygiene -- "No (returnable=False)" --> RejectHygiene["Reject: Non-returnable hygiene item"]
+    ChkHygiene -- "Yes" --> ChkTime{"Delivered <= 7 Days Ago?"}
+    ChkTime -- "No (> 7 Days)" --> RejectTime["Reject: Exceeded 7-day policy window"]
+    ChkTime -- "Yes (<= 7 Days)" --> Approve["Approve: Create ReturnRequest (RETXXXX)"]
+    Approve --> Pickup["Schedule Courier Pickup (24-48 hrs)"]
+    Pickup --> ItemReceived["Item Returned & Verified"]
+    ItemReceived --> RefundInit["Initiate Refund Payout (REFXXXX)"]
+    RefundInit --> RefundComplete["Amount Credited to Customer Source Account"]
+```
+
+---
+
+## 8. AI-to-Human Support Escalation Pipeline
+
+```mermaid
+flowchart LR
+    Customer["Customer Issue"] --> NLP["Chat / Voice Agent NLP"]
+    NLP --> ToolExec{"Can AI resolve via Tool?"}
+    ToolExec -- "Yes" --> Reply["Automated Resolution & Ground-truth Reply"]
+    ToolExec -- "No / Complex Dispute" --> CreateTkt["create_support_ticket (High Priority)"]
+    CreateTkt --> Escalate["escalate_support_ticket (Status: Escalated)"]
+    Escalate --> Human["Tier 2 Human Support Manager Assigned"]
+    Human --> Contact["Human Representative Contacts Customer"]
+```
+

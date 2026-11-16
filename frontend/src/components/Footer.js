@@ -37,7 +37,7 @@ export function renderFooter() {
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; ${new Date().getFullYear()} ShopSathi. Built with ❤️ for Kipps.AI Hackathon.</p>
+        <p>&copy; ${new Date().getFullYear()} ShopSathi AI — B.Tech CSE Minor Project | MBM University, Jodhpur | Mahendra Gurjar (24UCSE4018) &amp; Kailash (24UCSE4014)</p>
       </div>
     </div>
   `;

@@ -15,7 +15,7 @@ export function logoFull(size = 140) {
       <path d="M25 58 L21 58" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M49 58 L45 58" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round"/>
     </g>
-    <text x="75" y="82" font-family="Inter, sans-serif" font-weight="800" font-size="50" fill="#0F172A">Shop<tspan fill="#2563EB">Sathi</tspan></text>
+    <text x="75" y="82" font-family="Inter, sans-serif" font-weight="800" font-size="46" fill="#0F172A">Shop<tspan fill="#2563EB">Sathi</tspan> <tspan fill="#06B6D4">AI</tspan></text>
   </svg>`;
 }
 

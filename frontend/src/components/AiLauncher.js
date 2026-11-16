@@ -42,14 +42,14 @@ export function renderAiLauncher() {
           <span class="ai-option-icon">💬</span>
           <div>
             <strong>Chat with ShopSathi</strong>
-            <span>Gemini 3.1 Flash Lite • Instant API actions</span>
+            <span>AI Assistant • Instant API actions</span>
           </div>
         </button>
         <button class="ai-option-btn" id="ai-open-voice">
           <span class="ai-option-icon">🎙️</span>
           <div>
             <strong>Talk to ShopSathi Voice</strong>
-            <span>Gemini 2.5 Flash Audio • Real-Time Voice</span>
+            <span>Web Speech Engine • Hands-Free Voice</span>
           </div>
         </button>
       </div>
@@ -75,7 +75,7 @@ export function renderAiLauncher() {
             <h4 style="margin:0;font-size:0.95rem;">ShopSathi Chat Agent</h4>
             <div class="flex items-center gap-1">
               <span class="badge badge-success" style="font-size:0.65rem;padding:2px 6px;">● Online</span>
-              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Gemini 3.1 Flash</span>
+              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Interactive Assistant</span>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export function renderAiLauncher() {
             <h4 style="margin:0;font-size:0.95rem;">ShopSathi Voice Agent</h4>
             <div class="flex items-center gap-1">
               <span class="badge badge-accent" style="font-size:0.65rem;padding:2px 6px;">Real-Time Voice</span>
-              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Gemini 2.5 Audio</span>
+              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Web Speech API</span>
             </div>
           </div>
         </div>
@@ -165,10 +165,10 @@ export function renderAiLauncher() {
         </div>
 
         <div class="ai-voice-phone-bar">
-          <span style="font-size:0.75rem;color:var(--color-text-tertiary);">Or dial direct customer care line:</span>
-          <a href="tel:+918031339824" class="voice-phone-link">
-            📞 +91 8031339824
-          </a>
+          <span style="font-size:0.75rem;color:var(--color-text-tertiary);">For further assistance, contact support:</span>
+          <span class="voice-phone-link" style="font-size:0.85rem;font-weight:600;color:var(--color-primary);">
+            📧 support@shopsathi.ai
+          </span>
         </div>
 
         <div class="ai-voice-info-chips">
@@ -563,7 +563,7 @@ export function renderAiLauncher() {
   async function speakText(text) {
     if (!synth) return;
     synth.cancel();
-    setVoiceState('Speaking', 'ShopSathi is speaking...', 'Voice Agent Active (Gemini 2.5 Audio)');
+    setVoiceState('Speaking', 'ShopSathi is speaking...', 'Voice Agent Active • Synthesizing Speech');
     agentTranscript.innerHTML = `<strong>ShopSathi:</strong> ${escapeHtml(text)}`;
 
     const utter = new SpeechSynthesisUtterance(text.replace(/[*_#•]/g, ''));
@@ -630,7 +630,7 @@ export function renderAiLauncher() {
     voiceActiveControls.style.display = 'flex';
     transcriptBox.style.display = 'block';
 
-    setVoiceState('Connecting', 'Connecting to Real-Time Voice Agent...', 'Provider: Gemini 2.5 Flash Audio Preview (Voice: Puck)');
+    setVoiceState('Connecting', 'Initializing Real-Time Voice Agent...', 'Voice Engine: Speech API • Tool Bridge Active');
 
     setTimeout(() => {
       setVoiceState('Connected', 'Voice Session Connected!', 'Ready for spoken conversation');

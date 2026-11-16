@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))s(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const i of a.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&s(i)}).observe(document,{childList:!0,subtree:!0});function o(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function s(r){if(r.ep)return;r.ep=!0;const a=o(r);fetch(r.href,a)}})();const G={};let V=null;function C(e,t){G[e]=t}function ze(){return(window.location.hash.slice(1)||"/").split("?")[0]}function je(e){if(G[e])return{handler:G[e],params:{}};for(const[t,o]of Object.entries(G)){const s=t.split("/").filter(Boolean),r=e.split("/").filter(Boolean);if(s.length!==r.length)continue;const a={};let i=!0;for(let n=0;n<s.length;n++)if(s[n].startsWith(":"))a[s[n].slice(1)]=r[n];else if(s[n]!==r[n]){i=!1;break}if(i)return{handler:o,params:a}}return null}function Ve(e){async function t(){const o=ze(),s=je(o);if(V&&(V(),V=null),s){const r=await s.handler(e,s.params);typeof r=="function"&&(V=r)}else e.innerHTML=`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))s(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const i of a.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&s(i)}).observe(document,{childList:!0,subtree:!0});function o(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function s(r){if(r.ep)return;r.ep=!0;const a=o(r);fetch(r.href,a)}})();const G={};let V=null;function L(e,t){G[e]=t}function ze(){return(window.location.hash.slice(1)||"/").split("?")[0]}function je(e){if(G[e])return{handler:G[e],params:{}};for(const[t,o]of Object.entries(G)){const s=t.split("/").filter(Boolean),r=e.split("/").filter(Boolean);if(s.length!==r.length)continue;const a={};let i=!0;for(let n=0;n<s.length;n++)if(s[n].startsWith(":"))a[s[n].slice(1)]=r[n];else if(s[n]!==r[n]){i=!1;break}if(i)return{handler:o,params:a}}return null}function Ve(e){async function t(){const o=ze(),s=je(o);if(V&&(V(),V=null),s){const r=await s.handler(e,s.params);typeof r=="function"&&(V=r)}else e.innerHTML=`
         <div class="container page-content">
           <div class="empty-state" style="min-height: 60vh;">
             <div class="empty-state-icon">🔍</div>
@@ -18,7 +18,7 @@
       <path d="M25 58 L21 58" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M49 58 L45 58" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round"/>
     </g>
-    <text x="75" y="82" font-family="Inter, sans-serif" font-weight="800" font-size="50" fill="#0F172A">Shop<tspan fill="#2563EB">Sathi</tspan></text>
+    <text x="75" y="82" font-family="Inter, sans-serif" font-weight="800" font-size="46" fill="#0F172A">Shop<tspan fill="#2563EB">Sathi</tspan> <tspan fill="#06B6D4">AI</tspan></text>
   </svg>`}function Ge(e=44){return`<svg width="${e}" height="${e}" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ShopSathi icon">
     <rect x="8" y="18" width="48" height="38" rx="10" fill="#2563EB"/>
     <path d="M20 18 C20 6, 44 6, 44 18" stroke="#2563EB" stroke-width="4" fill="none" stroke-linecap="round"/>
@@ -29,7 +29,7 @@
     <path d="M47 35 L43 35" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
     <path d="M24 27 L21.5 24.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
     <path d="M40 43 L42.5 45.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-  </svg>`}function O(e=32){return`<svg width="${e}" height="${e}" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  </svg>`}function I(e=32){return`<svg width="${e}" height="${e}" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="4" y="9" width="24" height="19" rx="5" fill="#2563EB"/>
     <path d="M10 9 C10 3, 22 3, 22 9" stroke="#2563EB" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <circle cx="16" cy="17.5" r="3.5" fill="white"/>
@@ -47,7 +47,7 @@
     <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
     <line x1="12" y1="19" x2="12" y2="23"/>
     <line x1="8" y1="23" x2="16" y2="23"/>
-  </svg>`}const $e="shopsathi_cart",U="shopsathi_current_customer",B="shopsathi_user",ie=new Set,ye={CUST101:{customer_id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},CUST102:{customer_id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},CUST103:{customer_id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},CUST104:{customer_id:"CUST104",name:"ShopSathi Team",role:"Support Team",email:"team@shopsathi.ai"},CUST105:{customer_id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai",isGuest:!0}};function Ye(e){return ie.add(e),()=>ie.delete(e)}function Le(e,t){ie.forEach(o=>o(e,t))}function M(){try{const e=localStorage.getItem(U)||localStorage.getItem(B);if(!e)return null;const t=JSON.parse(e);if(!t||!t.customer_id)return localStorage.removeItem(U),localStorage.removeItem(B),null;const o=t.customer_id.toUpperCase();return ye[o]?{...ye[o],...t,customer_id:o}:(localStorage.removeItem(U),localStorage.removeItem(B),null)}catch{return localStorage.removeItem(U),localStorage.removeItem(B),null}}function E(){const e=M();return!(!e||e.customer_id==="CUST105"||e.isGuest)}function re(e){localStorage.removeItem(B),e?localStorage.setItem(U,JSON.stringify(e)):localStorage.removeItem(U),Le("user-changed",e)}function Qe(){re(null)}function P(){try{return JSON.parse(localStorage.getItem($e))||[]}catch{return[]}}function Q(e){localStorage.setItem($e,JSON.stringify(e)),Le("cart-changed",e)}function ne(e,t=1){const o=P(),s=o.find(r=>r.product_id===e.product_id);return s?s.quantity+=t:o.push({product_id:e.product_id,name:e.name,price:e.price,category:e.category,description:e.description,quantity:t}),Q(o),o}function be(e,t){let o=P();if(t<=0)o=o.filter(s=>s.product_id!==e);else{const s=o.find(r=>r.product_id===e);s&&(s.quantity=t)}return Q(o),o}function Je(e){const t=P().filter(o=>o.product_id!==e);return Q(t),t}function Ce(){Q([])}function Ke(){return P().reduce((e,t)=>e+t.quantity,0)}function Te(){return P().reduce((e,t)=>e+t.price*t.quantity,0)}function We(){const e=document.createElement("header");e.className="site-header";function t(){const a=E(),i=M(),n=a?`
+  </svg>`}const $e="shopsathi_cart",U="shopsathi_current_customer",F="shopsathi_user",ie=new Set,ye={CUST101:{customer_id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},CUST102:{customer_id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},CUST103:{customer_id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},CUST104:{customer_id:"CUST104",name:"ShopSathi Team",role:"Support Team",email:"team@shopsathi.ai"},CUST105:{customer_id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai",isGuest:!0}};function Ye(e){return ie.add(e),()=>ie.delete(e)}function Ce(e,t){ie.forEach(o=>o(e,t))}function M(){try{const e=localStorage.getItem(U)||localStorage.getItem(F);if(!e)return null;const t=JSON.parse(e);if(!t||!t.customer_id)return localStorage.removeItem(U),localStorage.removeItem(F),null;const o=t.customer_id.toUpperCase();return ye[o]?{...ye[o],...t,customer_id:o}:(localStorage.removeItem(U),localStorage.removeItem(F),null)}catch{return localStorage.removeItem(U),localStorage.removeItem(F),null}}function E(){const e=M();return!(!e||e.customer_id==="CUST105"||e.isGuest)}function re(e){localStorage.removeItem(F),e?localStorage.setItem(U,JSON.stringify(e)):localStorage.removeItem(U),Ce("user-changed",e)}function Je(){re(null)}function O(){try{return JSON.parse(localStorage.getItem($e))||[]}catch{return[]}}function J(e){localStorage.setItem($e,JSON.stringify(e)),Ce("cart-changed",e)}function ne(e,t=1){const o=O(),s=o.find(r=>r.product_id===e.product_id);return s?s.quantity+=t:o.push({product_id:e.product_id,name:e.name,price:e.price,category:e.category,description:e.description,quantity:t}),J(o),o}function be(e,t){let o=O();if(t<=0)o=o.filter(s=>s.product_id!==e);else{const s=o.find(r=>r.product_id===e);s&&(s.quantity=t)}return J(o),o}function Qe(e){const t=O().filter(o=>o.product_id!==e);return J(t),t}function Le(){J([])}function Ke(){return O().reduce((e,t)=>e+t.quantity,0)}function Te(){return O().reduce((e,t)=>e+t.price*t.quantity,0)}function We(){const e=document.createElement("header");e.className="site-header";function t(){const a=E(),i=M(),n=a?`
       <a href="#/" class="nav-link" data-route="/">Home</a>
       <a href="#/products" class="nav-link" data-route="/products">Products</a>
       <a href="#/orders" class="nav-link" data-route="/orders">My Orders</a>
@@ -142,10 +142,10 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; ${new Date().getFullYear()} ShopSathi. Built with ❤️ for Kipps.AI Hackathon.</p>
+        <p>&copy; ${new Date().getFullYear()} ShopSathi AI — B.Tech CSE Minor Project | MBM University, Jodhpur | Mahendra Gurjar (24UCSE4018) &amp; Kailash (24UCSE4014)</p>
       </div>
     </div>
-  `,e}const Ze=typeof window<"u"&&window.__API_BASE__?window.__API_BASE__:typeof window<"u"&&window.location.port==="5173"?"/api":"";class Z extends Error{constructor(t,o,s){super(t),this.status=o,this.data=s}}async function x(e,t={}){const o=`${Ze}${e}`,s=M(),r={"Content-Type":"application/json",...t.headers};E()&&s&&s.customer_id&&(r["X-Customer-ID"]=s.customer_id);const a={...t,headers:r};try{const i=await fetch(o,a),n=await i.json().catch(()=>null);if(!i.ok){const l=(n==null?void 0:n.detail)||(n==null?void 0:n.message)||"Request failed";throw new Z(l,i.status,n)}return n}catch(i){throw i instanceof Z?i:new Z("Network error. Please check your connection and try again.",0,null)}}async function et(){return x("/products")}async function Ee(e="",t=null,o=null){const s=new URLSearchParams;return e&&s.set("query",e),t&&s.set("max_price",t),o&&s.set("category",o),x(`/products/search?${s.toString()}`)}async function tt(e){return x(`/products/${e}`)}async function fe(e=null){const t=e?`?customer_id=${e}`:"";return x(`/orders${t}`)}async function J(e){return x(`/orders/${e}`)}async function qe(e){return x(`/orders/${e}/cancel`,{method:"POST"})}async function at(e){return x(`/customers/${e}/orders`)}async function Re(e){return x(`/orders/${e}/return-eligibility`)}async function Oe(e,t){return x("/returns",{method:"POST",body:JSON.stringify({order_id:e,reason:t})})}async function Pe(e){return x(`/orders/${e}/refund`)}async function Ie({customerId:e,description:t,subject:o,category:s,priority:r,orderId:a}){return x("/support/tickets",{method:"POST",body:JSON.stringify({customer_id:e,description:t,subject:o||void 0,category:s||void 0,priority:r||"Medium",order_id:a||void 0})})}async function st(e){return x(`/support/tickets/${e}`)}async function Ae(e,t){return x(`/support/tickets/${e}/escalate`,{method:"POST",body:JSON.stringify({reason:t||void 0})})}async function it(e){const t=(e||"").trim().toUpperCase();return x(`/customers/${t}`,{headers:{"X-Customer-ID":t}})}function rt(){const e=document.createElement("div");e.className="ai-launcher-wrapper",e.innerHTML=`
+  `,e}const Ze=typeof window<"u"&&window.__API_BASE__?window.__API_BASE__:typeof window<"u"&&window.location.port==="5173"?"/api":"";class Z extends Error{constructor(t,o,s){super(t),this.status=o,this.data=s}}async function x(e,t={}){const o=`${Ze}${e}`,s=M(),r={"Content-Type":"application/json",...t.headers};E()&&s&&s.customer_id&&(r["X-Customer-ID"]=s.customer_id);const a={...t,headers:r};try{const i=await fetch(o,a),n=await i.json().catch(()=>null);if(!i.ok){const l=(n==null?void 0:n.detail)||(n==null?void 0:n.message)||"Request failed";throw new Z(l,i.status,n)}return n}catch(i){throw i instanceof Z?i:new Z("Network error. Please check your connection and try again.",0,null)}}async function et(){return x("/products")}async function Ee(e="",t=null,o=null){const s=new URLSearchParams;return e&&s.set("query",e),t&&s.set("max_price",t),o&&s.set("category",o),x(`/products/search?${s.toString()}`)}async function tt(e){return x(`/products/${e}`)}async function fe(e=null){const t=e?`?customer_id=${e}`:"";return x(`/orders${t}`)}async function Q(e){return x(`/orders/${e}`)}async function qe(e){return x(`/orders/${e}/cancel`,{method:"POST"})}async function at(e){return x(`/customers/${e}/orders`)}async function Re(e){return x(`/orders/${e}/return-eligibility`)}async function Ie(e,t){return x("/returns",{method:"POST",body:JSON.stringify({order_id:e,reason:t})})}async function Oe(e){return x(`/orders/${e}/refund`)}async function Pe({customerId:e,description:t,subject:o,category:s,priority:r,orderId:a}){return x("/support/tickets",{method:"POST",body:JSON.stringify({customer_id:e,description:t,subject:o||void 0,category:s||void 0,priority:r||"Medium",order_id:a||void 0})})}async function st(e){return x(`/support/tickets/${e}`)}async function Ae(e,t){return x(`/support/tickets/${e}/escalate`,{method:"POST",body:JSON.stringify({reason:t||void 0})})}async function it(e){const t=(e||"").trim().toUpperCase();return x(`/customers/${t}`,{headers:{"X-Customer-ID":t}})}function rt(){const e=document.createElement("div");e.className="ai-launcher-wrapper",e.innerHTML=`
     <!-- Floating Button -->
     <button class="ai-fab" id="ai-fab" aria-label="Ask ShopSathi AI">
       <span class="ai-fab-icon">${xe(24)}</span>
@@ -156,7 +156,7 @@
     <div class="ai-menu" id="ai-menu">
       <div class="ai-menu-header">
         <div class="flex items-center gap-3">
-          ${O(28)}
+          ${I(28)}
           <div>
             <h4 style="margin:0;font-size:0.95rem;">Ask ShopSathi</h4>
             <p style="margin:0;font-size:0.75rem;color:var(--color-text-tertiary);">AI Shopping & Customer Support</p>
@@ -169,14 +169,14 @@
           <span class="ai-option-icon">💬</span>
           <div>
             <strong>Chat with ShopSathi</strong>
-            <span>Gemini 3.1 Flash Lite • Instant API actions</span>
+            <span>AI Assistant • Instant API actions</span>
           </div>
         </button>
         <button class="ai-option-btn" id="ai-open-voice">
           <span class="ai-option-icon">🎙️</span>
           <div>
             <strong>Talk to ShopSathi Voice</strong>
-            <span>Gemini 2.5 Flash Audio • Real-Time Voice</span>
+            <span>Web Speech Engine • Hands-Free Voice</span>
           </div>
         </button>
       </div>
@@ -197,12 +197,12 @@
     <div class="ai-panel" id="ai-panel">
       <div class="ai-panel-header">
         <div class="flex items-center gap-3">
-          ${O(28)}
+          ${I(28)}
           <div>
             <h4 style="margin:0;font-size:0.95rem;">ShopSathi Chat Agent</h4>
             <div class="flex items-center gap-1">
               <span class="badge badge-success" style="font-size:0.65rem;padding:2px 6px;">● Online</span>
-              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Gemini 3.1 Flash</span>
+              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Interactive Assistant</span>
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@
       </div>
       <div class="ai-panel-body" id="ai-chat-body">
         <div class="ai-message ai-message-bot">
-          <div class="ai-avatar">${O(24)}</div>
+          <div class="ai-avatar">${I(24)}</div>
           <div class="ai-bubble">
             <p>Namaste! I'm <strong>ShopSathi</strong>, your smart shopping & support assistant. 🙏</p>
             <p style="margin-top:8px;">You can ask me in English, Hindi, or Hinglish to:</p>
@@ -245,12 +245,12 @@
     <div class="ai-voice-panel" id="ai-voice-panel">
       <div class="ai-panel-header">
         <div class="flex items-center gap-3">
-          ${O(28)}
+          ${I(28)}
           <div>
             <h4 style="margin:0;font-size:0.95rem;">ShopSathi Voice Agent</h4>
             <div class="flex items-center gap-1">
               <span class="badge badge-accent" style="font-size:0.65rem;padding:2px 6px;">Real-Time Voice</span>
-              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Gemini 2.5 Audio</span>
+              <span style="font-size:0.65rem;color:var(--color-text-tertiary);">Web Speech API</span>
             </div>
           </div>
         </div>
@@ -292,10 +292,10 @@
         </div>
 
         <div class="ai-voice-phone-bar">
-          <span style="font-size:0.75rem;color:var(--color-text-tertiary);">Or dial direct customer care line:</span>
-          <a href="tel:+918031339824" class="voice-phone-link">
-            📞 +91 8031339824
-          </a>
+          <span style="font-size:0.75rem;color:var(--color-text-tertiary);">For further assistance, contact support:</span>
+          <span class="voice-phone-link" style="font-size:0.85rem;font-weight:600;color:var(--color-primary);">
+            📧 support@shopsathi.ai
+          </span>
         </div>
 
         <div class="ai-voice-info-chips">
@@ -307,14 +307,14 @@
     </div>
   `;let t=!1,o=!1,s=!1,r=!1,a=!1,i=null,n=window.speechSynthesis||null;const l=e.querySelector("#ai-fab"),y=e.querySelector("#ai-menu"),d=e.querySelector("#ai-panel"),u=e.querySelector("#ai-voice-panel");function h(){t=o=s=!1,y.classList.remove("open"),d.classList.remove("open"),u.classList.remove("open"),l.classList.remove("active"),r&&ge()}function k(){h(),t=!0,y.classList.add("open"),l.classList.add("active")}function S(){var v;h(),o=!0,d.classList.add("open"),l.classList.add("active"),(v=e.querySelector("#ai-chat-input"))==null||v.focus()}function $(){h(),s=!0,u.classList.add("open"),l.classList.add("active")}l.addEventListener("click",()=>{t||o||s?h():k()}),e.querySelector("#ai-menu-close").addEventListener("click",h),e.querySelector("#ai-panel-close").addEventListener("click",h),e.querySelector("#ai-voice-close").addEventListener("click",h),e.querySelector("#ai-open-chat").addEventListener("click",S),e.querySelector("#ai-open-voice").addEventListener("click",$),e.querySelector("#ai-panel-voice").addEventListener("click",$),e.querySelectorAll(".ai-menu-options + .ai-quick-actions .ai-chip").forEach(v=>{v.addEventListener("click",()=>{const m=v.dataset.action;h();const c={track:"#/orders",cancel:"#/orders",return:"#/returns",refund:"#/returns",search:"#/products",ticket:"#/support"};c[m]&&(window.location.hash=c[m])})});const H=e.querySelector("#ai-chat-input"),w=e.querySelector("#ai-chat-body"),z=e.querySelector("#ai-send-btn");async function q(v){const m=v.trim(),c=m.toLowerCase(),f=m.match(/ORD\d{4}/i),T=c.includes("track")||c.includes("where")||c.includes("kaha")||c.includes("status")||c.includes("delivery");if(!E()&&(f||c.includes("ticket")||c.includes("order")||c.includes("return")||c.includes("refund")||c.includes("cancel"))&&!c.includes("shoe")&&!c.includes("headphone")&&!c.includes("shirt")&&!c.includes("watch")&&!c.includes("product")&&!c.includes("find")&&!c.includes("search")&&!c.includes("under"))return{text:`🔒 **Login Required**
 
-Please log in to access your order information.`,actions:[{label:"Login to continue",url:"#/login?redirect=/orders"}]};if(f&&T&&!c.includes("return")&&!c.includes("refund")&&!c.includes("cancel")){const g=f[0].toUpperCase();try{const p=await J(g);return{text:`Aapka order **${p.order_id}** (${p.product_name}) filhaal **${p.status}** hai.
+Please log in to access your order information.`,actions:[{label:"Login to continue",url:"#/login?redirect=/orders"}]};if(f&&T&&!c.includes("return")&&!c.includes("refund")&&!c.includes("cancel")){const g=f[0].toUpperCase();try{const p=await Q(g);return{text:`Aapka order **${p.order_id}** (${p.product_name}) filhaal **${p.status}** hai.
 
 📅 Expected Delivery: **${p.expected_delivery||"Soon"}**
 💰 Amount: ₹${p.amount.toLocaleString("en-IN")}`,actions:[{label:`View Timeline for ${p.order_id}`,url:`#/orders/${p.order_id}`}]}}catch(p){return p.status===401?{text:`🔒 **Login Required**
 
 Please log in to access your order information.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
 
-You can only view orders associated with your account.`}:{text:`Order **${g}** nahi mila. Kripya apna Order ID check karein.`}}}if(f&&(c.includes("return")||c.includes("wapas")||c.includes("exchange"))){const g=f[0].toUpperCase();try{const p=await Re(g);if(p.eligible){const R=m.replace(new RegExp(`.*${g}`,"i"),"").trim()||"Size issue / Not as expected",_=await Oe(g,R);return{text:`✅ Order **${g}** return ke liye eligible hai!
+You can only view orders associated with your account.`}:{text:`Order **${g}** nahi mila. Kripya apna Order ID check karein.`}}}if(f&&(c.includes("return")||c.includes("wapas")||c.includes("exchange"))){const g=f[0].toUpperCase();try{const p=await Re(g);if(p.eligible){const R=m.replace(new RegExp(`.*${g}`,"i"),"").trim()||"Size issue / Not as expected",_=await Ie(g,R);return{text:`✅ Order **${g}** return ke liye eligible hai!
 
 Maine aapka Return Request submit kar diya hai.
 🆔 **Return ID: ${_.return_id}**
@@ -324,7 +324,7 @@ Maine aapka Return Request submit kar diya hai.
 
 Please log in to request returns.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
 
-You can only return orders associated with your account.`}:{text:`Return check failed: ${p.message}`}}}if(f&&(c.includes("refund")||c.includes("paise")||c.includes("money back"))){const g=f[0].toUpperCase();try{const p=await Pe(g);return{text:`💰 **Refund Status for ${g}**
+You can only return orders associated with your account.`}:{text:`Return check failed: ${p.message}`}}}if(f&&(c.includes("refund")||c.includes("paise")||c.includes("money back"))){const g=f[0].toUpperCase();try{const p=await Oe(g);return{text:`💰 **Refund Status for ${g}**
 
 - Refund ID: **${p.refund_id}**
 - Amount: **₹${p.amount.toLocaleString("en-IN")}**
@@ -341,27 +341,27 @@ Agar payment ho chuka tha toh 3-5 working days me aapke source account me refund
 
 Please log in to cancel orders.`,actions:[{label:"Login to continue",url:"#/login"}]}:p.status===403?{text:`🔒 **Order Access Restricted**
 
-You can only cancel orders associated with your account.`}:{text:`Order **${g}** cancel nahi ho saka: ${p.message}`}}}if(c.includes("shoe")||c.includes("headphone")||c.includes("shirt")||c.includes("watch")||c.includes("product")||c.includes("dikh")||c.includes("find")||c.includes("search")||c.includes("under")||c.includes("budget")){const g=m.match(/(?:under|below|less than|₹|rs\.?)\s*(\d+)/i)||m.match(/(\d+)\s*(?:rs|rupees|tak)/i),p=g?parseFloat(g[1]):null;let R=null;c.includes("shoe")||c.includes("footwear")?R="Footwear":c.includes("headphone")||c.includes("earphone")||c.includes("audio")||c.includes("watch")?R="Electronics":(c.includes("shirt")||c.includes("cloth")||c.includes("fashion"))&&(R="Fashion");const _=m.replace(/(?:show|me|find|search|please|give|under|below|less than|rs\.?|₹|\d+|tak|kuch|achha)/gi,"").trim();try{const F=await Ee(_,p,R);if(F&&F.length>0)return{text:`Here is what I found for you in our catalog:
+You can only cancel orders associated with your account.`}:{text:`Order **${g}** cancel nahi ho saka: ${p.message}`}}}if(c.includes("shoe")||c.includes("headphone")||c.includes("shirt")||c.includes("watch")||c.includes("product")||c.includes("dikh")||c.includes("find")||c.includes("search")||c.includes("under")||c.includes("budget")){const g=m.match(/(?:under|below|less than|₹|rs\.?)\s*(\d+)/i)||m.match(/(\d+)\s*(?:rs|rupees|tak)/i),p=g?parseFloat(g[1]):null;let R=null;c.includes("shoe")||c.includes("footwear")?R="Footwear":c.includes("headphone")||c.includes("earphone")||c.includes("audio")||c.includes("watch")?R="Electronics":(c.includes("shirt")||c.includes("cloth")||c.includes("fashion"))&&(R="Fashion");const _=m.replace(/(?:show|me|find|search|please|give|under|below|less than|rs\.?|₹|\d+|tak|kuch|achha)/gi,"").trim();try{const B=await Ee(_,p,R);if(B&&B.length>0)return{text:`Here is what I found for you in our catalog:
 
-${F.slice(0,3).map(D=>`• **${D.name}** — ₹${D.price.toLocaleString("en-IN")} (${D.category})`).join(`
-`)}`,actions:F.slice(0,2).map(D=>({label:`View ${D.name}`,url:`#/products/${D.product_id}`}))}}catch{}}if(c.includes("human")||c.includes("agent")||c.includes("ticket")||c.includes("dispute")||c.includes("complain")||c.includes("fraud")||c.includes("deduct")){const g=M();if(!E()||!g||!g.customer_id)return{text:`🔒 **Login Required**
+${B.slice(0,3).map(D=>`• **${D.name}** — ₹${D.price.toLocaleString("en-IN")} (${D.category})`).join(`
+`)}`,actions:B.slice(0,2).map(D=>({label:`View ${D.name}`,url:`#/products/${D.product_id}`}))}}catch{}}if(c.includes("human")||c.includes("agent")||c.includes("ticket")||c.includes("dispute")||c.includes("complain")||c.includes("fraud")||c.includes("deduct")){const g=M();if(!E()||!g||!g.customer_id)return{text:`🔒 **Login Required**
 
-Please log in to create a support ticket.`,actions:[{label:"Login to continue",url:"#/login?redirect=/support"}]};try{const p=await Ie({customerId:g.customer_id,description:m,category:c.includes("payment")?"Payment Issue":"General Support",priority:"High",orderId:f?f[0].toUpperCase():void 0});return c.includes("human")||c.includes("agent")||c.includes("escalate")?(await Ae(p.ticket_id,"Customer explicitly requested Tier 2 Human Support assistance."),{text:`I understand your concern. I have created **Support Ticket ${p.ticket_id}** and escalated it directly to our **Tier 2 Human Support Manager**.
+Please log in to create a support ticket.`,actions:[{label:"Login to continue",url:"#/login?redirect=/support"}]};try{const p=await Pe({customerId:g.customer_id,description:m,category:c.includes("payment")?"Payment Issue":"General Support",priority:"High",orderId:f?f[0].toUpperCase():void 0});return c.includes("human")||c.includes("agent")||c.includes("escalate")?(await Ae(p.ticket_id,"Customer explicitly requested Tier 2 Human Support assistance."),{text:`I understand your concern. I have created **Support Ticket ${p.ticket_id}** and escalated it directly to our **Tier 2 Human Support Manager**.
 
 A human representative will review your issue and reach out shortly.`,actions:[{label:`Check Ticket ${p.ticket_id}`,url:"#/support"}]}):{text:`I have created Support Ticket **${p.ticket_id}** for you with High priority.
 
-Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticket",url:"#/support"}]}}catch(p){return{text:`Ticket creation note: ${p.message}`}}}return{text:"I'm ShopSathi AI Assistant! You can ask me to track orders (e.g. *ORD1001*), manage returns (e.g. *ORD1003*), check refund status (*ORD1004*), search products under your budget, or connect you with human support."}}async function N(v){if(!v||!v.trim())return;const m=v.trim(),c=document.createElement("div");c.className="ai-message ai-message-user",c.innerHTML=`<div class="ai-bubble">${ee(m)}</div>`,w.appendChild(c),H.value="",w.scrollTop=w.scrollHeight;const f=document.createElement("div");f.className="ai-message ai-message-bot",f.innerHTML=`<div class="ai-avatar">${O(24)}</div><div class="ai-bubble ai-typing"><span></span><span></span><span></span></div>`,w.appendChild(f),w.scrollTop=w.scrollHeight;try{const T=await q(m);f.remove();const g=document.createElement("div");g.className="ai-message ai-message-bot";let p=nt(T.text),R="";T.actions&&T.actions.length>0&&(R=`<div class="ai-bubble-actions" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticket",url:"#/support"}]}}catch(p){return{text:`Ticket creation note: ${p.message}`}}}return{text:"I'm ShopSathi AI Assistant! You can ask me to track orders (e.g. *ORD1001*), manage returns (e.g. *ORD1003*), check refund status (*ORD1004*), search products under your budget, or connect you with human support."}}async function N(v){if(!v||!v.trim())return;const m=v.trim(),c=document.createElement("div");c.className="ai-message ai-message-user",c.innerHTML=`<div class="ai-bubble">${ee(m)}</div>`,w.appendChild(c),H.value="",w.scrollTop=w.scrollHeight;const f=document.createElement("div");f.className="ai-message ai-message-bot",f.innerHTML=`<div class="ai-avatar">${I(24)}</div><div class="ai-bubble ai-typing"><span></span><span></span><span></span></div>`,w.appendChild(f),w.scrollTop=w.scrollHeight;try{const T=await q(m);f.remove();const g=document.createElement("div");g.className="ai-message ai-message-bot";let p=nt(T.text),R="";T.actions&&T.actions.length>0&&(R=`<div class="ai-bubble-actions" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
           ${T.actions.map(_=>`<a href="${_.url}" class="btn btn-outline btn-sm" style="font-size:0.75rem;padding:4px 8px;">${_.label}</a>`).join("")}
         </div>`),g.innerHTML=`
-        <div class="ai-avatar">${O(24)}</div>
+        <div class="ai-avatar">${I(24)}</div>
         <div class="ai-bubble">
           ${p}
           ${R}
         </div>`,w.appendChild(g),w.scrollTop=w.scrollHeight}catch{f.remove();const g=document.createElement("div");g.className="ai-message ai-message-bot",g.innerHTML=`
-        <div class="ai-avatar">${O(24)}</div>
+        <div class="ai-avatar">${I(24)}</div>
         <div class="ai-bubble" style="border-left:3px solid var(--color-error);">
           <p>Sorry, I encountered an issue processing that. Please try again or check your connection.</p>
-        </div>`,w.appendChild(g),w.scrollTop=w.scrollHeight}}z.addEventListener("click",()=>N(H.value)),H.addEventListener("keydown",v=>{v.key==="Enter"&&N(H.value)}),e.querySelectorAll(".ai-panel-chips .ai-chip").forEach(v=>{v.addEventListener("click",()=>N(v.dataset.msg))});const I=e.querySelector("#voice-start-btn"),He=e.querySelector("#voice-stop-btn"),X=e.querySelector("#voice-mute-btn"),le=e.querySelector("#mute-label"),_e=e.querySelector("#voice-speaker-btn"),de=e.querySelector("#voice-active-controls"),De=e.querySelector("#voice-status"),Ue=e.querySelector("#voice-hint"),pe=e.querySelector("#voice-state-badge"),j=e.querySelector("#voice-ring");e.querySelector("#voice-icon");const ue=e.querySelector("#voice-transcript-box"),Ne=e.querySelector("#voice-user-transcript"),Fe=e.querySelector("#voice-agent-transcript");function L(v,m,c){const f={Ready:"badge-neutral",Connecting:"badge-warning",Connected:"badge-success",Listening:"badge-accent",Processing:"badge-primary",Speaking:"badge-success",Error:"badge-error",Ended:"badge-neutral"};pe.className=`badge ${f[v]||"badge-neutral"}`,pe.textContent=v,m&&(De.textContent=m),c&&(Ue.textContent=c),j.className="ai-voice-ring",v==="Connecting"||v==="Processing"?j.classList.add("active"):v==="Listening"?j.classList.add("listening"):v==="Speaking"&&j.classList.add("speaking")}async function ve(v){if(!n)return;n.cancel(),L("Speaking","ShopSathi is speaking...","Voice Agent Active (Gemini 2.5 Audio)"),Fe.innerHTML=`<strong>ShopSathi:</strong> ${ee(v)}`;const m=new SpeechSynthesisUtterance(v.replace(/[*_#•]/g,""));m.lang="en-IN",m.rate=1,m.pitch=1,m.onend=()=>{r&&!a&&L("Listening","Listening for your voice...","Speak in English, Hindi, or Hinglish")},m.onerror=()=>{r&&L("Listening","Listening...","Tap mute or speak")},n.speak(m)}async function he(v){if(!v.trim())return;L("Processing","Processing with ShopSathi AI...","Executing API tools..."),Ne.innerHTML=`<strong>You:</strong> "${ee(v)}"`,ue.style.display="block";const m=await q(v);await ve(m.text)}function Be(){const v=window.SpeechRecognition||window.webkitSpeechRecognition;if(!v)return null;const m=new v;return m.continuous=!0,m.interimResults=!1,m.lang="en-IN",m.onresult=c=>{const f=c.results.length-1,T=c.results[f][0].transcript;T&&he(T)},m.onerror=c=>{r&&c.error!=="no-speech"&&L("Connected","Microphone active","You can speak anytime")},m}function me(){r=!0,a=!1,I.style.display="none",de.style.display="flex",ue.style.display="block",L("Connecting","Connecting to Real-Time Voice Agent...","Provider: Gemini 2.5 Flash Audio Preview (Voice: Puck)"),setTimeout(()=>{if(L("Connected","Voice Session Connected!","Ready for spoken conversation"),i=Be(),i)try{i.start()}catch{}ve("Namaste! ShopSathi Real-Time Voice Support is active. How can I help you today?")},1200)}function ge(){if(r=!1,n&&n.cancel(),i){try{i.stop()}catch{}i=null}de.style.display="none",I.style.display="inline-flex",L("Ended","Call ended","Tap Start Conversation to reconnect")}return I.addEventListener("click",me),He.addEventListener("click",ge),X.addEventListener("click",()=>{if(a=!a,a){if(le.textContent="Unmute",X.classList.add("btn-danger"),i)try{i.stop()}catch{}L("Connected","Microphone Muted","Tap Unmute to speak")}else{if(le.textContent="Mute",X.classList.remove("btn-danger"),i)try{i.start()}catch{}L("Listening","Listening...","Speak now")}}),_e.addEventListener("click",()=>{n&&n.speaking&&(n.cancel(),L("Listening","Audio stopped","Listening for speech"))}),e.querySelectorAll(".voice-demo-chip").forEach(v=>{v.addEventListener("click",()=>{const m=v.dataset.speak;r||me(),setTimeout(()=>he(m),1500)})}),window.addEventListener("open-ai-panel",()=>{o||s||k()}),e}function ee(e){if(!e)return"";const t=document.createElement("div");return t.textContent=e,t.innerHTML}function nt(e){return e?e.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\*(.*?)\*/g,"<em>$1</em>").replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>"):""}async function ot(e){var o,s,r,a,i;e.innerHTML=`
+        </div>`,w.appendChild(g),w.scrollTop=w.scrollHeight}}z.addEventListener("click",()=>N(H.value)),H.addEventListener("keydown",v=>{v.key==="Enter"&&N(H.value)}),e.querySelectorAll(".ai-panel-chips .ai-chip").forEach(v=>{v.addEventListener("click",()=>N(v.dataset.msg))});const P=e.querySelector("#voice-start-btn"),He=e.querySelector("#voice-stop-btn"),X=e.querySelector("#voice-mute-btn"),le=e.querySelector("#mute-label"),_e=e.querySelector("#voice-speaker-btn"),de=e.querySelector("#voice-active-controls"),De=e.querySelector("#voice-status"),Ue=e.querySelector("#voice-hint"),pe=e.querySelector("#voice-state-badge"),j=e.querySelector("#voice-ring");e.querySelector("#voice-icon");const ue=e.querySelector("#voice-transcript-box"),Ne=e.querySelector("#voice-user-transcript"),Be=e.querySelector("#voice-agent-transcript");function C(v,m,c){const f={Ready:"badge-neutral",Connecting:"badge-warning",Connected:"badge-success",Listening:"badge-accent",Processing:"badge-primary",Speaking:"badge-success",Error:"badge-error",Ended:"badge-neutral"};pe.className=`badge ${f[v]||"badge-neutral"}`,pe.textContent=v,m&&(De.textContent=m),c&&(Ue.textContent=c),j.className="ai-voice-ring",v==="Connecting"||v==="Processing"?j.classList.add("active"):v==="Listening"?j.classList.add("listening"):v==="Speaking"&&j.classList.add("speaking")}async function ve(v){if(!n)return;n.cancel(),C("Speaking","ShopSathi is speaking...","Voice Agent Active • Synthesizing Speech"),Be.innerHTML=`<strong>ShopSathi:</strong> ${ee(v)}`;const m=new SpeechSynthesisUtterance(v.replace(/[*_#•]/g,""));m.lang="en-IN",m.rate=1,m.pitch=1,m.onend=()=>{r&&!a&&C("Listening","Listening for your voice...","Speak in English, Hindi, or Hinglish")},m.onerror=()=>{r&&C("Listening","Listening...","Tap mute or speak")},n.speak(m)}async function he(v){if(!v.trim())return;C("Processing","Processing with ShopSathi AI...","Executing API tools..."),Ne.innerHTML=`<strong>You:</strong> "${ee(v)}"`,ue.style.display="block";const m=await q(v);await ve(m.text)}function Fe(){const v=window.SpeechRecognition||window.webkitSpeechRecognition;if(!v)return null;const m=new v;return m.continuous=!0,m.interimResults=!1,m.lang="en-IN",m.onresult=c=>{const f=c.results.length-1,T=c.results[f][0].transcript;T&&he(T)},m.onerror=c=>{r&&c.error!=="no-speech"&&C("Connected","Microphone active","You can speak anytime")},m}function me(){r=!0,a=!1,P.style.display="none",de.style.display="flex",ue.style.display="block",C("Connecting","Initializing Real-Time Voice Agent...","Voice Engine: Speech API • Tool Bridge Active"),setTimeout(()=>{if(C("Connected","Voice Session Connected!","Ready for spoken conversation"),i=Fe(),i)try{i.start()}catch{}ve("Namaste! ShopSathi Real-Time Voice Support is active. How can I help you today?")},1200)}function ge(){if(r=!1,n&&n.cancel(),i){try{i.stop()}catch{}i=null}de.style.display="none",P.style.display="inline-flex",C("Ended","Call ended","Tap Start Conversation to reconnect")}return P.addEventListener("click",me),He.addEventListener("click",ge),X.addEventListener("click",()=>{if(a=!a,a){if(le.textContent="Unmute",X.classList.add("btn-danger"),i)try{i.stop()}catch{}C("Connected","Microphone Muted","Tap Unmute to speak")}else{if(le.textContent="Mute",X.classList.remove("btn-danger"),i)try{i.start()}catch{}C("Listening","Listening...","Speak now")}}),_e.addEventListener("click",()=>{n&&n.speaking&&(n.cancel(),C("Listening","Audio stopped","Listening for speech"))}),e.querySelectorAll(".voice-demo-chip").forEach(v=>{v.addEventListener("click",()=>{const m=v.dataset.speak;r||me(),setTimeout(()=>he(m),1500)})}),window.addEventListener("open-ai-panel",()=>{o||s||k()}),e}function ee(e){if(!e)return"";const t=document.createElement("div");return t.textContent=e,t.innerHTML}function nt(e){return e?e.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\*(.*?)\*/g,"<em>$1</em>").replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>"):""}async function ot(e){var o,s,r,a,i;e.innerHTML=`
     <div class="page-content">
       <!-- Hero Section -->
       <section class="hero">
@@ -404,7 +404,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
                   </div>
                 </div>
                 <div class="hero-card hero-card-3">
-                  <div class="hero-card-icon">${O(28)}</div>
+                  <div class="hero-card-icon">${I(28)}</div>
                   <div class="ai-typing-demo"><span></span><span></span><span></span></div>
                 </div>
               </div>
@@ -472,7 +472,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
               <div class="ai-cta-demo">
                 <div class="ai-message ai-message-user"><div class="ai-bubble" style="font-size:0.85rem;">Where is my order ORD1001?</div></div>
                 <div class="ai-message ai-message-bot">
-                  <div class="ai-avatar" style="width:28px;height:28px;">${O(24)}</div>
+                  <div class="ai-avatar" style="width:28px;height:28px;">${I(24)}</div>
                   <div class="ai-bubble" style="font-size:0.85rem;">Your order ORD1001 (AirPro Headphones) is <strong>Out for Delivery</strong> and expected today by 7:00 PM! 🚚</div>
                 </div>
               </div>
@@ -668,7 +668,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           <button class="btn btn-${r}" id="modal-confirm">${o}</button>
         </div>
       </div>
-    `,document.body.appendChild(i);const n=()=>{i.style.opacity="0",setTimeout(()=>i.remove(),200)};i.querySelector("#modal-confirm").addEventListener("click",()=>{n(),a(!0)}),i.querySelector("#modal-cancel").addEventListener("click",()=>{n(),a(!1)}),i.addEventListener("click",l=>{l.target===i&&(n(),a(!1))}),setTimeout(()=>i.querySelector("#modal-cancel").focus(),100)})}async function ht(e){function t(){var r;const o=P(),s=Te();if(o.length===0){e.innerHTML=`
+    `,document.body.appendChild(i);const n=()=>{i.style.opacity="0",setTimeout(()=>i.remove(),200)};i.querySelector("#modal-confirm").addEventListener("click",()=>{n(),a(!0)}),i.querySelector("#modal-cancel").addEventListener("click",()=>{n(),a(!1)}),i.addEventListener("click",l=>{l.target===i&&(n(),a(!1))}),setTimeout(()=>i.querySelector("#modal-cancel").focus(),100)})}async function ht(e){function t(){var r;const o=O(),s=Te();if(o.length===0){e.innerHTML=`
         <div class="page-content">
           <div class="container">
             <div class="empty-state" style="min-height:60vh;">
@@ -734,7 +734,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
             </div>
           </div>
         </div>
-      </div>`,e.querySelectorAll(".qty-dec").forEach(a=>{a.addEventListener("click",()=>{const i=a.dataset.id,n=P().find(l=>l.product_id===i);n&&n.quantity>1&&(be(i,n.quantity-1),t())})}),e.querySelectorAll(".qty-inc").forEach(a=>{a.addEventListener("click",()=>{const i=a.dataset.id,n=P().find(l=>l.product_id===i);n&&(be(i,n.quantity+1),t())})}),e.querySelectorAll(".cart-remove-btn").forEach(a=>{a.addEventListener("click",()=>{Je(a.dataset.id),b("Item removed from cart","info"),t()})}),(r=e.querySelector("#clear-cart-btn"))==null||r.addEventListener("click",async()=>{await K({title:"Clear Cart",message:"Are you sure you want to remove all items from your cart?",confirmText:"Clear All",type:"danger"})&&(Ce(),b("Cart cleared","info"),t())})}t()}function mt(e){return{Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"}[e]||"📦"}async function gt(e){if(!E()){e.innerHTML=`
+      </div>`,e.querySelectorAll(".qty-dec").forEach(a=>{a.addEventListener("click",()=>{const i=a.dataset.id,n=O().find(l=>l.product_id===i);n&&n.quantity>1&&(be(i,n.quantity-1),t())})}),e.querySelectorAll(".qty-inc").forEach(a=>{a.addEventListener("click",()=>{const i=a.dataset.id,n=O().find(l=>l.product_id===i);n&&(be(i,n.quantity+1),t())})}),e.querySelectorAll(".cart-remove-btn").forEach(a=>{a.addEventListener("click",()=>{Qe(a.dataset.id),b("Item removed from cart","info"),t()})}),(r=e.querySelector("#clear-cart-btn"))==null||r.addEventListener("click",async()=>{await K({title:"Clear Cart",message:"Are you sure you want to remove all items from your cart?",confirmText:"Clear All",type:"danger"})&&(Le(),b("Cart cleared","info"),t())})}t()}function mt(e){return{Electronics:"🎧",Footwear:"👟",Fashion:"👔",Home:"🏠"}[e]||"📦"}async function gt(e){if(!E()){e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
@@ -744,7 +744,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
             <a href="#/login?redirect=/checkout" class="btn btn-primary btn-lg" style="margin-top:var(--space-4);">Login to continue</a>
           </div>
         </div>
-      </div>`;return}const t=P(),o=Te();if(t.length===0){e.innerHTML=`
+      </div>`;return}const t=O(),o=Te();if(t.length===0){e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
@@ -886,7 +886,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           </div>
         </div>
       </div>
-    </div>`,e.querySelector("#place-order-btn").addEventListener("click",()=>{const r=e.querySelector("#checkout-name").value.trim(),a=e.querySelector("#checkout-email").value.trim(),i=e.querySelector("#checkout-phone").value.trim(),n=e.querySelector("#checkout-address").value.trim();if(!r||!a||!i||!n){b("Please fill in all required fields","warning");return}const l="ORD"+Math.floor(1e3+Math.random()*9e3);Ce(),e.innerHTML=`
+    </div>`,e.querySelector("#place-order-btn").addEventListener("click",()=>{const r=e.querySelector("#checkout-name").value.trim(),a=e.querySelector("#checkout-email").value.trim(),i=e.querySelector("#checkout-phone").value.trim(),n=e.querySelector("#checkout-address").value.trim();if(!r||!a||!i||!n){b("Please fill in all required fields","warning");return}const l="ORD"+Math.floor(1e3+Math.random()*9e3);Le(),e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="order-success-card card card-elevated text-center" style="max-width:600px;margin:var(--space-12) auto;padding:var(--space-12);">
@@ -971,7 +971,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           ${ft(i,k)}
           <button class="btn btn-secondary btn-sm" id="next-page-btn" ${i===k?"disabled":""}>Next →</button>
         </div>`:""}
-    `;const w=t.querySelector("#prev-page-btn"),z=t.querySelector("#next-page-btn");w&&w.addEventListener("click",()=>{i>1&&(i--,d(),window.scrollTo({top:0,behavior:"smooth"}))}),z&&z.addEventListener("click",()=>{i<k&&(i++,d(),window.scrollTo({top:0,behavior:"smooth"}))}),t.querySelectorAll(".page-num-btn").forEach(q=>{q.addEventListener("click",N=>{const I=parseInt(N.target.dataset.page,10);I&&I!==i&&(i=I,d(),window.scrollTo({top:0,behavior:"smooth"}))})})}try{const u=M();let h=[];if(u&&u.customer_id)try{h=await at(u.customer_id)}catch{h=await fe()}else try{h=await fe()}catch{h=(await Promise.allSettled(yt.map($=>J($)))).filter($=>$.status==="fulfilled").map($=>$.value)}a=(h||[]).sort((k,S)=>new Date(S.order_date)-new Date(k.order_date)),d()}catch(u){t.innerHTML=`
+    `;const w=t.querySelector("#prev-page-btn"),z=t.querySelector("#next-page-btn");w&&w.addEventListener("click",()=>{i>1&&(i--,d(),window.scrollTo({top:0,behavior:"smooth"}))}),z&&z.addEventListener("click",()=>{i<k&&(i++,d(),window.scrollTo({top:0,behavior:"smooth"}))}),t.querySelectorAll(".page-num-btn").forEach(q=>{q.addEventListener("click",N=>{const P=parseInt(N.target.dataset.page,10);P&&P!==i&&(i=P,d(),window.scrollTo({top:0,behavior:"smooth"}))})})}try{const u=M();let h=[];if(u&&u.customer_id)try{h=await at(u.customer_id)}catch{h=await fe()}else try{h=await fe()}catch{h=(await Promise.allSettled(yt.map($=>Q($)))).filter($=>$.status==="fulfilled").map($=>$.value)}a=(h||[]).sort((k,S)=>new Date(S.order_date)-new Date(k.order_date)),d()}catch(u){t.innerHTML=`
       <div class="empty-state">
         <div class="empty-state-icon">⚠️</div>
         <h3>Failed to load orders</h3>
@@ -1018,7 +1018,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
       <div class="container">
         <div class="loading-container"><div class="spinner spinner-lg"></div><p>Checking your order...</p></div>
       </div>
-    </div>`;try{const r=await J(o);Me(e,r)}catch(r){const a=r.status===403||r.message&&r.message.includes("Access denied");e.innerHTML=`
+    </div>`;try{const r=await Q(o);Me(e,r)}catch(r){const a=r.status===403||r.message&&r.message.includes("Access denied");e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <a href="#/orders" class="back-link">&larr; Back to Orders</a>
@@ -1029,7 +1029,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
             <a href="#/orders" class="btn btn-primary" style="margin-top:var(--space-4);">View My Orders</a>
           </div>
         </div>
-      </div>`}}function Me(e,t){var n,l;const o=Lt(t.status),s=["Processing","Order Placed","Preparing to Ship"].includes(t.status),r=t.status==="Delivered",a=new Date(t.order_date).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}),i=Ct(t.status);e.innerHTML=`
+      </div>`}}function Me(e,t){var n,l;const o=Ct(t.status),s=["Processing","Order Placed","Preparing to Ship"].includes(t.status),r=t.status==="Delivered",a=new Date(t.order_date).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}),i=Lt(t.status);e.innerHTML=`
     <div class="page-content">
       <div class="container">
         <a href="#/orders" class="back-link">&larr; Back to Orders</a>
@@ -1130,7 +1130,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           </div>
         </div>
       </div>
-    </div>`,(n=e.querySelector("#cancel-order-btn"))==null||n.addEventListener("click",async()=>{if(await K({title:`Cancel Order ${t.order_id}?`,message:`Are you sure you want to cancel order ${t.order_id}? Any charged amount will be refunded within 3-5 business days.`,confirmText:"Yes, Cancel Order",type:"danger"}))try{const d=await qe(t.order_id);b(d.message||"Order cancelled successfully","success");const u=await J(t.order_id);Me(e,u)}catch(d){b(d.message||"Failed to cancel order","error")}}),(l=e.querySelector("#ask-ai-order"))==null||l.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))})}function Lt(e){return{Processing:{badge:"badge-primary",icon:"🔄"},"Order Placed":{badge:"badge-primary",icon:"📋"},Confirmed:{badge:"badge-primary",icon:"✅"},Packed:{badge:"badge-accent",icon:"📦"},Shipped:{badge:"badge-accent",icon:"🚛"},"Out for Delivery":{badge:"badge-warning",icon:"🚚"},Delivered:{badge:"badge-success",icon:"✅"},Cancelled:{badge:"badge-error",icon:"❌"},Returned:{badge:"badge-neutral",icon:"↩️"},"Return Requested":{badge:"badge-warning",icon:"↩️"}}[e]||{badge:"badge-neutral",icon:"📋"}}function Ct(e){return{"Order Placed":0,Processing:0,Confirmed:1,Packed:2,Shipped:3,"Out for Delivery":4,Delivered:5}[e]??-1}async function Tt(e){if(!E()){e.innerHTML=`
+    </div>`,(n=e.querySelector("#cancel-order-btn"))==null||n.addEventListener("click",async()=>{if(await K({title:`Cancel Order ${t.order_id}?`,message:`Are you sure you want to cancel order ${t.order_id}? Any charged amount will be refunded within 3-5 business days.`,confirmText:"Yes, Cancel Order",type:"danger"}))try{const d=await qe(t.order_id);b(d.message||"Order cancelled successfully","success");const u=await Q(t.order_id);Me(e,u)}catch(d){b(d.message||"Failed to cancel order","error")}}),(l=e.querySelector("#ask-ai-order"))==null||l.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))})}function Ct(e){return{Processing:{badge:"badge-primary",icon:"🔄"},"Order Placed":{badge:"badge-primary",icon:"📋"},Confirmed:{badge:"badge-primary",icon:"✅"},Packed:{badge:"badge-accent",icon:"📦"},Shipped:{badge:"badge-accent",icon:"🚛"},"Out for Delivery":{badge:"badge-warning",icon:"🚚"},Delivered:{badge:"badge-success",icon:"✅"},Cancelled:{badge:"badge-error",icon:"❌"},Returned:{badge:"badge-neutral",icon:"↩️"},"Return Requested":{badge:"badge-warning",icon:"↩️"}}[e]||{badge:"badge-neutral",icon:"📋"}}function Lt(e){return{"Order Placed":0,Processing:0,Confirmed:1,Packed:2,Shipped:3,"Out for Delivery":4,Delivered:5}[e]??-1}async function Tt(e){if(!E()){e.innerHTML=`
       <div class="page-content">
         <div class="container">
           <div class="empty-state" style="min-height:60vh;">
@@ -1224,7 +1224,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           <div class="eligibility-card ineligible">
             <span class="badge badge-error">❌ Not Eligible</span>
             <p style="margin-top:var(--space-2);">${h.reason}</p>
-          </div>`}catch(h){l.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${h.message}</p></div>`}}),e.querySelector("#submit-return-btn").addEventListener("click",async()=>{const n=e.querySelector("#return-reason").value.trim();if(!n){b("Please enter a reason for return","warning");return}if(!await K({title:"Create Return Request?",message:`Are you sure you want to create a return request for order ${i}?`,confirmText:"Yes, Submit Return",type:"primary"}))return;const y=e.querySelector("#return-result");y.style.display="block",y.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Submitting return request...</span></div>';try{const d=await Oe(i,n);e.querySelector("#return-reason").value="",y.innerHTML=`
+          </div>`}catch(h){l.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${h.message}</p></div>`}}),e.querySelector("#submit-return-btn").addEventListener("click",async()=>{const n=e.querySelector("#return-reason").value.trim();if(!n){b("Please enter a reason for return","warning");return}if(!await K({title:"Create Return Request?",message:`Are you sure you want to create a return request for order ${i}?`,confirmText:"Yes, Submit Return",type:"primary"}))return;const y=e.querySelector("#return-result");y.style.display="block",y.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Submitting return request...</span></div>';try{const d=await Ie(i,n);e.querySelector("#return-reason").value="",y.innerHTML=`
         <div class="return-success-card card card-elevated" style="margin-top:var(--space-4);">
           <span style="font-size:2rem;">🎉</span>
           <h3>Return Request Submitted!</h3>
@@ -1235,7 +1235,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
             <div class="detail-row"><span>Reason</span><span>${d.reason}</span></div>
           </div>
           <p class="text-secondary text-sm" style="margin-top:var(--space-3);">${d.message}</p>
-        </div>`,b("Return request submitted successfully!","success")}catch(d){y.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${d.message}</p></div>`,b(d.message||"Failed to create return","error")}}),e.querySelector("#check-refund-btn").addEventListener("click",async()=>{const n=e.querySelector("#refund-order-id").value.trim().toUpperCase();if(!n){b("Please enter an Order ID","warning");return}const l=e.querySelector("#refund-result");l.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Checking refund status...</span></div>';try{const y=await Pe(n);l.innerHTML=`
+        </div>`,b("Return request submitted successfully!","success")}catch(d){y.innerHTML=`<div class="eligibility-card ineligible"><span class="badge badge-error">Error</span><p>${d.message}</p></div>`,b(d.message||"Failed to create return","error")}}),e.querySelector("#check-refund-btn").addEventListener("click",async()=>{const n=e.querySelector("#refund-order-id").value.trim().toUpperCase();if(!n){b("Please enter an Order ID","warning");return}const l=e.querySelector("#refund-result");l.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Checking refund status...</span></div>';try{const y=await Oe(n);l.innerHTML=`
         <div class="refund-card card card-elevated">
           <div class="flex items-center gap-3" style="margin-bottom:var(--space-3);">
             <span style="font-size:1.5rem;">💰</span>
@@ -1374,7 +1374,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           </div>
         </div>
       </div>
-    </div>`,(o=e.querySelector("#scroll-to-ticket"))==null||o.addEventListener("click",()=>{var a;(a=e.querySelector("#ticket-create-section"))==null||a.scrollIntoView({behavior:"smooth"})}),(s=e.querySelector("#scroll-to-check"))==null||s.addEventListener("click",()=>{var a;(a=e.querySelector("#ticket-check-section"))==null||a.scrollIntoView({behavior:"smooth"})}),(r=e.querySelector("#open-ai-support"))==null||r.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))}),e.querySelector("#create-ticket-btn").addEventListener("click",async()=>{const a=e.querySelector("#ticket-customer-id").value.trim(),i=e.querySelector("#ticket-category").value,n=e.querySelector("#ticket-order-id").value.trim(),l=e.querySelector("#ticket-description").value.trim(),y=e.querySelector("#ticket-priority").value,d=e.querySelector("#ticket-create-result");if(!a||!l){b("Please fill Customer ID and Description","warning");return}d.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Creating ticket...</span></div>';try{const u=await Ie({customerId:a,description:l,category:i||void 0,priority:y,orderId:n||void 0});e.querySelector("#ticket-description").value="";const h=e.querySelector("#ticket-order-id");h&&(h.value=""),d.innerHTML=`
+    </div>`,(o=e.querySelector("#scroll-to-ticket"))==null||o.addEventListener("click",()=>{var a;(a=e.querySelector("#ticket-create-section"))==null||a.scrollIntoView({behavior:"smooth"})}),(s=e.querySelector("#scroll-to-check"))==null||s.addEventListener("click",()=>{var a;(a=e.querySelector("#ticket-check-section"))==null||a.scrollIntoView({behavior:"smooth"})}),(r=e.querySelector("#open-ai-support"))==null||r.addEventListener("click",()=>{window.dispatchEvent(new CustomEvent("open-ai-panel"))}),e.querySelector("#create-ticket-btn").addEventListener("click",async()=>{const a=e.querySelector("#ticket-customer-id").value.trim(),i=e.querySelector("#ticket-category").value,n=e.querySelector("#ticket-order-id").value.trim(),l=e.querySelector("#ticket-description").value.trim(),y=e.querySelector("#ticket-priority").value,d=e.querySelector("#ticket-create-result");if(!a||!l){b("Please fill Customer ID and Description","warning");return}d.innerHTML='<div class="flex items-center gap-3"><div class="spinner"></div><span>Creating ticket...</span></div>';try{const u=await Pe({customerId:a,description:l,category:i||void 0,priority:y,orderId:n||void 0});e.querySelector("#ticket-description").value="";const h=e.querySelector("#ticket-order-id");h&&(h.value=""),d.innerHTML=`
         <div class="return-success-card card card-elevated">
           <h4>✅ Ticket Created</h4>
           <div class="detail-rows" style="margin-top:var(--space-3);">
@@ -1479,7 +1479,7 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           Log Out
         </button>
       </div>
-    </div>`,e.querySelector("#logout-btn").addEventListener("click",()=>{Qe(),b("Logged out successfully","info"),window.location.hash="/login"})}const Rt=[{id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},{id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},{id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},{id:"CUST104",name:"ShopSathi Team",role:"Support Team",email:"team@shopsathi.ai"},{id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai"}],ae={CUST101:{customer_id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},CUST102:{customer_id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},CUST103:{customer_id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},CUST104:{customer_id:"CUST104",name:"ShopSathi Team",role:"Support Team",email:"team@shopsathi.ai"},CUST105:{customer_id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai",isGuest:!0}};async function Ot(e){const t=window.location.hash,o=t.indexOf("?"),r=(o!==-1?new URLSearchParams(t.slice(o)):new URLSearchParams).get("redirect")||null;e.innerHTML=`
+    </div>`,e.querySelector("#logout-btn").addEventListener("click",()=>{Je(),b("Logged out successfully","info"),window.location.hash="/login"})}const Rt=[{id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},{id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},{id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},{id:"CUST104",name:"Kailash",role:"Team Member (24UCSE4014)",email:"kailash@shopsathi.ai"},{id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai"}],ae={CUST101:{customer_id:"CUST101",name:"Mahendra Gurjar",role:"Customer / Owner Demo",email:"mahendra.gurjar@shopsathi.ai"},CUST102:{customer_id:"CUST102",name:"ShopSathi Admin",role:"Administrator",email:"admin@shopsathi.ai"},CUST103:{customer_id:"CUST103",name:"ShopSathi HR",role:"HR / Operations",email:"hr@shopsathi.ai"},CUST104:{customer_id:"CUST104",name:"Kailash",role:"Team Member (24UCSE4014)",email:"kailash@shopsathi.ai"},CUST105:{customer_id:"CUST105",name:"Guest",role:"Guest User",email:"guest@shopsathi.ai",isGuest:!0}};async function It(e){const t=window.location.hash,o=t.indexOf("?"),r=(o!==-1?new URLSearchParams(t.slice(o)):new URLSearchParams).get("redirect")||null;e.innerHTML=`
     <div class="page-content">
       <div class="login-page">
         <div class="login-card card card-elevated">
@@ -1521,8 +1521,8 @@ Status: ${p.status} (Assigned to: ${p.assigned_to})`,actions:[{label:"View Ticke
           </div>
 
           <p class="text-secondary text-sm text-center" style="margin-top:var(--space-6);">
-            <em>Hackathon Demo Authentication — select any profile above or enter a valid Customer ID.</em>
+            <em>Demo Login — select any profile above or enter a valid Customer ID (CUST101–CUST105).</em>
           </p>
         </div>
       </div>
-    </div>`,e.querySelectorAll(".login-customer-btn").forEach(a=>{a.addEventListener("click",async()=>{await se(a.dataset.id,r)})}),e.querySelector("#custom-login-btn").addEventListener("click",async()=>{const a=e.querySelector("#custom-id-input").value.trim();await se(a,r)}),e.querySelector("#custom-id-input").addEventListener("keydown",async a=>{if(a.key==="Enter"){const i=a.target.value.trim();await se(i,r)}})}async function se(e,t){const o=(e||"").trim().toUpperCase();if(!o){b("Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.","error");return}if(o==="CUST105"||o==="GUEST"){re(ae.CUST105),b("Browsing as Guest","info"),window.location.hash="/products";return}if(!ae[o]){b("Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.","error");return}try{const s=await it(o),r={...ae[o],...s,customer_id:o};re(r),b(`Welcome, ${r.name}`,"success"),t?window.location.hash=t:window.location.hash="/"}catch{b("Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.","error")}}C("/",ot);C("/products",lt);C("/products/:id",vt);C("/cart",ht);C("/checkout",gt);C("/orders",bt);C("/orders/:id",$t);C("/returns",Tt);C("/support",Et);C("/profile",qt);C("/login",Ot);const ce=document.getElementById("app"),Pt=We();ce.appendChild(Pt);const W=document.createElement("main");W.id="main-content";W.setAttribute("role","main");ce.appendChild(W);const It=Xe();ce.appendChild(It);const At=rt();document.body.appendChild(At);Ve(W);
+    </div>`,e.querySelectorAll(".login-customer-btn").forEach(a=>{a.addEventListener("click",async()=>{await se(a.dataset.id,r)})}),e.querySelector("#custom-login-btn").addEventListener("click",async()=>{const a=e.querySelector("#custom-id-input").value.trim();await se(a,r)}),e.querySelector("#custom-id-input").addEventListener("keydown",async a=>{if(a.key==="Enter"){const i=a.target.value.trim();await se(i,r)}})}async function se(e,t){const o=(e||"").trim().toUpperCase();if(!o){b("Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.","error");return}if(o==="CUST105"||o==="GUEST"){re(ae.CUST105),b("Browsing as Guest","info"),window.location.hash="/products";return}if(!ae[o]){b("Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.","error");return}try{const s=await it(o),r={...ae[o],...s,customer_id:o};re(r),b(`Welcome, ${r.name}`,"success"),t?window.location.hash=t:window.location.hash="/"}catch{b("Invalid Customer ID. Please select a demo profile or enter a valid Customer ID.","error")}}L("/",ot);L("/products",lt);L("/products/:id",vt);L("/cart",ht);L("/checkout",gt);L("/orders",bt);L("/orders/:id",$t);L("/returns",Tt);L("/support",Et);L("/profile",qt);L("/login",It);const ce=document.getElementById("app"),Ot=We();ce.appendChild(Ot);const W=document.createElement("main");W.id="main-content";W.setAttribute("role","main");ce.appendChild(W);const Pt=Xe();ce.appendChild(Pt);const At=rt();document.body.appendChild(At);Ve(W);

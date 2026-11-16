@@ -1,6 +1,6 @@
 # ShopSathi AI — Public HTTPS Cloud Deployment Guide
 
-This guide provides step-by-step instructions to deploy the ShopSathi AI FastAPI backend to a public HTTPS URL (e.g. on Render.com or Railway) for Kipps.AI API Function integration.
+This guide provides step-by-step instructions to deploy the ShopSathi AI FastAPI backend to a public HTTPS URL (e.g. on Render.com or Railway) for external API access.
 
 ---
 
@@ -17,7 +17,7 @@ Configure the following variables in your hosting provider's dashboard:
 | Variable Name | Required | Default Value | Description |
 | :--- | :--- | :--- | :--- |
 | `PORT` | Yes | Supplied by Host (e.g. `10000`) | Network port for Uvicorn web server |
-| `ALLOWED_ORIGINS` | Yes | `*` | Allowed CORS origins for dashboard/Kipps calls |
+| `ALLOWED_ORIGINS` | Yes | `*` | Allowed CORS origins for frontend SPA and dashboard |
 | `DATABASE_URL` | Optional | `sqlite:///./shopsathi.db` | Database connection string |
 | `SHOP_SATHI_API_KEY` | Optional | `""` (Empty = Bypass) | Secret key enforcing `X-API-Key` header security |
 
@@ -36,8 +36,8 @@ If automatic CLI deployment is not configured, follow these exact click-by-click
    * Click **New +** button in the top right corner.
    * Select **Web Service**.
 3. **Connect Repository**:
-   * Connect your GitHub / GitLab account containing the `kipps ai hackathon` repository.
-   * Select the repository `kipps ai hackathon`.
+   * Connect your GitHub / GitLab account containing the `shopsathi-ai` repository.
+   * Select the repository `shopsathi-ai`.
 4. **Configure Service Settings**:
    * **Name**: `shopsathi-ai-backend`
    * **Region**: Select closest region (e.g. Singapore / Frankfurt / Oregon).
@@ -61,9 +61,9 @@ If automatic CLI deployment is not configured, follow these exact click-by-click
 
 ---
 
-## 3. Alternative Instant Local Deployment via ngrok (Hackathon Live Demo)
+## 3. Alternative Instant Local Deployment via ngrok (Quick Local Tunnel)
 
-If you are running the backend locally for live judging:
+If you are running the backend locally for a live demonstration or evaluation:
 ```bash
 # Terminal 1: Run local FastAPI backend
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8000

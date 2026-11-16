@@ -21,8 +21,8 @@ from app.routers import (
 seed_db()
 
 app = FastAPI(
-    title="ShopSathi AI — E-Commerce Customer Support Backend",
-    description="Agentic Customer Support Backend supporting Kipps.AI Chat & Voice Agents, REST APIs, Tool Functions, and Observability.",
+    title="ShopSathi AI — An AI-Powered E-Commerce and Customer Support Platform",
+    description="B.Tech CSE Minor Project — MBM University, Jodhpur. Developed by Mahendra Gurjar (24UCSE4018) and Kailash (24UCSE4014). FastAPI backend with SQLAlchemy ORM, AI Chat/Voice Assistants, secure customer isolation, and full e-commerce workflow APIs.",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"

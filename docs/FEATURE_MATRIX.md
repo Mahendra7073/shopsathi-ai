@@ -16,7 +16,7 @@
 | 12 | **Ticket Status Lookup** | `#/support` (Ticket status lookup) | `POST /support/tickets/status`<br>`GET /support/tickets/{id}` | `check_support_ticket` | ✅ **VERIFIED (PASS)** |
 | 13 | **Tier-2 Human Escalation** | `#/support` (Escalate action button) | `POST /support/tickets/escalate`<br>`POST /support/tickets/{id}/escalate` | `escalate_support_ticket` | ✅ **VERIFIED (PASS)** |
 | 14 | **Customer Profiles** | `#/profile` & `#/login` (Demo customer switcher) | `GET /customers/{id}`<br>`GET /customers/{id}/orders` | Customer Profile Store | ✅ **VERIFIED (PASS)** |
-| 15 | **Multilingual Chat Agent** | Floating AI Launcher (English, Hindi, Hinglish) | Gemini 3.1 Flash Lite via Kipps | All 9 Core Tools | ✅ **VERIFIED (PASS)** |
-| 16 | **Real-Time Voice Agent** | Floating Voice Panel + Direct PSTN (`+91 8031339824`) | Gemini 2.5 Flash Native Audio | All 9 Core Tools | ✅ **VERIFIED (PASS)** |
+| 15 | **Multilingual Chat Agent** | Floating AI Launcher (English, Hindi, Hinglish) | Rule-based NLP + Backend REST API | All 9 Core Tools | ✅ **VERIFIED (PASS)** |
+| 16 | **Real-Time Voice Agent** | Floating Voice Panel + Web Speech API | Web Speech API (SpeechRecognition / SpeechSynthesis) | All 9 Core Tools | ✅ **VERIFIED (PASS)** |
 | 17 | **Admin Monitoring Dashboard** | `/static/index.html` (Interactive dark dashboard) | `GET /analytics/summary` | Analytics & Audit Logger | ✅ **VERIFIED (PASS)** |
-| 18 | **Automated Test Suite** | 10 Test Modules in `tests/` | 63 Unit & Integration Tests | Full Coverage | ✅ **63/63 PASSED** |
+| 18 | **Automated Test Suite** | 10 Test Modules in `tests/` | 80 Unit & Integration Tests | Full Coverage | ✅ **80/80 PASSED** |

@@ -18,7 +18,7 @@
           │
           ▼
 3. Autonomous Tool Execution
-   (KIPPS.AI sends HTTP POST /orders/lookup {"order_id": "ORD1001"})
+   (AI Agent calls: HTTP GET /orders/ORD1001 with X-Customer-ID header)
           │
           ▼
 4. Deterministic Backend Evaluation

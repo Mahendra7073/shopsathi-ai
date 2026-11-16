@@ -100,7 +100,7 @@ This catalog contains high-resolution, working screenshots of the **ShopSathi AI
 
 ### 18. Voice Agent Panel
 ![18-voice-agent.png](screenshots/18-voice-agent.png)
-* **Features**: Voice interface modal, connection badge, Puck voice profile, and direct phone link (`+91 8031339824`).
+* **Features**: Voice interface modal, connection badge, active voice profile, and support contact link.
 
 ### 19. Voice Listening State
 ![19-voice-listening.png](screenshots/19-voice-listening.png)

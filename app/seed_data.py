@@ -11,6 +11,7 @@ def seed_db(db_engine=None, db_session=None):
     should_close = db_session is None
 
     try:
+        now = datetime.now(timezone.utc)
         # Check if already seeded with full dataset (>= 50 orders)
         order_count = db.query(Order).count()
         if order_count >= 50:
@@ -19,7 +20,7 @@ def seed_db(db_engine=None, db_session=None):
                 "CUST101": ("Mahendra Gurjar", "9876543210", "mahendra.gurjar@shopsathi.ai"),
                 "CUST102": ("ShopSathi Admin", "9812345678", "admin@shopsathi.ai"),
                 "CUST103": ("ShopSathi HR", "9988776655", "hr@shopsathi.ai"),
-                "CUST104": ("ShopSathi Team", "9765432109", "team@shopsathi.ai"),
+                "CUST104": ("Kailash", "9765432109", "kailash@shopsathi.ai"),
                 "CUST105": ("Guest", "9823456781", "guest@shopsathi.ai"),
             }
             for cid, (cname, cphone, cemail) in customer_updates.items():
@@ -28,8 +29,17 @@ def seed_db(db_engine=None, db_session=None):
                     cust.name = cname
                     cust.phone = cphone
                     cust.email = cemail
+
+            # Refresh demo order delivery dates relative to current time for interactive evaluation
+            ord1003 = db.query(Order).filter(Order.order_id == "ORD1003").first()
+            if ord1003:
+                ord1003.delivered_date = now - timedelta(days=2)
+            ord1002 = db.query(Order).filter(Order.order_id == "ORD1002").first()
+            if ord1002:
+                ord1002.delivered_date = now - timedelta(days=12)
+
             db.commit()
-            print(f"Database already seeded with {order_count} orders. Customer profiles synchronized.")
+            print(f"Database already seeded with {order_count} orders. Customer profiles and demo timestamps synchronized.")
             return
 
         # If partial seed exists, re-seed cleanly
@@ -127,9 +137,9 @@ def seed_db(db_engine=None, db_session=None):
             ),
             Customer(
                 customer_id="CUST104",
-                name="ShopSathi Team",
+                name="Kailash",
                 phone="9765432109",
-                email="team@shopsathi.ai"
+                email="kailash@shopsathi.ai"
             ),
             Customer(
                 customer_id="CUST105",

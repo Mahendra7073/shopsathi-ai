@@ -82,7 +82,7 @@ def search_products(
 ):
     """
     Search product catalog with optional query text, max price budget, and category filters (GET query params).
-    Used by Kipps.AI Function: search_products.
+    Used by AI Assistant: search_products tool function.
     """
     start_time = time.time()
     results = execute_catalog_search(db=db, query=query, max_price=max_price, category=category)
@@ -107,7 +107,7 @@ def search_products_post(
 ):
     """
     Search product catalog using JSON body request payload.
-    Used by Kipps.AI Function: search_products.
+    Used by AI Assistant: search_products tool function.
     """
     start_time = time.time()
     results = execute_catalog_search(

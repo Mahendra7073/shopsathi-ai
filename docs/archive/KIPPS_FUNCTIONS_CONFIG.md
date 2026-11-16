@@ -38,7 +38,7 @@ This document provides explicit, copy-pasteable configuration specifications for
 * **Example Response**:
   ```json
   {
-    "order_id": "ORD1001",
+    "order_id": "ORD9999",
     "status": "Out for Delivery",
     "expected_delivery": "Today by 7:00 PM",
     "tracking_available": true,

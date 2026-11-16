@@ -1,6 +1,6 @@
 # Future Scope & Roadmap
 
-## 🚀 Post-Hackathon Roadmap
+## 🚀 Future Development Roadmap
 
 ShopSathi AI is built on an extensible foundation designed for enterprise scalability:
 

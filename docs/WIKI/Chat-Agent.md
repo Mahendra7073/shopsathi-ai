@@ -2,7 +2,7 @@
 
 ## 🤖 Model & Capabilities
 
-The ShopSathi Chat Agent is powered by **Google Gemini 3.1 Flash Lite**, configured for low-latency, deterministic function-calling in e-commerce customer workflows.
+The ShopSathi Chat Agent provides low-latency, deterministic function-calling in e-commerce customer workflows using browser-side intent matching with backend REST API tool-calling, architected with a direct server-side Google Gemini Flash upgrade path.
 
 ![Chat Agent Screenshot](../screenshots/13-chat-agent.png)
 
@@ -22,8 +22,8 @@ The Chat Agent natively understands and responds in **English, Hindi, and Hingli
 
 ---
 
-## 🛡️ Zero-Hallucination Guardrails
+## 🛡️ Deterministic Execution & Ground-Truth Verification
 
-1. **Tool Output Dependency**: The agent is strictly forbidden from inventing tracking numbers, item stock, or refund dates.
-2. **Context Persistence**: Maintains order ID across multi-turn queries.
-3. **Escalation Trigger**: When user friction or gateway errors occur, the agent offers immediate human escalation.
+1. **Live API Grounding**: Responses are derived directly from live database state (via backend REST API endpoints) rather than speculative generative text.
+2. **Context Persistence**: Maintains extracted parameters (e.g. order IDs) across multi-turn interactions.
+3. **Escalation Trigger**: When unresolved disputes or friction occurs, the agent automatically triggers ticket creation and human escalation.

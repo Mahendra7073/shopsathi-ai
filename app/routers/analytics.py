@@ -12,7 +12,7 @@ router = APIRouter(prefix="/analytics", tags=["Analytics & Observability"])
 def get_analytics_summary(db: Session = Depends(get_db)):
     """
     Get aggregated system performance metrics, resolution vs escalation stats, and recent execution logs.
-    Used for hackathon demonstration and monitoring dashboard.
+    Used for system monitoring, observability, and academic project demonstration.
     """
     total_requests = db.query(AuditLog).count()
     escalated_count = db.query(AuditLog).filter(AuditLog.escalation == True).count()

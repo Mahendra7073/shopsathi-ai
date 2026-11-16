@@ -10,7 +10,7 @@ const DEMO_CUSTOMERS = [
   { id: 'CUST101', name: 'Mahendra Gurjar', role: 'Customer / Owner Demo', email: 'mahendra.gurjar@shopsathi.ai' },
   { id: 'CUST102', name: 'ShopSathi Admin', role: 'Administrator', email: 'admin@shopsathi.ai' },
   { id: 'CUST103', name: 'ShopSathi HR', role: 'HR / Operations', email: 'hr@shopsathi.ai' },
-  { id: 'CUST104', name: 'ShopSathi Team', role: 'Support Team', email: 'team@shopsathi.ai' },
+  { id: 'CUST104', name: 'Kailash', role: 'Team Member (24UCSE4014)', email: 'kailash@shopsathi.ai' },
   { id: 'CUST105', name: 'Guest', role: 'Guest User', email: 'guest@shopsathi.ai' },
 ];
 
@@ -18,7 +18,7 @@ const DEMO_PROFILES_MAP = {
   'CUST101': { customer_id: 'CUST101', name: 'Mahendra Gurjar', role: 'Customer / Owner Demo', email: 'mahendra.gurjar@shopsathi.ai' },
   'CUST102': { customer_id: 'CUST102', name: 'ShopSathi Admin', role: 'Administrator', email: 'admin@shopsathi.ai' },
   'CUST103': { customer_id: 'CUST103', name: 'ShopSathi HR', role: 'HR / Operations', email: 'hr@shopsathi.ai' },
-  'CUST104': { customer_id: 'CUST104', name: 'ShopSathi Team', role: 'Support Team', email: 'team@shopsathi.ai' },
+  'CUST104': { customer_id: 'CUST104', name: 'Kailash', role: 'Team Member (24UCSE4014)', email: 'kailash@shopsathi.ai' },
   'CUST105': { customer_id: 'CUST105', name: 'Guest', role: 'Guest User', email: 'guest@shopsathi.ai', isGuest: true }
 };
 
@@ -70,7 +70,7 @@ export async function renderLogin(container) {
           </div>
 
           <p class="text-secondary text-sm text-center" style="margin-top:var(--space-6);">
-            <em>Hackathon Demo Authentication — select any profile above or enter a valid Customer ID.</em>
+            <em>Demo Login — select any profile above or enter a valid Customer ID (CUST101–CUST105).</em>
           </p>
         </div>
       </div>

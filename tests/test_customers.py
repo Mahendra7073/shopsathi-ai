@@ -12,7 +12,7 @@ def test_demo_profile_logins(client):
         ("CUST101", "Mahendra Gurjar"),
         ("CUST102", "ShopSathi Admin"),
         ("CUST103", "ShopSathi HR"),
-        ("CUST104", "ShopSathi Team")
+        ("CUST104", "Kailash")
     ]
     for cid, name in valid_profiles:
         res = client.get(f"/customers/{cid}", headers={"X-Customer-ID": cid})

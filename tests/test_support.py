@@ -11,7 +11,7 @@ def test_create_support_ticket(client):
     assert data["customer_id"] == "CUST101"
     assert data["status"] == "Open"
 
-def test_create_support_ticket_kipps_schema(client):
+def test_create_support_ticket_alternate_schema(client):
     response = client.post("/support/tickets", json={
         "customer_id": " cust101 ",
         "subject": "Issue with order ORD1001",
