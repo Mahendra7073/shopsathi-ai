@@ -2,7 +2,7 @@
 
 This document provides copy-pasteable `curl` test commands for every backend API endpoint.
 
-> **Public API Base URL Placeholder**: `<PUBLIC_API_URL>` (e.g. `https://shopsathi-ai-backend.onrender.com` or your `ngrok` URL `https://xxxx.ngrok-free.app`)  
+> **Public API Base URL Placeholder**: `<PUBLIC_API_URL>` (e.g. `https://shopsathi-ai-backend.onrender.com` or your `ngrok` URL `https://xxxx.ngrok-free.app`)
 > **API Security Header**: `-H "X-API-Key: YOUR_SHOP_SATHI_API_KEY"` (if `SHOP_SATHI_API_KEY` is configured in environment)
 
 ---

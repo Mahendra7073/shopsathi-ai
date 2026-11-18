@@ -1,9 +1,9 @@
 /**
  * ShopSathi Cart Page
  */
-import { getCart, updateCartQuantity, removeFromCart, clearCart, getCartTotal } from '../store.js';
-import { showToast } from '../components/Toast.js';
-import { showModal } from '../components/Modal.js';
+import { getCart, updateCartQuantity, removeFromCart, clearCart, getCartTotal } from '../store/index.js';
+import { showToast } from '../components/common/Toast.js';
+import { showModal } from '../components/common/Modal.js';
 
 export async function renderCart(container) {
   function render() {

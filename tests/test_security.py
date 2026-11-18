@@ -1,6 +1,4 @@
 import os
-import pytest
-from fastapi.testclient import TestClient
 
 def test_api_key_auth_bypassed_when_unset(client):
     if "SHOP_SATHI_API_KEY" in os.environ:

@@ -2,8 +2,8 @@
  * ShopSathi Products Page
  */
 import { searchProducts, getProducts } from '../services/api.js';
-import { addToCart } from '../store.js';
-import { showToast } from '../components/Toast.js';
+import { addToCart } from '../store/index.js';
+import { showToast } from '../components/common/Toast.js';
 
 let searchTimer = null;
 

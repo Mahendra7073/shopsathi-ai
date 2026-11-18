@@ -3,7 +3,8 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(BASE_DIR)
+APP_DIR = os.path.dirname(BASE_DIR)
+PROJECT_ROOT = os.path.dirname(APP_DIR)
 DEFAULT_DB_PATH = os.path.join(PROJECT_ROOT, "shopsathi.db")
 DEFAULT_DB_URL = f"sqlite:///{DEFAULT_DB_PATH.replace('\\', '/')}"
 

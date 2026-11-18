@@ -1,96 +1,78 @@
-# ShopSathi AI — Faculty Evaluator Q&A Guide
+# ShopSathi AI — Faculty Evaluator & Defense Q&A Guide
 
-This document provides concise, fact-based answers to key architectural, product, and technical questions likely to be asked by faculty evaluators during the Minor Project demonstration.
-
----
-
-### 1. What problem does ShopSathi solve?
-**Answer:** Traditional e-commerce customer support forces shoppers to navigate fragmented portals for shopping, order tracking, returns, and dispute resolution. Existing chatbots are rigid, FAQ-only bots that cannot perform transactional actions. When an issue occurs, customers get trapped in loops. ShopSathi bridges this gap by acting as a multi-modal agentic platform that discovers products, tracks real-time shipments, processes returns/refunds, and executes live backend tools—with automatic escalation to human agents when friction arises.
+**B.Tech CSE Minor Project — MBM University, Jodhpur**
+**Project Developers:** Mahendra Gurjar (24UCSE4018) · Kailash (24UCSE4014) — Semester VII
 
 ---
 
-### 2. Why is this considered "Agentic AI"?
-**Answer:** Unlike static chatbots that merely return generated text, ShopSathi is an **autonomous decision-maker**:
-1. It analyzes unstructured natural language inputs (in English, Hindi, or Hinglish) across Chat and Voice.
-2. It determines the user's operational goal (e.g., checking status, returning an item, inquiring about a refund).
-3. It selects and parameterizes the exact backend tool (`check_order_status`, `check_return_eligibility`, etc.).
-4. It receives ground-truth API data and reasons over it according to business rules.
-5. If an anomaly or deadlock occurs, it autonomously creates a support ticket and executes human escalation.
+## 1. What problem does ShopSathi solve?
+**Answer:** Traditional e-commerce customer support forces shoppers to navigate fragmented portals for shopping, order tracking, returns, and dispute resolution. Existing chatbots are typically rigid, FAQ-only bots that cannot perform real actions on user accounts. When an issue occurs, customers get trapped in loops. ShopSathi bridges this gap by acting as an agentic platform that discovers products, tracks real-time shipments, validates return eligibility, checks refunds, and executes live backend tools — with automatic escalation to human agents when friction arises.
 
 ---
 
-### 3. What makes ShopSathi different from a normal chatbot?
+## 2. Why is this considered "Agentic AI"?
+**Answer:** Unlike static chatbots that merely return pre-written or speculative text, ShopSathi is an **autonomous decision-making system**:
+1. It parses unstructured natural language inputs (in English, Hindi, or Hinglish) across Chat and Voice interfaces.
+2. It classifies the user's operational goal (order tracking, product search, cancellation, return, refund, or support).
+3. It extracts key parameters (e.g., Order ID `ORD1001`, budget limits `₹2000`, product category `running shoes`).
+4. It calls and executes the exact backend REST API tool (`GET /orders/{id}`, `POST /returns`, etc.).
+5. It formats the ground-truth API response into a natural response for the customer.
+6. If an unresolved dispute occurs, it autonomously creates a support ticket and executes human escalation.
+
+---
+
+## 3. What makes ShopSathi different from a traditional chatbot?
 **Answer:**
+
 | Feature | Traditional Scripted Chatbot | ShopSathi AI Agentic System |
 |---|---|---|
-| **Data Source** | Static FAQ text / canned answers | Live REST APIs & SQLite/PostgreSQL Database |
+| **Data Source** | Static FAQ text / canned answers | Live REST APIs & SQLite Database |
 | **Actions** | Read-only guidance links | Executes live transactions (cancel, return, ticket) |
-| **Policy Engine** | None / prompts user to check T&C | Deterministic 7-day policy & hygiene validation |
-| **Multi-Modality** | Text-only widget | Chat (Gemini 3.1 Flash Lite) + Real-Time Voice (Gemini 2.5 Flash Native Audio) |
-| **Escalation** | Dead-end "leave a message" | Structured Tier 2 human agent routing |
+| **Policy Engine** | None / prompts user to check T&C | Deterministic 7-day return policy & hygiene validation |
+| **Multi-Modality** | Text-only widget | Multilingual Chat + Native Browser Voice Assistant |
+| **Escalation** | Dead-end "leave a message" | Structured Tier 2 human agent routing & priority assignment |
 | **Languages** | English only | English, Hindi, and Hinglish |
+| **Customer Privacy**| Often shared or unauthenticated | Strict 401 Unauthorized / 403 Forbidden customer isolation |
 
 ---
 
-### 4. How does the AI access live information and prevent hallucinations?
-**Answer:** The AI agents are configured with strict function-calling definitions. When a user asks about order `ORD1001`, the model invokes `check_order_status(order_id='ORD1001')`. The backend queries the database and returns structured JSON (`{"status": "Out for Delivery", "expected_delivery": "Today by 7:00 PM"}`). The LLM is instructed to base its response strictly on the tool output, guaranteeing zero hallucinated tracking numbers, prices, or refund states.
+## 4. How does the AI access live information and prevent hallucinations?
+**Answer:** The AI assistant uses deterministic backend tool calling. When a user asks about order `ORD1001`, the engine extracts the ID and queries `GET /orders/ORD1001`. The backend queries the database and returns structured JSON (`{"status": "Out for Delivery", "expected_delivery": "Today by 7:00 PM"}`). The assistant bases its response strictly on this tool output, guaranteeing zero hallucinated tracking numbers, prices, or refund states.
 
 ---
 
-### 5. How does the Return Policy & Cancellation logic work?
-**Answer:** ShopSathi utilizes a deterministic business rule engine:
-- **Returns:** Checks if the product is marked `returnable=True` (e.g., water bottles are non-returnable for hygiene) AND calculates whether `current_date - delivered_date <= 7 days`.
-- **Cancellations:** Only orders in `Processing` or `Confirmed` states can be cancelled. Once an order is `Delivered` or `Out for Delivery` (e.g., `ORD1002`), cancellation is strictly blocked with HTTP 400 Bad Request.
-
----
-
-### 6. How does Human Escalation work?
-**Answer:** When a customer has an unresolved dispute (such as an unconfirmed payment or complex complaint), the agent calls `create_support_ticket`. If immediate human intervention is requested or required, it calls `escalate_support_ticket(ticket_id, reason)`. The backend transitions the ticket status to `Escalated` and assigns it to a `Tier 2 Human Support Agent`, preserving the entire conversational context.
-
----
-
-### 7. Why include both Chat and Real-Time Voice?
-**Answer:** E-commerce shoppers have diverse interaction preferences. Chat is ideal for visual product browsing, cart reviews, and reviewing detailed return policies. The Real-Time Voice Agent uses the browser's native Web Speech API (`SpeechRecognition` and `SpeechSynthesis`), providing hands-free accessibility for quick status checks and on-the-go inquiries — no external service or subscription is required.
-
----
-
-### 8. How is the system scalable and architected for production?
+## 5. How does the Return Policy & Cancellation logic work?
 **Answer:**
-- **Decoupled Architecture:** Clean separation between the client-side SPA (Vite + Vanilla JS), the FastAPI business logic layer, and the AI agent orchestration layer.
-- **Stateless API:** REST endpoints are stateless, scalable, and Docker-ready.
-- **High Performance:** Average backend tool execution latency is `< 7ms`.
-- **Database Portability:** SQLAlchemy ORM allows switching between SQLite (local demo) and PostgreSQL / Cloud SQL in production via the `DATABASE_URL` environment variable.
+1. **Cancellation Guard:** Orders in `Delivered` or `Out for Delivery` status cannot be cancelled via self-service; the system blocks cancellation and directs the customer to initiate a return upon arrival.
+2. **7-Day Return Policy Engine:** When a return is requested for a delivered item, the backend checks:
+   - Whether the item is returnable (e.g. hygiene products like pillows are non-returnable).
+   - Whether the delivery timestamp was within the last 7 days.
+   - If older than 7 days, the return is marked ineligible and the user is offered a dispute escalation ticket.
 
 ---
 
-### 9. What happens if an API endpoint fails?
-**Answer:** The system features resilient error boundaries:
-- The FastAPI backend returns standardized error envelopes (`ApiError` with HTTP status codes and user-friendly messages).
-- Frontend services catch network and parsing errors, displaying clear empty states and "Try Again" toasts without crashing the UI.
-- The AI agents receive standard error JSON and gracefully inform the customer or offer human escalation.
-
----
-
-### 10. How is customer data and security protected?
+## 6. How is customer data privacy and security handled?
 **Answer:**
-- Zero secrets, API keys, or database credentials are baked into client-side code or git repositories.
-- All external LLM keys (e.g. `GEMINI_API_KEY`) remain strictly server-side in environment variables.
-- The backend supports header-based API key authentication (`X-API-Key`) for production function-calling protection.
+- **Zero Cross-Customer Data Leakage:** All customer endpoints require the `X-Customer-ID` authentication header.
+- **Server-Side Authorization:** Attempting to view another customer's order (e.g., CUST101 requesting ORD1002 belonging to CUST102) strictly returns **HTTP 403 Forbidden**.
+- **Guest Protection:** Guest users (`CUST105`) cannot view orders or request returns without logging in (returning **HTTP 401 Unauthorized**).
+- **Public vs Private Caching:** Catalog searches (`GET /products*`) are cached in memory for 60 seconds (duration: `0.002 ms`), but sensitive customer data (`/orders`, `/returns`, `/refunds`, `/support`) is **never cached**.
 
 ---
 
-### 11. What technologies were used?
-**Answer:**
-- **Frontend:** HTML5, CSS3 Tokens, Vanilla JavaScript ES6, Vite SPA, SVG Generator.
-- **Backend:** Python 3.12, FastAPI, Uvicorn, SQLAlchemy ORM, Pydantic v2.
-- **AI Models:** Gemini 3.1 Flash Lite (Chat Agent), Gemini 2.5 Flash Native Audio Preview (Voice Agent).
-- **Deployment:** Render Web Services (Docker / Python), GitHub Version Control.
-- **Testing:** Pytest (80 automated unit/integration tests, 100% pass rate).
+## 7. What is the test coverage and verification status?
+**Answer:** The project has **145 total automated tests** with a 100% pass rate:
+- **80 Backend Pytest Tests:** Testing all 8 routers, customer isolation, 7-day return policy, security, and health.
+- **55 Frontend AI Agent Tests:** Testing English, Hindi, and Hinglish NLP intents, edge cases, latency benchmarks, and TTS audio formatting.
+- **10 API Smoke Tests:** Automated end-to-end server sanity and database integrity verification.
+- **Continuous Integration:** Automated GitHub Actions pipeline (`.github/workflows/ci.yml`) runs all tests on every push.
 
 ---
 
-### 12. What would you add next?
+## 8. What is the technology stack and deployment architecture?
 **Answer:**
-1. **Automated WhatsApp / SMS Integrations:** Trigger real-time WhatsApp updates for order dispatches and return pickup OTPs.
-2. **Visual Defect Inspection via Multi-Modal Vision:** Allow customers to upload photos of damaged goods directly in chat for automated AI return approvals.
-3. **Live Human Agent Dashboard:** Real-time WebRTC audio handoff allowing Tier 2 agents to seamlessly join active voice calls.
+- **Frontend:** Vanilla JavaScript (ES6 modules), Vite build tool, responsive CSS with design tokens.
+- **Backend:** Python 3.12, FastAPI, Uvicorn ASGI server.
+- **Database:** SQLite with SQLAlchemy ORM (compatible with PostgreSQL).
+- **Voice / Speech:** Browser W3C Web Speech API (`SpeechRecognition` + `SpeechSynthesis`).
+- **Containerization & Deployment:** Dockerfile (Python 3.12-slim), `render.yaml`, live deployment on Render Web Services.

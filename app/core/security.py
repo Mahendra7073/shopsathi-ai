@@ -3,7 +3,7 @@ from typing import Optional
 from fastapi import Security, HTTPException, status, Header, Depends
 from fastapi.security.api_key import APIKeyHeader
 from sqlalchemy.orm import Session
-from app.database import get_db
+from app.core.database import get_db
 from app.models import Customer
 
 API_KEY_NAME = "X-API-Key"

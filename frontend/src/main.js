@@ -6,9 +6,9 @@ import './styles/components.css';
 import './styles/pages.css';
 
 import { registerRoute, initRouter } from './router.js';
-import { renderHeader } from './components/Header.js';
-import { renderFooter } from './components/Footer.js';
-import { renderAiLauncher } from './components/AiLauncher.js';
+import { renderHeader } from './components/layout/Header.js';
+import { renderFooter } from './components/layout/Footer.js';
+import { renderAiLauncher } from './components/ai/AiLauncher.js';
 
 // Pages
 import { renderHome } from './pages/Home.js';

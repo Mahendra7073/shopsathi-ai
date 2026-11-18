@@ -1,5 +1,9 @@
-import { logoFull, logoCompact } from './Logo.js';
-import { getCartCount, getCurrentUser, isAuthenticated, subscribe } from '../store.js';
+/**
+ * ShopSathi Header Navigation
+ * Category: Layout
+ */
+import { logoFull, logoCompact } from '../common/Logo.js';
+import { getCartCount, getCurrentUser, isAuthenticated, subscribe } from '../../store/index.js';
 
 export function renderHeader() {
   const header = document.createElement('header');

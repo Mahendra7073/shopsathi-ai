@@ -1,6 +1,7 @@
 /**
  * ShopSathi Simple State Store
  * Manages cart, user session, and app-wide state via localStorage
+ * Category: State Management
  */
 
 const CART_KEY = 'shopsathi_cart';
@@ -12,7 +13,7 @@ const VALID_DEMO_PROFILES = {
   'CUST101': { customer_id: 'CUST101', name: 'Mahendra Gurjar', role: 'Customer / Owner Demo', email: 'mahendra.gurjar@shopsathi.ai' },
   'CUST102': { customer_id: 'CUST102', name: 'ShopSathi Admin', role: 'Administrator', email: 'admin@shopsathi.ai' },
   'CUST103': { customer_id: 'CUST103', name: 'ShopSathi HR', role: 'HR / Operations', email: 'hr@shopsathi.ai' },
-  'CUST104': { customer_id: 'CUST104', name: 'ShopSathi Team', role: 'Support Team', email: 'team@shopsathi.ai' },
+  'CUST104': { customer_id: 'CUST104', name: 'Kailash', role: 'Team Member (24UCSE4014)', email: 'kailash@shopsathi.ai' },
   'CUST105': { customer_id: 'CUST105', name: 'Guest', role: 'Guest User', email: 'guest@shopsathi.ai', isGuest: true }
 };
 

@@ -1,11 +1,11 @@
 import os
-from fastapi import FastAPI, Request
+import time
+from fastapi import FastAPI, Request, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.database import Base, engine
-from app.seed_data import seed_db
+from app.services.seed_data import seed_db
 from app.routers import (
     health,
     orders,
@@ -38,7 +38,17 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Process-Time"],
 )
+
+# Backend latency performance instrumentation middleware
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    process_time_ms = (time.perf_counter() - start_time) * 1000.0
+    response.headers["X-Process-Time"] = f"{process_time_ms:.2f}ms"
+    return response
 
 # Custom Global Exception Handler to prevent exposing raw stack traces
 @app.exception_handler(Exception)
@@ -50,9 +60,6 @@ async def global_exception_handler(request: Request, exc: Exception):
             "message": "An unexpected error occurred while processing your request. Please try again or contact support."
         }
     )
-
-from fastapi import APIRouter
-from fastapi.responses import RedirectResponse
 
 # Include Routers (Direct + /api prefix alias)
 routers = [

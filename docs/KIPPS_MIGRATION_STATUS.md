@@ -1,7 +1,7 @@
 # Kipps.AI Dependency Analysis and Gemini Migration Plan
 
-**Project:** ShopSathi AI — B.Tech CSE Minor Project  
-**Date:** November 2026  
+**Project:** ShopSathi AI — B.Tech CSE Minor Project
+**Date:** November 2026
 **Authors:** Mahendra Gurjar (24UCSE4018), Kailash (24UCSE4014)
 
 ---
@@ -111,7 +111,7 @@ router = APIRouter(prefix="/ai", tags=["AI Chat"])
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 @router.post("/chat")
-async def chat(message: str, db: Session = Depends(get_db), 
+async def chat(message: str, db: Session = Depends(get_db),
                customer = Depends(require_current_customer)):
     # Call Gemini with the customer's message
     # Include backend data (orders, products) as context

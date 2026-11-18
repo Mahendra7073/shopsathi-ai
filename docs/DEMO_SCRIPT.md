@@ -1,88 +1,73 @@
-# ShopSathi AI â€” Project Demonstration Guide (3â€“5 Minutes)
+# ShopSathi AI — Project Demonstration Guide (3–5 Minutes)
+
+**B.Tech CSE Minor Project — MBM University, Jodhpur**
+**Developers:** Mahendra Gurjar (24UCSE4018) · Kailash (24UCSE4014) — Semester VII
 
 ---
 
-## ðŸŽ¯ Demonstration Objective
-Showcase a complete, end-to-end agentic workflow where **Gemini 3.1 Flash Lite** (Chat Agent) and **Gemini 2.5 Flash Native Audio** (Voice Agent) seamlessly discover products, execute live order management tools across 52 realistic orders, enforce business rules, and escalate complex disputes to Tier 2 human support.
+## 🎯 Demonstration Objective
+Showcase a complete, end-to-end agentic workflow where the **ShopSathi Chat Agent** (Multilingual Natural Language Processing) and **ShopSathi Voice Assistant** (W3C Web Speech API) seamlessly discover products, execute live order management tools across 52 realistic orders, enforce business rules, and escalate complex disputes to Tier 2 human support.
 
 ---
 
-## â±ï¸ Step-by-Step Demo Flow
+## ⏱️ Step-by-Step Demo Flow
 
-### ðŸŽ¬ STEP 1: Introduction & Problem Context (30 Seconds)
-* **Action:** Open `https://shopsathi-ai.onrender.com/app/` (or local `http://localhost:8000/app/`).
+### 🎬 STEP 1: Introduction & Problem Context (30 Seconds)
+* **Action:** Open `http://localhost:8000/app/` (or live `https://shopsathi-ai.onrender.com/app/`).
 * **Speaker Script:**
-  > *"Hello! Meet **ShopSathi AI** â€” 'Smart Shopping. Smarter Support.' In traditional e-commerce, customers are forced to bounce between shopping catalogues, tracking portals, refund forms, and disconnected support agents. ShopSathi unites these operations into one seamless Agentic AI platform with a built-in Chat Assistant and Voice Assistant."*
+  > *"Hello! Meet **ShopSathi AI** — 'Smart Shopping. Smarter Support.' In traditional e-commerce, customers are forced to bounce between shopping catalogues, tracking portals, refund forms, and disconnected support agents. ShopSathi unites these operations into one seamless Agentic AI platform with a built-in Chat Assistant and Voice Assistant."*
 
 ---
 
-### ðŸ” STEP 2: Product Discovery & Smart Search (30 Seconds)
-* **Action:** Click **"Explore Products"** (or go to `#/products`). Type `"running shoes under 2000"`.
-* **Observe:** The search debounces and instantly filters the catalog to show `UltraFit Pro Running Shoes` (â‚¹1,899).
+### 🔍 STEP 2: Product Discovery & Smart Search (30 Seconds)
+* **Action:** Click **"Explore Products"** (or navigate to `#/products`). Type `"running shoes under 2000"`.
+* **Observe:** The search debounces and instantly filters the catalog to show `UltraFit Pro Running Shoes` (₹1,899).
 * **Speaker Script:**
   > *"Customers can search naturally with price and category constraints. Our backend validates stock, pricing, and 7-day return policy rules in real time."*
 
 ---
 
-### ðŸ“¦ STEP 3: Order Tracking & Live Timeline (30 Seconds)
-* **Action:** Navigate to `#/orders` or click on `ORD1001`.
-* **Observe:** 
-  - The Orders page showcases our **52 seeded orders** with responsive pagination and status filters.
-  - Clicking `ORD1001` reveals a 6-step visual delivery timeline showing status **"Out for Delivery"** and delivery estimate *"Today by 7:00 PM"*.
+### 📦 STEP 3: Order Tracking & Live Timeline (45 Seconds)
+* **Action:** Go to `#/orders` or click on `ORD1001` in the order list.
+* **Observe:** The detailed timeline displays status *"Out for Delivery"*, courier name, tracking ID, and expected delivery.
 * **Speaker Script:**
-  > *"Our system manages 52 realistic customer orders. Here is ORD1001 for Mahendra Gurjar. Notice the real-time timeline, shipping details, and delivery estimates."*
+  > *"Our system manages 52 realistic customer orders. Here is ORD1001 for Mahendra Gurjar. Notice the strict customer data isolation: if logged in as CUST101, you can only see orders assigned to CUST101. Attempting to view another customer's order directly results in a 403 Forbidden barrier."*
 
 ---
 
-### ðŸ”„ STEP 4: Return Eligibility & 7-Day Policy Engine (30 Seconds)
-* **Action:** Navigate to `#/returns`. Enter `ORD1003` and click **"Check Eligibility"**.
-* **Observe:** System confirms: `Eligible: True` ("Delivered 2 days ago â€” within 7-day return window").
+### 🤖 STEP 4: Multilingual Chat Agent in Action (60 Seconds)
+* **Action:** Open the floating **"Ask ShopSathi"** widget (`#ai-fab`) and click **"Chat with ShopSathi"**.
+* **Query 1 (English Tracking):** Type: `"Where is my order ORD1001?"`
+  * **Result:** Agent invokes `GET /orders/ORD1001` and replies: *"Your order ORD1001 is Out for Delivery. Expected delivery is today by 7:00 PM."*
+* **Query 2 (Hindi/Hinglish Return):** Type: `"ORD1003 return karna hai defective item"`
+  * **Result:** Agent invokes `POST /returns` and creates return `RET-ORD1003-xxx`.
+* **Query 3 (Human Escalation):** Type: `"I need to talk to a human agent, money deducted twice"`
+  * **Result:** Agent invokes `POST /support/tickets` and automatically escalates to Tier-2 human support with priority *Critical*.
 * **Speaker Script:**
-  > *"Instead of guessing, ShopSathi's deterministic policy engine calculates delivery timestamps. If an order exceeds 7 days like ORD1002, returns are safely rejected. ORD1003 was delivered 2 days ago, so return creation succeeds with real return ID generation."*
+  > *"The Chat Agent operates using client-side intent matching with live backend REST API tool execution. It understands English, Hindi, and Hinglish, and never hallucinates — every answer is grounded in actual database records."*
 
 ---
 
-### ðŸ’° STEP 5: Refund Status Tracking (30 Seconds)
-* **Action:** In the Refund section of `#/returns`, enter `ORD1004` and click **"Check Refund"**.
-* **Observe:** Displays refund `REF7001` for â‚¹2,499.0 with status `Initiated` and expected payout window.
+### 🎙️ STEP 5: Browser Voice Assistant (45 Seconds)
+* **Action:** Open **"Talk to ShopSathi Voice"** (`#ai-open-voice`).
+* **Observe:** The interactive modal displays connection status, listening waves, and live speech transcription.
+* **Query:** Speak: *"Check refund for ORD1004"*
+* **Observe:** The assistant transcribes speech, invokes `GET /orders/ORD1004/refund`, and speaks the formatted answer: *"Your refund for order O R D 1 0 0 4 is Initiated. Amount is 2499 rupees."*
 * **Speaker Script:**
-  > *"Refund inquiries are connected to actual banking payout records. Here, ORD1004 shows refund REF7001 initiated for â‚¹2,499."*
+  > *"The Voice Assistant uses the browser's native W3C Web Speech API for zero-dependency speech recognition and synthesis. Alphanumeric IDs are automatically spelled out for natural pronunciation, and responses stream to audio in under 140 milliseconds."*
 
 ---
 
-### ðŸŽ« STEP 6: Support Ticket & Human Escalation (45 Seconds)
-* **Action:** Navigate to `#/support`.
-* **Step 6a:** Fill ticket form for `CUST101`: Category `Payment Issue`, Priority `High`, Description *"Payment debited via UPI but order still in processing"*.
-* **Observe:** Generates real ticket `TKTXXXX`.
-* **Step 6b:** Look up the ticket status.
-* **Step 6c:** Click **"Escalate to Human Agent"**.
-* **Observe:** Status updates to **"Escalated"** and assigns to **"Tier 2 Human Support Agent"**.
+### 📊 STEP 6: Admin Observability & Audit Logs (30 Seconds)
+* **Action:** Open `http://localhost:8000/static/index.html` (Admin Dashboard).
+* **Observe:** Real-time metrics show total requests, AI resolution rate, escalation count, and structured audit logs.
 * **Speaker Script:**
-  > *"When AI cannot resolve an edge case, ShopSathi never leaves the user stuck. It packages the context into a support ticket and performs an immediate handoff to Tier 2 human support."*
+  > *"Every AI action and tool execution is logged with sub-millisecond response times into our SQLite audit log for complete system observability."*
 
 ---
 
-### ðŸ’¬ STEP 7: Multilingual Chat Agent with Live Tools (45 Seconds)
-* **Action:** Click the floating **"Ask ShopSathi"** launcher and open Chat mode.
-* **Input Query:**
-  - In English: *"Where is my order ORD1010?"*
-  - Or in Hinglish: *"Mera order ORD1010 kahan hai?"*
-* **Observe:** The agent invokes `check_order_status` tool and outputs: *"Order ORD1010 for Ergonomic Memory Foam Pillow is currently in 'Processing' status with expected delivery: 'Verification in progress'."*
-* **Speaker Script:**
-  > *"The Chat Agent doesn't hallucinate. It executes live backend tools to fetch ground-truth database state in English, Hindi, or Hinglish."*
-
----
-
-### ðŸŽ™ï¸ STEP 8: Real-Time Voice Agent Demonstration (45 Seconds)
-* **Action:** Switch to Voice Mode in the AI Launcher.
-* **Observe:** State transition: `Connecting` âž” `Connected` âž” `Listening`.
-* **Speak:** *"Where is my order ORD1030?"*
-* **Observe:** Visual audio waveforms, live speech-to-text transcript, `< 10ms` backend tool latency, and clear natural voice response (Voice: Puck).
-* **Speaker Script:**
-  > *"The Voice Agent uses the browser Web Speech API — sub-second speech recognition and voice response, no external service required."*
-
----
-
-### ðŸ STEP 9: Conclusion & Summary (15 Seconds)
-* **Speaker Script:**
-  > *"ShopSathi AI combines autonomous agentic actions, voice and chat multi-modality, deterministic business guardrails, and human escalation into a production-verified customer experience. Thank you!"*
+## 🏆 Key Takeaways for Evaluators
+1. **Fully Working Full-Stack System:** Vanilla JS SPA + FastAPI + SQLite + SQLAlchemy.
+2. **Autonomous Tool Calling:** 8 registered API functions executed live against the backend.
+3. **Strict Data Privacy:** Customer isolation barriers (401/403) protect all account data.
+4. **145 Automated Tests:** 80 Pytest backend tests, 55 frontend AI tests, and 10 API smoke tests with 100% pass rate.

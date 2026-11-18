@@ -157,7 +157,7 @@ def test_ticket_persistence_across_app_recreation(client):
 
     from fastapi.testclient import TestClient
     from app.main import app
-    from app.database import get_db
+    from app.core.database import get_db
     from tests.conftest import TestingSessionLocal
 
     def _override_get_db():

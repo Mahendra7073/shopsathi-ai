@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from app.database import SessionLocal, engine, Base
+from app.core.database import SessionLocal, engine, Base
 from app.models import Product, Customer, Order, ReturnRequest, Refund, SupportTicket, AuditLog
 
 def seed_db(db_engine=None, db_session=None):

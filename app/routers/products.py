@@ -3,11 +3,11 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
-from app.database import get_db
+from app.core.database import get_db
 from app.models import Product
 from app.schemas import ProductResponse, ProductSearchRequest
-from app.logging_config import log_api_call
-from app.security import verify_api_key
+from app.core.logging_config import log_api_call
+from app.core.security import verify_api_key
 
 router = APIRouter(prefix="/products", tags=["Products"])
 

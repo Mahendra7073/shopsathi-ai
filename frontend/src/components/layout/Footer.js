@@ -1,7 +1,8 @@
 /**
  * ShopSathi Footer
+ * Category: Layout
  */
-import { logoFull } from './Logo.js';
+import { logoFull } from '../common/Logo.js';
 
 export function renderFooter() {
   const footer = document.createElement('footer');

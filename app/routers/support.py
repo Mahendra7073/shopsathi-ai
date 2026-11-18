@@ -4,11 +4,11 @@ import uuid
 import re
 from fastapi import APIRouter, Depends, HTTPException, status, Security
 from sqlalchemy.orm import Session
-from app.database import get_db
+from app.core.database import get_db
 from app.models import SupportTicket, Customer, Order
 from app.schemas import CreateSupportTicketRequest, SupportTicketResponse, EscalateTicketRequest, EscalateTicketPostRequest, TicketStatusPostRequest
-from app.logging_config import log_api_call
-from app.security import verify_api_key, require_current_customer
+from app.core.logging_config import log_api_call
+from app.core.security import verify_api_key, require_current_customer
 
 router = APIRouter(prefix="/support", tags=["Support Tickets"])
 

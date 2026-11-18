@@ -1,6 +1,6 @@
 # ShopSathi AI — System Architecture & Design Document
 
-**B.Tech CSE Minor Project — MBM University, Jodhpur**  
+**B.Tech CSE Minor Project — MBM University, Jodhpur**
 Mahendra Gurjar (24UCSE4018) · Kailash (24UCSE4014)
 
 ---
@@ -33,6 +33,8 @@ ShopSathi AI is a full-stack AI-powered e-commerce and customer support platform
                   |  support_tickets, audit_logs         |
                   +--------------------------------------+
 ```
+
+![ShopSathi AI Architecture Diagram](assets/architecture.png)
 
 ---
 
@@ -209,3 +211,25 @@ flowchart LR
     Human --> Contact["Human Representative Contacts Customer"]
 ```
 
+---
+
+## 9. Modular Codebase & Directory Architecture
+
+To ensure high maintainability, clear separation of concerns, and ease of academic review, the codebase is partitioned into distinct technical layers:
+
+### 9.1 Backend Architecture (`app/`)
+* **`app/core/`**: Infrastructure layer containing database engine initialization (`database.py`), security authentication dependencies (`security.py`), and observability audit logging (`logging_config.py`).
+* **`app/services/`**: Application services and provisioning scripts (`seed_data.py`).
+* **`app/routers/`**: 8 modular REST API routers (`analytics.py`, `customers.py`, `health.py`, `orders.py`, `products.py`, `refunds.py`, `returns.py`, `support.py`).
+* **`app/models.py` & `app/schemas.py`**: Declarative SQLAlchemy database models and Pydantic v2 validation contracts.
+* **`app/static/`**: Static operations dashboard served via FastAPI.
+* **`app/main.py`**: Central ASGI entry point configuring CORS, lifespan events, root route aliases, and static mounts.
+
+### 9.2 Frontend Architecture (`frontend/src/`)
+* **`components/common/`**: Reusable atomic UI elements (`Logo.js`, `Modal.js`, `Toast.js`).
+* **`components/layout/`**: Structural layout components (`Header.js`, `Footer.js`).
+* **`components/ai/`**: Intelligent chat panel and real-time voice HUD (`AiLauncher.js`).
+* **`pages/`**: 11 dedicated application page views (`Home.js`, `Products.js`, `Cart.js`, `Checkout.js`, `Orders.js`, `OrderDetail.js`, `Returns.js`, `Support.js`, `Profile.js`, `Login.js`, `ProductDetail.js`).
+* **`services/`**: Centralized API client (`api.js`) with in-flight catalog caching and error handling.
+* **`store/`**: Reactive state store (`index.js`) managing user session, cart state, and local persistence.
+* **`tests/`**: Automated frontend QA testing suite (`test_ai_agent.js`).

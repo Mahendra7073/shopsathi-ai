@@ -2,8 +2,8 @@
  * ShopSathi Product Detail Page
  */
 import { getProduct } from '../services/api.js';
-import { addToCart } from '../store.js';
-import { showToast } from '../components/Toast.js';
+import { addToCart } from '../store/index.js';
+import { showToast } from '../components/common/Toast.js';
 
 export async function renderProductDetail(container, params) {
   const productId = params.id;

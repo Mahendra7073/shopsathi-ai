@@ -6,7 +6,7 @@ The ShopSathi frontend is a high-performance, single-page application built with
 
 * **Primary Palette**: Primary `#2563EB`, Dark `#0F172A`, Accent `#06B6D4`, Success `#16A34A`, Warning `#F59E0B`, Error `#DC2626`, Background `#F8FAFC`.
 * **Typography**: Inter (Google Fonts) with standardized scale tokens.
-* **Build Tooling**: Vite v6.4 (Production build time: ~500ms).
+* **Build Tooling**: Vite v6.4 (Production build time: ~460ms).
 
 ---
 
@@ -17,10 +17,10 @@ The ShopSathi frontend is a high-performance, single-page application built with
 3. **Product Detail (`#/products/:id`)**: High-resolution gallery, specifications, 7-day policy tags, and quantity selector.
 4. **Cart (`#/cart`)**: Persistent `localStorage` store, live subtotal & tax computation, item removal, and checkout trigger.
 5. **Checkout (`#/checkout`)**: Delivery address input, order summary, and payment mode selector (COD, UPI, Card).
-6. **My Orders (`#/orders`)**: Real-time order lookup, 10-per-page client pagination, and status filter dropdown across 52 orders.
-7. **Order Detail (`#/orders/:id`)**: 6-step visual delivery timeline (`Order Placed` ➔ `Confirmed` ➔ `Packed` ➔ `Shipped` ➔ `Out for Delivery` ➔ `Delivered`) with cancellation actions.
+6. **My Orders (`#/orders`)**: Real-time order lookup, customer order history, and status filter dropdown across 52 orders.
+7. **Order Detail (`#/orders/:id`)**: Visual delivery timeline (`Order Placed` ➔ `Confirmed` ➔ `Packed` ➔ `Shipped` ➔ `Out for Delivery` ➔ `Delivered`) with cancellation actions.
 8. **Returns & Refunds (`#/returns`)**: 4-step return wizard (order input, eligibility check, reason selection, submission) and refund status tracker.
-9. **Support Center (`#/support`)**: 8 quick-action navigation cards, ticket creation form, status checker, and human escalation trigger.
+9. **Support Center (`#/support`)**: Quick-action navigation cards, ticket creation form, status checker, and human escalation trigger.
 10. **Customer Profile (`#/profile`)**: Profile identity, role badges, customer ID, order counts, and navigation shortcuts.
 11. **Login Switcher (`#/login`)**: Fast demo profile switcher (Mahendra Gurjar, ShopSathi Admin, ShopSathi HR, ShopSathi Team, Guest) and custom ID login.
 
@@ -31,4 +31,24 @@ All views are fully responsive with **zero horizontal scrolling** across:
 * **Desktop**: `1920×1080`
 * **Laptop**: `1366×768`
 * **Tablet**: `768×1024`
-* **Mobile**: `390×844`
+* **Mobile**: `375×812` (iPhone / Android)
+
+---
+
+## 📂 Category-Wise Directory Structure
+
+The frontend is strictly structured by feature domain and component responsibility:
+
+`	ext
+frontend/src/
+├── components/
+│   ├── common/       # Reusable atomic UI (Logo.js, Modal.js, Toast.js)
+│   ├── layout/       # Application scaffolding (Header.js, Footer.js)
+│   └── ai/           # Floating trigger, chat panel & voice HUD (AiLauncher.js)
+├── pages/            # 11 full-page view components (Home, Products, Orders, etc.)
+├── services/         # api.js — Centralized HTTP requests & catalog caching
+├── store/            # index.js — Reactive state store with localStorage persistence
+├── styles/           # Design system tokens and component CSS
+├── router.js         # Client-side hash routing
+└── main.js           # Single entry-point bootstrap
+`

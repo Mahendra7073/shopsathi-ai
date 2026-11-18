@@ -1,9 +1,9 @@
 /**
  * ShopSathi Profile Page
  */
-import { getCurrentUser, setCurrentUser, logout, isAuthenticated } from '../store.js';
+import { getCurrentUser, setCurrentUser, logout, isAuthenticated } from '../store/index.js';
 import { getCustomer } from '../services/api.js';
-import { showToast } from '../components/Toast.js';
+import { showToast } from '../components/common/Toast.js';
 
 export async function renderProfile(container) {
   const user = getCurrentUser();

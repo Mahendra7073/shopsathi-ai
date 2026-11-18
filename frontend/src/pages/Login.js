@@ -1,10 +1,10 @@
 /**
  * ShopSathi Login Page
  */
-import { setCurrentUser } from '../store.js';
+import { setCurrentUser } from '../store/index.js';
 import { getCustomer } from '../services/api.js';
-import { showToast } from '../components/Toast.js';
-import { logoFull } from '../components/Logo.js';
+import { showToast } from '../components/common/Toast.js';
+import { logoFull } from '../components/common/Logo.js';
 
 const DEMO_CUSTOMERS = [
   { id: 'CUST101', name: 'Mahendra Gurjar', role: 'Customer / Owner Demo', email: 'mahendra.gurjar@shopsathi.ai' },

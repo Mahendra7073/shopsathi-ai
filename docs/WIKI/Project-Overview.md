@@ -1,7 +1,9 @@
 # Project Overview
 
 ## 📌 What is ShopSathi AI?
-**ShopSathi AI** is an intelligent, multi-modal customer support and shopping assistant designed for e-commerce platforms. The name *"ShopSathi"* translates to *"Shopping Companion"*, embodying our mission to assist customers through their entire shopping lifecycle—from initial product discovery to complex post-purchase fulfillment.
+**ShopSathi AI** is an intelligent, multi-modal customer support and shopping assistant designed for e-commerce platforms. The name *"ShopSathi"* translates to *"Shopping Companion"*, embodying our mission to assist customers through their entire shopping lifecycle — from initial product discovery to complex post-purchase fulfillment.
+
+Developed as a **B.Tech CSE Minor Project** at **MBM University, Jodhpur**, ShopSathi bridges the gap between static e-commerce catalogs and autonomous AI-assisted customer care.
 
 ---
 
@@ -16,4 +18,5 @@
 * **Ground-Truth Data Integration**: Grounded directly in live database state via deterministic REST APIs.
 * **Multi-Modal Accessibility**: Seamless switching between text chat (English, Hindi, Hinglish) and browser-based real-time voice assistant.
 * **Deterministic Policy Enforcement**: Enforces genuine business rules (e.g., 7-day return policy window, hygiene restrictions, state-based cancellation blocks).
-* **Intelligent Human Escalation**: Automatically recognizes unresolvable friction (e.g., failed UPI gateway confirmations) and transitions issues to human supervisors.
+* **Intelligent Human Escalation**: Automatically recognizes unresolvable friction (e.g., failed UPI gateway confirmations) and transitions issues to human supervisors with structured priority.
+* **Strict Customer Privacy**: Complete cross-account data isolation preventing unauthorized access across customer profiles.

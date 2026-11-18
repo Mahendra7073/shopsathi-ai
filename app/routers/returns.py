@@ -5,11 +5,11 @@ from datetime import datetime, timezone
 import uuid
 from fastapi import APIRouter, Depends, HTTPException, status, Query, Security
 from sqlalchemy.orm import Session
-from app.database import get_db
+from app.core.database import get_db
 from app.models import Order, ReturnRequest, Customer
 from app.schemas import ReturnEligibilityResponse, ReturnEligibilityRequest, CreateReturnRequest, ReturnResponse
-from app.logging_config import log_api_call
-from app.security import verify_api_key, require_current_customer
+from app.core.logging_config import log_api_call
+from app.core.security import verify_api_key, require_current_customer
 
 router = APIRouter(tags=["Returns"])
 

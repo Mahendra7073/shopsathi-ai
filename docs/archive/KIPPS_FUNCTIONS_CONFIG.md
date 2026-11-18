@@ -2,7 +2,7 @@
 
 This document provides explicit, copy-pasteable configuration specifications for every Kipps.AI API Function.
 
-> **Base URL Placeholder**: `<PUBLIC_API_URL>` (e.g. `https://shopsathi-api.onrender.com` or your `ngrok` URL `https://xxxx.ngrok-free.app`).  
+> **Base URL Placeholder**: `<PUBLIC_API_URL>` (e.g. `https://shopsathi-api.onrender.com` or your `ngrok` URL `https://xxxx.ngrok-free.app`).
 > **API Security Header**: `X-API-Key: YOUR_SHOP_SATHI_API_KEY` (configured in Kipps function custom headers).
 
 ---

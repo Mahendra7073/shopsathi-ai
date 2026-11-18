@@ -1,8 +1,8 @@
 # ShopSathi AI — Project Audit Report
 
-**Date**: August 13, 2026  
-**Project**: ShopSathi AI — AI-Powered E-Commerce Customer Support System  
-**Hackathon**: Kipps.AI Developer Hackathon 2026  
+**Date**: August 13, 2026
+**Project**: ShopSathi AI — AI-Powered E-Commerce Customer Support System
+**Hackathon**: Kipps.AI Developer Hackathon 2026
 
 ---
 

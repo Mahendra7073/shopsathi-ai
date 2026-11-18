@@ -2,9 +2,9 @@
  * ShopSathi Order Detail / Tracking Page
  */
 import { getOrderStatus, cancelOrder } from '../services/api.js';
-import { showToast } from '../components/Toast.js';
-import { showModal } from '../components/Modal.js';
-import { isAuthenticated } from '../store.js';
+import { showToast } from '../components/common/Toast.js';
+import { showModal } from '../components/common/Modal.js';
+import { isAuthenticated } from '../store/index.js';
 
 const TIMELINE_STEPS = ['Order Placed', 'Confirmed', 'Packed', 'Shipped', 'Out for Delivery', 'Delivered'];
 

@@ -1,9 +1,8 @@
-import json
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from app.database import get_db
-from app.models import AuditLog, SupportTicket, ReturnRequest, Refund, Order
+from app.core.database import get_db
+from app.models import AuditLog, ReturnRequest, Refund, Order
 from app.schemas import AnalyticsSummaryResponse
 
 router = APIRouter(prefix="/analytics", tags=["Analytics & Observability"])

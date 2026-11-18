@@ -1,7 +1,7 @@
 /**
  * ShopSathi Home Page
  */
-import { logoIcon, aiChatIcon, micIcon } from '../components/Logo.js';
+import { logoIcon, aiChatIcon, micIcon } from '../components/common/Logo.js';
 
 export async function renderHome(container) {
   container.innerHTML = `

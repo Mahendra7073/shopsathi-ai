@@ -1,10 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from app.database import get_db
+from app.core.database import get_db
 from app.models import Customer, Order
 from app.schemas import CustomerResponse, OrderResponse
-from app.security import require_current_customer
+from app.core.security import require_current_customer
 
 router = APIRouter(prefix="/customers", tags=["Customers"])
 

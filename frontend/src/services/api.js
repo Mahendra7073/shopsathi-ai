@@ -5,11 +5,11 @@
 
 const BASE_URL = typeof window !== 'undefined' && window.__API_BASE__ 
   ? window.__API_BASE__
-  : (import.meta.env.VITE_API_BASE_URL !== undefined 
-      ? import.meta.env.VITE_API_BASE_URL 
+  : (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL !== undefined
+      ? import.meta.env.VITE_API_BASE_URL
       : (typeof window !== 'undefined' && window.location.port === '5173' ? '/api' : ''));
 
-import { getCurrentUser, isAuthenticated } from '../store.js';
+import { getCurrentUser, isAuthenticated } from '../store/index.js';
 
 class ApiError extends Error {
   constructor(message, status, data) {
@@ -19,7 +19,47 @@ class ApiError extends Error {
   }
 }
 
+// In-memory cache for safe, non-personal catalog data (60s TTL)
+const catalogCache = new Map();
+const CATALOG_CACHE_TTL_MS = 60000;
+
+export function clearCatalogCache() {
+  catalogCache.clear();
+}
+
+// Global latency diagnostics tracking
+let lastApiMetrics = {
+  endpoint: null,
+  durationMs: 0,
+  backendProcessMs: 0,
+  fromCache: false,
+};
+
+export function getLastApiMetrics() {
+  return { ...lastApiMetrics };
+}
+
 async function request(endpoint, options = {}) {
+  const method = (options.method || 'GET').toUpperCase();
+  const isCatalogGet = method === 'GET' && endpoint.startsWith('/products');
+
+  // Check safe catalog cache
+  if (isCatalogGet) {
+    const tCacheStart = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+    const cached = catalogCache.get(endpoint);
+    if (cached && (Date.now() - cached.timestamp < CATALOG_CACHE_TTL_MS)) {
+      const tCacheEnd = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+      const lookupMs = parseFloat((tCacheEnd - tCacheStart).toFixed(3));
+      lastApiMetrics = {
+        endpoint,
+        durationMs: lookupMs,
+        backendProcessMs: 0,
+        fromCache: true,
+      };
+      return cached.data;
+    }
+  }
+
   const url = `${BASE_URL}${endpoint}`;
   const user = getCurrentUser();
   const headers = { 'Content-Type': 'application/json', ...options.headers };
@@ -33,13 +73,32 @@ async function request(endpoint, options = {}) {
     headers,
   };
 
+  const tStart = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+
   try {
     const response = await fetch(url, config);
     const data = await response.json().catch(() => null);
 
+    const tEnd = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+    const durationMs = Math.round((tEnd - tStart) * 100) / 100;
+    const processHeader = response.headers ? response.headers.get('X-Process-Time') : null;
+    const backendProcessMs = processHeader ? parseFloat(processHeader) : 0;
+
+    lastApiMetrics = {
+      endpoint,
+      durationMs,
+      backendProcessMs,
+      fromCache: false,
+    };
+
     if (!response.ok) {
       const message = data?.detail || data?.message || `Request failed`;
       throw new ApiError(message, response.status, data);
+    }
+
+    // Populate safe catalog cache
+    if (isCatalogGet && data) {
+      catalogCache.set(endpoint, { data, timestamp: Date.now() });
     }
 
     return data;

@@ -56,7 +56,7 @@ If automatic CLI deployment is not configured, follow these exact click-by-click
    * Click **Create Web Service**.
    * Wait 1–3 minutes for build and deployment completion.
 7. **Obtain Public HTTPS Base URL**:
-   * Render will assign a public URL at the top left of the dashboard:  
+   * Render will assign a public URL at the top left of the dashboard:
      `https://shopsathi-ai-backend.onrender.com` (Example).
 
 ---

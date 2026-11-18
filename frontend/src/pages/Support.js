@@ -2,9 +2,9 @@
  * ShopSathi Support Page
  */
 import { createSupportTicket, getSupportTicket, escalateSupportTicket } from '../services/api.js';
-import { showToast } from '../components/Toast.js';
-import { showModal } from '../components/Modal.js';
-import { getCurrentUser, isAuthenticated } from '../store.js';
+import { showToast } from '../components/common/Toast.js';
+import { showModal } from '../components/common/Modal.js';
+import { getCurrentUser, isAuthenticated } from '../store/index.js';
 
 export async function renderSupport(container) {
   if (!isAuthenticated()) {

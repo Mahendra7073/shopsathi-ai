@@ -1,8 +1,8 @@
 /**
  * ShopSathi Checkout Page
  */
-import { getCart, getCartTotal, clearCart, isAuthenticated } from '../store.js';
-import { showToast } from '../components/Toast.js';
+import { getCart, getCartTotal, clearCart, isAuthenticated } from '../store/index.js';
+import { showToast } from '../components/common/Toast.js';
 
 export async function renderCheckout(container) {
   if (!isAuthenticated()) {

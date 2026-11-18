@@ -31,7 +31,7 @@ When automated AI workflows encounter unresolvable customer disputes, ShopSathi 
 
 | Category | Typical Scenarios | Initial Priority | Initial Assigned To | Escalation Target |
 |---|---|:---:|---|---|
-| **Payment Issue** | Gateway timeout, duplicate deduction, refund dispute | **High** | AI Agent | Tier 2 Human Support Agent |
-| **Shipping Delay** | Package delayed beyond SLA, delivery boy uncontactable | **Medium** | AI Agent | Logistics Operations Lead |
+| **Payment Issue** | Gateway timeout, duplicate deduction, refund dispute | **Critical / High** | AI Agent | Tier 2 Human Support Agent |
+| **Shipping Delay** | Package delayed beyond SLA, delivery uncontactable | **Medium** | AI Agent | Logistics Operations Lead |
 | **Return Dispute** | Damaged item received, rejected return appeal | **Medium** | AI Agent | Customer Care Supervisor |
-| **Product Inquiry** | Sizing advice, compatibility question | **Low** | AI Agent | AI Agent (Resolved autonomously) |
+| **General / Inquiry** | Sizing advice, store policy clarification | **Low** | AI Agent | AI Agent (Resolved autonomously) |

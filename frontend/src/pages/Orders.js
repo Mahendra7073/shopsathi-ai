@@ -3,7 +3,7 @@
  * Features real-time order tracking, status filters, and pagination for 50+ demo orders.
  */
 import { getOrders, getCustomerOrders, getOrderStatus } from '../services/api.js';
-import { getCurrentUser, isAuthenticated } from '../store.js';
+import { getCurrentUser, isAuthenticated } from '../store/index.js';
 
 const DEMO_ORDERS = ['ORD1001', 'ORD1002', 'ORD1003', 'ORD1004', 'ORD1005'];
 const ORDERS_PER_PAGE = 10;
